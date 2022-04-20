@@ -1,3 +1,5 @@
+import Tempdata from "../../js/store/tempdata.json"; //import fake database
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -13,12 +15,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+
+			site: Tempdata //json object imported
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+				getActions().changeColor(0, "orange");
 			},
 
 			getMessage: () => {

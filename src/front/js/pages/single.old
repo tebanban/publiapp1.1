@@ -1,0 +1,79 @@
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { Link, useParams } from "react-router-dom";
+import { Context } from "../store/appContext";
+import rigoImageUrl from "../../img/SJ36-A_Garantias_Sociales.jpg";
+import { Card, Col, Row, Form, CardImg, Container, Tab, Tabs } from "react-bootstrap";
+
+export const Single = props => {
+	const { store, actions } = useContext(Context);
+	const params = useParams();
+
+	return (
+		<div>
+			<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+				<Tab eventKey="home" title="Home">
+					<div>yeyeyeyeye</div>
+				</Tab>
+				<Tab eventKey="profile" title="Profile">
+					<div>ggggggg</div>
+				</Tab>
+				<Tab eventKey="contact" title="Contact" disabled>
+					<div>tttttttt</div>
+				</Tab>
+			</Tabs>
+			<Card.Header as="h5">
+				<div style={{ color: "red" }}>{store.site[params.theid].code}</div>
+				<div>{store.site[params.theid].title} </div>
+			</Card.Header>
+			<Card.Body>
+				<Container className="p-5 mb-4 bg-light rounded-3">
+					<Row>
+						<Col md={3}>
+							<CardImg src={rigoImageUrl} fluid="true" top />
+						</Col>
+						<Col md={9}>
+							<Form.Group>
+								<label htmlFor="inputAddress">Propietario</label>
+								<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+							</Form.Group>
+							<Form.Group>
+								<label htmlFor="inputAddress">Dirección</label>
+								<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+							</Form.Group>
+							<Form.Group>
+								<label htmlFor="inputAddress">Teléfono</label>
+								<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+							</Form.Group>
+							<Form.Group>
+								<label htmlFor="inputAddress">Email</label>
+								<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+							</Form.Group>
+							<Form.Group>
+								<label htmlFor="inputState">Dimensiones</label>
+								<select id="inputState" className="form-control">
+									<option selected>Seleccione...</option>
+									<option>8.50 x 11.0 metros</option>
+									<option>7.20 x 9.00 metros</option>
+									<option>5.00 x 12.60 metros</option>
+									<option>4.50 x 14.00 metros</option>
+									<option>8.50 x 33.30 metros</option>
+									<option>5.20 x 7.00 metros</option>
+								</select>
+							</Form.Group>
+						</Col>
+					</Row>
+				</Container>
+			</Card.Body>
+			<Link to="/app">
+				<span className="btn btn-primary btn-lg" role="button">
+					Back
+				</span>
+			</Link>
+		</div>
+	);
+};
+
+Single.propTypes = {
+	match: PropTypes.object
+};
