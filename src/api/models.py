@@ -2,13 +2,9 @@ from enum import unique
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
-
-from enum import unique
-from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,11 +22,13 @@ class User(db.Model):
         return '<User %r>' % self.name
 
     def serialize(self):
+        role = Role.query.first()
         return {
             "id": self.id,
             "name":self.name,
             "email": self.email,
             "is_active":self.is_active,
+            "role": role.name,
 
             # do not serialize the password, its a security breach
         }
@@ -87,7 +85,7 @@ class Valla(db.Model):
     code = db.Column(db.String(10), unique=True, nullable=False)
     name = db.Column(db.String(150), unique=False, nullable=False)
     format = db.Column(db.String(20), unique=False,default='Horizontal / Vertical', nullable= False)
-    ligth= db.Column(db.Boolean, default='True') 
+    ligth = db.Column(db.Boolean, default='True') 
     price_low = db.Column(db.Float, unique=False, nullable=True)  
     price_high = db.Column(db.Float, unique=False, nullable=True)
     view = db.Column(db.String(150), unique=False, nullable=False)
@@ -106,7 +104,11 @@ class Valla(db.Model):
         return '<Valla %r>' % self.code
 
     def serialize(self):
-        return {
+         status = Status.query.filter_by(id=self.id).first()
+         client = Client.query.first()
+         owner = Owner.query.first()  
+         
+         return  {
             "id": self.id,
             "valla_code": self.code,
             "valla_name": self.name,
@@ -115,13 +117,16 @@ class Valla(db.Model):
             "price_high": self.price_high,
             "view": self.view,
             "route":self.route,
-            "status_id":self.status_id,
+            "status_name": status.name,
+            "owner_name": owner.name,
+            "client_name": client.name,
+            
         }
         
 class Status(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=False, nullable=True)
-    vallas= db.relationship('Valla', backref='status', lazy=True)   # relationship
+    vallas = db.relationship('Valla', backref='status', lazy=True)   # relationship
     
     def __repr__(self):
         return '<%r>' % self.name
@@ -129,13 +134,13 @@ class Status(db.Model):
     def serialize(self):
         return {
             "status_id": self.id,
-            "self.name": self.name,
+            "self_name": self.name,
         }   
         
 class Size(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), unique=False, nullable=True)
-    vallas= db.relationship('Valla', backref='size', lazy=True)   # relationship
+    vallas = db.relationship('Valla', backref='size', lazy=True)   # relationship
     
     def __repr__(self):
         return '<%r>' % self.name
@@ -143,13 +148,13 @@ class Size(db.Model):
     def serialize(self):
         return {
             "size_id": self.id,
-            "self.name": self.name,
+            "self_name": self.name,
         }  
         
 class Type(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=False, nullable=True)
-    vallas= db.relationship('Valla', backref='type', lazy=True)   # relationship
+    vallas = db.relationship('Valla', backref='type', lazy=True)   # relationship
     
     def __repr__(self):
         return '<%r>' % self.name
@@ -157,27 +162,27 @@ class Type(db.Model):
     def serialize(self):
         return {
             "size_id": self.id,
-            "self.name": self.name,
+            "self_name": self.name,
         }                                      
 
 class Owner(db.Model):
     id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), unique=False, nullable=False)
     code = db.Column(db.String(10), unique=True, nullable=False)
-    name= db.Column(db.String(150), unique=False, nullable=False)
     created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
-    phone= db.Column(db.String(30), unique=True, nullable=False)
-    email= db.Column(db.String(30), unique=True, nullable=False)
-    company= db.Column(db.String(80), unique=True, nullable=True)
-    vallas= db.relationship('Valla', backref='owner', lazy=True)   # relationship
+    phone = db.Column(db.String(30), unique=True, nullable=False)
+    email = db.Column(db.String(30), unique=True, nullable=False)
+    company = db.Column(db.String(80), unique=True, nullable=True)
+    vallas = db.relationship('Valla', backref='owner', lazy=True)   # relationship
     
     def __repr__(self):
         return '<%r>' % self.name
     
     def serialize(self):
         return {
-            "id": self.id,
+            "owner_id": self.id,
+            "self_name": self.name,
             "owner_code": self.code,
-            "owner_name": self.name,
             "phone": self.phone,
             "email": self.email, 
             "company": self.company,
@@ -185,15 +190,15 @@ class Owner(db.Model):
         
 class Client(db.Model):
     id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), unique=False, nullable=False)
     code = db.Column(db.String(10), unique=True, nullable=False)
-    name= db.Column(db.String(150), unique=False, nullable=False)
     created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
-    phone= db.Column(db.String(30), unique=True, nullable=False)
-    email= db.Column(db.String(30), unique=True, nullable=False)
-    company= db.Column(db.String(80), unique=True, nullable=True)
+    phone = db.Column(db.String(30), unique=True, nullable=False)
+    email = db.Column(db.String(30), unique=True, nullable=False)
+    company = db.Column(db.String(80), unique=True, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
-    vallas= db.relationship('Valla', backref='client', lazy=True)   # relationship
-    orders= db.relationship('Order', backref='client', lazy=True)    # relationship
+    vallas = db.relationship('Valla', backref='client', lazy=True)   # relationship
+    orders = db.relationship('Order', backref='client', lazy=True)    # relationship
     
     
     def __repr__(self):
@@ -201,9 +206,9 @@ class Client(db.Model):
     
     def serialize(self):
         return {
-            "id": self.id,
-            "owner_code": self.code,
-            "owner_name": self.name,
+            "client_id": self.id,
+            "client_name": self.name,
+            "client_code": self.code,
             "phone": self.phone,
             "email": self.email, 
             "company": self.company,

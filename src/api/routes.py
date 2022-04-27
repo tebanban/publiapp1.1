@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Valla
+from api.models import db, User, Valla, Client
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -27,10 +27,10 @@ def handle_person():
 #@api.route("/valla/<int:id>", methods=["GET"])   # Datos de cada sitio
 #def get_valla(id):
 
-    valla = Valla.query.filter_by(id=id).all()
-    valla = list(map(lambda x: x.serialize(), valla))
+   # valla = Valla.query.filter_by(id=id).all()
+   # valla = list(map(lambda x: x.serialize(), valla))
 
-    return jsonify(valla), 200
+   # return jsonify(valla), 200
 
 @api.route("/user/", methods=["GET"])   # Get all users
 def get_users():
@@ -47,3 +47,6 @@ def get_vallas():
     all_vallas = list(map(lambda x: x.serialize(), all_vallas))
 
     return jsonify(all_vallas), 200
+
+   
+   

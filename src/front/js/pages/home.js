@@ -5,6 +5,7 @@ import "../../styles/home.scss";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+  const datavalla = store.siteValla;
 
   console.log(process.env.VARIABLE_NAME);
   console.log(store.siteValla);
@@ -16,6 +17,9 @@ export const Home = () => {
       </p>
       <div className="alert alert-info">
         {store.message || "Loading message from the backend..."}
+      </div>
+      <div>
+        <div>Cantidad de vallas: {datavalla.length || "Fetch not workin"}</div>
       </div>
     </div>
   );
