@@ -48,5 +48,14 @@ def get_vallas():
 
     return jsonify(all_vallas), 200
 
+@api.route("/valla/<int:id>", methods=["GET"])   # Get single valla
+def get_single_valla(id):
+
+    single_valla = Valla.query.filter_by(id=id).all()
+    single_valla = list(map(lambda x: x.serialize(), single_valla))
+
+    return jsonify(single_valla), 200
+
+
    
    

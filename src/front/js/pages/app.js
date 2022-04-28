@@ -90,9 +90,9 @@ export const App = () => {
                   </td>
 
                   <td className="col-1">{item.status_name}</td>
-                  <td className="col-2">{item.client_id}</td>
+                  <td className="col-2">{item.client_name}</td>
                   <td className="col-4">{item.route}</td>
-                  <td className="col-4">{item.owner_id}</td>
+                  <td className="col-4">{item.owner_name}</td>
                 </tr>
               );
             })}

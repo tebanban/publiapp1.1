@@ -104,7 +104,7 @@ class Valla(db.Model):
         return '<Valla %r>' % self.code
 
     def serialize(self):
-         status = Status.query.filter_by(id=self.id).first()
+         status = Status.query.first()
          client = Client.query.first()
          owner = Owner.query.first()  
          
