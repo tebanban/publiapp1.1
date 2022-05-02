@@ -22,7 +22,7 @@ class User(db.Model):
         return '<User %r>' % self.name
 
     def serialize(self):
-        role = Role.query.first()
+        role = Role.query.filter_by(id=self.role_id).first() 
         return {
             "id": self.id,
             "name":self.name,
@@ -43,8 +43,8 @@ class Role(db.Model):
     
     def serialize(self):
         return {
-            "id": self.id,
-            "name": self.name,
+            "role_id": self.id,
+            "role_name": self.name,
         }
 
         
@@ -104,9 +104,9 @@ class Valla(db.Model):
         return '<Valla %r>' % self.code
 
     def serialize(self):
-         status = Status.query.first()
-         client = Client.query.first()
-         owner = Owner.query.first()  
+         status = Status.query.filter_by(id=self.status_id).first() 
+         client = Client.query.filter_by(id=self.client_id).first() 
+         owner = Owner.query.filter_by(id=self.owner_id).first() 
          
          return  {
             "id": self.id,
@@ -118,9 +118,8 @@ class Valla(db.Model):
             "view": self.view,
             "route":self.route,
             "status_name": status.name,
-            "owner_name": owner.name,
-            "client_name": client.name,
-            "client_id": client.id
+            "owner": owner.name,
+            "client": client.name,
             
         }
         
