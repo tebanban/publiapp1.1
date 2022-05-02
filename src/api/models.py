@@ -110,8 +110,8 @@ class Valla(db.Model):
          
          return  {
             "id": self.id,
-            "valla_code": self.code,
-            "valla_name": self.name,
+            "code": self.code,
+            "name": self.name,
             "format": self.format,
             "price_low": self.price_low,
             "price_high": self.price_high,
@@ -120,6 +120,7 @@ class Valla(db.Model):
             "status_name": status.name,
             "owner_name": owner.name,
             "client_name": client.name,
+            "client_id": client.id
             
         }
         
@@ -134,7 +135,7 @@ class Status(db.Model):
     def serialize(self):
         return {
             "status_id": self.id,
-            "self_name": self.name,
+            "status_name": self.name,
         }   
         
 class Size(db.Model):

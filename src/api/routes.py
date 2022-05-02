@@ -24,13 +24,6 @@ def handle_person():
   else:
     return "Se recibió un GET"
 
-#@api.route("/valla/<int:id>", methods=["GET"])   # Datos de cada sitio
-#def get_valla(id):
-
-   # valla = Valla.query.filter_by(id=id).all()
-   # valla = list(map(lambda x: x.serialize(), valla))
-
-   # return jsonify(valla), 200
 
 @api.route("/user/", methods=["GET"])   # Get all users
 def get_users():
@@ -46,15 +39,41 @@ def get_vallas():
     all_vallas = Valla.query.all()
     all_vallas = list(map(lambda x: x.serialize(), all_vallas))
 
+    print(all_vallas)
+    
+
     return jsonify(all_vallas), 200
 
-@api.route("/valla/<int:id>", methods=["GET"])   # Get single valla
+@api.route("/valla/<int:id>", methods=["GET"])   # Get a single valla
 def get_single_valla(id):
 
     single_valla = Valla.query.filter_by(id=id).all()
     single_valla = list(map(lambda x: x.serialize(), single_valla))
 
     return jsonify(single_valla), 200
+
+@api.route("/valla/<int:id>", methods=["PATCH"])   # Update a single valla
+def update_single_valla(id):
+
+    # error_messages=[]
+    valla = Valla.query.first()
+    valla.name = request.json['name']  #'name' should be in the body
+    valla.code =  request.json['code'] 
+    valla.status_name = request.json['status_name']   
+    valla.owner_name = request.json['owner_name']
+    
+    print(valla.status)
+    
+    db.session.add(valla)
+    db.session.commit()
+ 
+
+    response_body = {
+        "msg": "La valla fue actualizada correctamente"
+    }
+
+    return jsonify(response_body), 200
+
 
 
    
