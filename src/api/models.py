@@ -106,7 +106,7 @@ class Valla(db.Model):
     def serialize(self):
          status = Status.query.filter_by(id=self.status_id).first() 
          client = Client.query.filter_by(id=self.client_id).first() 
-         owner = Owner.query.filter_by(id=self.owner_id).first() 
+         owner = Owner.query.filter_by(id=self.owner.id).first() 
          
          return  {
             "id": self.id,
@@ -119,7 +119,9 @@ class Valla(db.Model):
             "route":self.route,
             "status_name": status.name,
             "owner": owner.name,
+            "owner_id": owner.id,
             "client": client.name,
+
             
         }
         

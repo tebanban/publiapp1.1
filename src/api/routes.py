@@ -44,28 +44,24 @@ def get_vallas():
 
     return jsonify(all_vallas), 200
 
-@api.route("/valla/<int:id>", methods=["GET", "POST"])  
+@api.route("/valla/<int:id>", methods=["GET", "PUT"])  
 def get_single_valla(id):
     
-    if request.method == 'POST':                        # Update a single valla
-        # error_messages=[]
+    #body = request.json() #{ 'username': 'new_username'}
+    response_alert = {"msg":"Actualización exitosa"}
+    if request.method == 'PUT':   # Update a single valla
         valla = Valla.query.get(id)
         valla.name = request.json['name']  
-        valla.code =  request.json['code'] 
-        valla.owner.name = request.json['owner_name']
+        valla.code = request.json['code'] 
+        #valla.owner_id = request.json['owner_id']  not working
 
-        db.session.add(valla)
+        #db.session.add(valla)   (not necessary)
         db.session.commit()
- 
-        response_body = {
-            "msg": "La valla fue actualizada correctamente"
-            }
-        return jsonify(response_body), 200
+        return jsonify(response_alert, valla.serialize()), 200
 
-    else:                                                  # Get a single valla                                          
-        single_valla = Valla.query.filter_by(id=id).all()
-        single_valla = list(map(lambda x: x.serialize(), single_valla))
-        return jsonify(single_valla), 200
+    if request.method == 'GET':    # Get a single valla                                          
+        single_valla = Valla.query.get(id)
+        return jsonify(single_valla.serialize()), 200
 
 
 
