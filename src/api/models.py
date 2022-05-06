@@ -19,16 +19,16 @@ class User(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)  #FK
 
     def __repr__(self):
-        return '<User %r>' % self.name
+        return 'User %r' % self.name   # printed at shell
 
     def serialize(self):
-        role = Role.query.filter_by(id=self.role_id).first() 
+        #role = Role.query.filter_by(id=self.role_id).first() 
         return {
             "id": self.id,
             "name":self.name,
             "email": self.email,
             "is_active":self.is_active,
-            "role": role.name,
+            "role_id": self.role_id,
 
             # do not serialize the password, its a security breach
         }
