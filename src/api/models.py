@@ -17,6 +17,7 @@ class User(db.Model):
     orders= db.relationship('Order', backref='user', lazy=True)    # relationship
     clients= db.relationship('Client', backref='user', lazy=True)    # relationship
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)  #FK
+  
 
     def __repr__(self):
         return 'User %r' % self.name   # printed at shell
@@ -29,6 +30,7 @@ class User(db.Model):
             "email": self.email,
             "is_active":self.is_active,
             "role_id": self.role_id,
+            
 
             # do not serialize the password, its a security breach
         }
@@ -120,8 +122,7 @@ class Valla(db.Model):
             "status_name": status.name,
             "owner": owner.name,
             "owner_id": owner.id,
-            "client": client.name,
-
+            "client": client.name
             
         }
         
@@ -183,7 +184,7 @@ class Owner(db.Model):
     def serialize(self):
         return {
             "owner_id": self.id,
-            "self_name": self.name,
+            "owner_name": self.name,
             "owner_code": self.code,
             "phone": self.phone,
             "email": self.email, 
