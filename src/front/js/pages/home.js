@@ -5,10 +5,10 @@ import "../../styles/home.scss";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-  const datavalla = store.siteValla;
+  const datavalla = store.allVallas;
 
   console.log(process.env.VARIABLE_NAME);
-  console.log(store.siteValla);
+  console.log(store.allVallas);
 
   return (
     <div className="text-center mt-5">

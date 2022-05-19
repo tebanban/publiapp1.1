@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       site: Tempdata, //json object imported
 
-      siteValla: [],
+      allVallas: [],
     },
 
     actions: {
@@ -16,7 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ siteValla: data }), console.log(data);
+            setStore({ allVallas: data }), console.log(data);
           })
           .catch((error) => console.log("Error get vallas", error));
       },

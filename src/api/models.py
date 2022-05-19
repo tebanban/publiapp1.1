@@ -17,6 +17,8 @@ class User(db.Model):
     orders= db.relationship('Order', backref='user', lazy=True)    # relationship
     clients= db.relationship('Client', backref='user', lazy=True)    # relationship
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)  #FK
+
+   
   
 
     def __repr__(self):
@@ -119,10 +121,10 @@ class Valla(db.Model):
             "price_high": self.price_high,
             "view": self.view,
             "route":self.route,
+            "owner_id": self.owner_id,
             "status_name": status.name,
-            "owner": owner.name,
-            "owner_id": owner.id,
-            "client": client.name
+            "owner_name": owner.name,
+            "client_name": client.name
             
         }
         
