@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 import { Col, Row, Form, Table } from "react-bootstrap";
-import { Sitedetail } from "../pages/sitedetail";
+//import { Sitedetail } from "../pages/sitedetail";
 
 export const App = () => {
   const { store, actions } = useContext(Context);
