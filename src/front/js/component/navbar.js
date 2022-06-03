@@ -20,8 +20,8 @@ export const Navbar = () => {
         <Link to="/app">
           <button className="btn btn-primary mx-2">App</button>
         </Link>
-        <Link to="/demo">
-          <button className="btn btn-secondary mx-2">Demo</button>
+        <Link to="/">
+          <button className="btn btn-secondary mx-2">Home</button>
         </Link>
       </div>
     </nav>
