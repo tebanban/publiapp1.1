@@ -18,17 +18,21 @@ class User(db.Model):
     clients= db.relationship('Client', backref='user', lazy=True)    # relationship
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)  #FK
 
+   
+  
+
     def __repr__(self):
-        return '<User %r>' % self.name
+        return 'User %r' % self.name   # printed at shell
 
     def serialize(self):
-        role = Role.query.filter_by(id=self.role_id).first() 
+        #role = Role.query.filter_by(id=self.role_id).first() 
         return {
             "id": self.id,
             "name":self.name,
             "email": self.email,
             "is_active":self.is_active,
-            "role": role.name,
+            "role_id": self.role_id,
+            
 
             # do not serialize the password, its a security breach
         }
@@ -106,7 +110,7 @@ class Valla(db.Model):
     def serialize(self):
          status = Status.query.filter_by(id=self.status_id).first() 
          client = Client.query.filter_by(id=self.client_id).first() 
-         owner = Owner.query.filter_by(id=self.owner_id).first() 
+         owner = Owner.query.filter_by(id=self.owner.id).first() 
          
          return  {
             "id": self.id,
@@ -117,9 +121,10 @@ class Valla(db.Model):
             "price_high": self.price_high,
             "view": self.view,
             "route":self.route,
+            "owner_id": self.owner_id,
             "status_name": status.name,
-            "owner": owner.name,
-            "client": client.name,
+            "owner_name": owner.name,
+            "client_name": client.name
             
         }
         
@@ -181,7 +186,7 @@ class Owner(db.Model):
     def serialize(self):
         return {
             "owner_id": self.id,
-            "self_name": self.name,
+            "owner_name": self.name,
             "owner_code": self.code,
             "phone": self.phone,
             "email": self.email, 

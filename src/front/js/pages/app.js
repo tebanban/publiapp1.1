@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 import { Col, Row, Form, Table } from "react-bootstrap";
-import { Sitedetail } from "../pages/sitedetail";
+//import { Sitedetail } from "../pages/sitedetail";
 
 export const App = () => {
   const { store, actions } = useContext(Context);
@@ -11,7 +11,7 @@ export const App = () => {
   const [singleIndex, setSingleIndex] = useState();
 
   //Filter by status
-  const data = store.siteValla.filter((index) => {
+  const data = store.allVallas.filter((index) => {
     if (query === "") {
       return index;
     } else if (index.valla_code.toLowerCase().includes(query.toLowerCase())) {
@@ -85,14 +85,14 @@ export const App = () => {
                 >
                   <td className="col-1 codeButton">
                     <Link to={"/sitedetail/" + index}>
-                      <span>{item.valla_code}</span>
+                      <span>{item.code}</span>
                     </Link>
                   </td>
 
                   <td className="col-1">{item.status_name}</td>
                   <td className="col-2">{item.client_name}</td>
                   <td className="col-4">{item.route}</td>
-                  <td className="col-4">{item.owner_name}</td>
+                  <td className="col-4">{item.owner_id}</td>
                 </tr>
               );
             })}
