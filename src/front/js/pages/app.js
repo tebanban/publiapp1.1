@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 import { Col, Row, Form, Table } from "react-bootstrap";
 //import { Sitedetail } from "../pages/sitedetail";
+import DataGridx from "../component/dataGrid";
 
 export const App = () => {
   const { store, actions } = useContext(Context);
@@ -104,6 +105,7 @@ export const App = () => {
       <Link to="/">
         <button className="btn btn-primary">Regresar</button>
       </Link>
+      <DataGridx />
     </div>
   );
 };

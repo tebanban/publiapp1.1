@@ -21,6 +21,7 @@ import { mainListItems } from "../component/listItems";
 //import Chart from "./Chart";
 //import Deposits from "./Deposits";
 import Orders from "../component/orders";
+import DataGridx from "../component/dataGrid";
 
 function Copyright(props) {
   return (
@@ -170,7 +171,7 @@ function DashboardContent() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
+                  <DataGridx />
                 </Paper>
               </Grid>
             </Grid>
