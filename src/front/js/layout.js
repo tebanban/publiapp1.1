@@ -13,6 +13,8 @@ import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
 import Modalbox from "./component/modal";
 import Dashboard from "./pages/dashboard";
+import { Table_valla } from "./component/table_valla";
+import { AppNavbar } from "./component/appNavbar";
 
 //create your first component
 const Layout = () => {
@@ -29,7 +31,8 @@ const Layout = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/demo" component={Demo} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/app" component={App} />
+            <Route exact path="/app" component={App}></Route>
+            <Route exact path="/app/table_vallas" component={Table_valla} />
             <Route exact path="/modal" component={Modalbox} />
             <Route exact path="/sitedetail/:theid" component={Sitedetail} />
             <Route path="*" component={Error404} />
