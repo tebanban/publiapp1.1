@@ -4,16 +4,15 @@ import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 import { Col, Row, Form, Table } from "react-bootstrap";
 
-export const Table_valla = () => {
+export const Table_owner = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
 
-
   //Filter by status
-  const dataVallas = store.allVallas.filter((index) => {
+  const dataOwners = store.allOwners.filter((index) => {
     if (query === "") {
       return index;
-    } else if (index.ode.toLowerCase().includes(query.toLowerCase())) {
+    } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
       return index;
     } else if (index.status_id.toLowerCase().includes(query.toLowerCase())) {
       return index;
@@ -72,18 +71,14 @@ export const Table_valla = () => {
           <thead>
             <tr className="listheader  d-flex">
               <th className="col-1">Código</th>
-              <th className="col-2">Nombre</th>
-              <th className="col-2">Ruta</th>
-              <th className="col-2">Sentido</th>
-              <th className="col-1">Formato</th>
-              <th className="col-1">Tipo</th>
-              <th className="col-1">Status Id</th>
-              <th className="col-1">Cliente Id</th>
-              <th className="col-1">Propietario Id</th>
+              <th className="col-3">Nombre</th>
+              <th className="col-3">Email</th>
+              <th className="col-3">Teléfono</th>
+              <th className="col-2">Compañía</th>
             </tr>
           </thead>
           <tbody>
-            {dataVallas.map((item, index) => {
+            {dataOwners.map((item, index) => {
               return (
                 <tr
                   key={index}
@@ -94,17 +89,13 @@ export const Table_valla = () => {
                 >
                   <td className="col-1 codeButton">
                     <Link to={"/sitedetail/" + index}>
-                      <span>{item.code}</span>
+                      <span>{item.owner_code}</span>
                     </Link>
                   </td>
-                  <td className="col-2">{item.name}</td>
-                  <td className="col-2">{item.route}</td>
-                  <td className="col-2">{item.view}</td>
-                  <td className="col-1">{item.format}</td>
-                  <td className="col-1">{item.type}</td>
-                  <td className="col-1">{item.status_id}</td>
-                  <td className="col-1">{item.client_id}</td>
-                  <td className="col-1">{item.owner_id}</td>
+                  <td className="col-3">{item.owner_name}</td>
+                  <td className="col-3">{item.email}</td>
+                  <td className="col-3">{item.phone}</td>
+                  <td className="col-2">{item.company}</td>
                 </tr>
               );
             })}
@@ -116,7 +107,6 @@ export const Table_valla = () => {
       <Link to="/">
         <button className="btn btn-primary">Regresar</button>
       </Link>
-      {/* <DataGridx /> */}
     </div>
   );
 };

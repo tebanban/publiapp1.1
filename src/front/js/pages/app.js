@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/app.scss";
 import { Table_valla } from "../component/table_valla";
+import {Table_owner} from "../component/table_owner"
 
 export const App = () => {
   const [tableBox, setTableBox] = useState(<Table_valla />);
@@ -15,9 +16,14 @@ export const App = () => {
           Vallas
         </button>
 
-        <button className="btn btn-secondary mx-2">Clientes</button>
+        <button
+          onClick={() => setTableBox(<Table_owner />)}
+          className="btn btn-secondary mx-2"
+        >
+          Propietarios
+        </button>
 
-        <button className="btn btn-secondary mx-2">Propietarios</button>
+        <button className="btn btn-secondary mx-2">Clientes</button>
 
         <button className="btn btn-secondary mx-2">Usuarios</button>
       </div>

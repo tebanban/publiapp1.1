@@ -89,7 +89,7 @@ def get_single_valla(id):
 ######################### Get all owners ############################################
 
 @api.route("/owner/", methods=["GET"])   
-def get_all_owners():
+def get_owners():
 
     all_owners = Owner.query.all()
     all_owners = list(map(lambda x: x.serialize(), all_owners)) 

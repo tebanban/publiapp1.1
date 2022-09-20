@@ -5,10 +5,11 @@ import "../../styles/home.scss";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-  const datavalla = store.allVallas;
+  const dataValla = store.allVallas;
+  const dataOwner = store.allOwners;
 
-  console.log(process.env.VARIABLE_NAME);
-  console.log(store.allVallas);
+  // console.log(process.env.VARIABLE_NAME);
+  console.log(store.allVallas, store.allOwners);
 
   return (
     <div className="text-center mt-5">
@@ -19,7 +20,10 @@ export const Home = () => {
         {store.message || "Loading message from the backend..."}
       </div>
       <div>
-        <div>Cantidad de vallas: {datavalla.length || "Fetch not workin"}</div>
+        <div>Cantidad de vallas: {dataValla.length || "Fetch not workin"}</div>
+        <div>
+          Cantidad de propietarios: {dataOwner.length || "Fetch not workin"}
+        </div>
       </div>
     </div>
   );
