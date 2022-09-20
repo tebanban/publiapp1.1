@@ -123,7 +123,8 @@ class Valla(db.Model):
             "route":self.route,
             "owner_id": self.owner_id,
             "status_id": self.status_id,
-            "client_id": self.client_id
+            "client_id": self.client_id,
+            "type_id": self.client_id
         }
         
 class Status(db.Model):

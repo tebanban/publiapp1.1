@@ -7,9 +7,11 @@ import { Col, Row, Form, Table } from "react-bootstrap";
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
+  const dataOwners = store.allOwners;
+  const dataClients = store.allClients;
 
   //Filter by status
-  const data = store.allVallas.filter((index) => {
+  const dataVallas = store.allVallas.filter((index) => {
     if (query === "") {
       return index;
     } else if (index.valla_code.toLowerCase().includes(query.toLowerCase())) {
@@ -23,7 +25,7 @@ export const Table_valla = () => {
     <div>
       <div className="mx-2">
         {/* Filters at the top................................................................... */}
-        
+
         <Row className="mb-1">
           <Col md={4}>
             <input
@@ -71,17 +73,22 @@ export const Table_valla = () => {
           <thead>
             <tr className="listheader  d-flex">
               <th className="col-1">Código</th>
-              <th className="col-1">Estatus</th>
-              <th className="col-2">Cliente</th>
-              <th className="col-4">Ubicación</th>
-              <th className="col-4">Propietario</th>
+              <th className="col-2">Nombre</th>
+              <th className="col-2">Ruta</th>
+              <th className="col-2">Sentido</th>
+              <th className="col-1">Formato</th>
+              <th className="col-1">Tipo</th>
+              <th className="col-1">Status Id</th>
+              <th className="col-1">Cliente Id</th>
+              <th className="col-1">Propietario Id</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => {
+            {dataVallas.map((item, index) => {
               return (
                 <tr
                   key={index}
+                  // This dinamically changes the background color of the row
                   className={
                     item.status === "Arrendada" ? "arrendada " : "disponible "
                   }
@@ -91,11 +98,14 @@ export const Table_valla = () => {
                       <span>{item.code}</span>
                     </Link>
                   </td>
-
-                  <td className="col-1">{item.status_name}</td>
-                  <td className="col-2">{item.client_name}</td>
-                  <td className="col-4">{item.route}</td>
-                  <td className="col-4">{item.owner_id}</td>
+                  <td className="col-2">{item.name}</td>
+                  <td className="col-2">{item.route}</td>
+                  <td className="col-2">{item.view}</td>
+                  <td className="col-1">{item.format}</td>
+                  <td className="col-1">{item.type}</td>
+                  <td className="col-1">{item.status_id}</td>
+                  <td className="col-1">{item.client_id}</td>
+                  <td className="col-1">{item.owner_id}</td>
                 </tr>
               );
             })}
