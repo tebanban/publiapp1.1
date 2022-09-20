@@ -1,111 +1,33 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { Context } from "../store/appContext";
+import React, { useState } from "react";
 import "../../styles/app.scss";
-import { Col, Row, Form, Table } from "react-bootstrap";
-//import { Sitedetail } from "../pages/sitedetail";
-import DataGridx from "../component/dataGrid";
+import { Link } from "react-router-dom";
+import { Table_valla } from "../component/table_valla";
 
 export const App = () => {
-  const { store, actions } = useContext(Context);
-  const [query, setQuery] = useState("");
-  const [singleIndex, setSingleIndex] = useState();
-
-  //Filter by status
-  const data = store.allVallas.filter((index) => {
-    if (query === "") {
-      return index;
-    } else if (index.valla_code.toLowerCase().includes(query.toLowerCase())) {
-      return index;
-    } else if (index.status_id.toLowerCase().includes(query.toLowerCase())) {
-      return index;
-    }
-  });
+  const [tableBox, setTableBox] = useState();
 
   return (
     <div>
-      <div className="container">
-        <Row className="mb-1">
-          <Col md={4}>
-            <input
-              onChange={(e) => setQuery(e.target.value)}
-              type="text"
-              className="form-control"
-              id="inputSearch"
-              placeholder="Search"
-            ></input>
-          </Col>
-          <Col md={4}>
-            <Form.Group>
-              <select
-                onChange={(e) => setQuery(e.target.value)}
-                id="inputState"
-                className="form-control"
-              >
-                <option defaultValue>Filtrar por estado...</option>
-                <option>Arrendada</option>
-                <option>Inactiva</option>
-                <option>Reservada</option>
-                <option>Deshabilitada</option>
-              </select>
-            </Form.Group>
-          </Col>
-          <Col md={4}>
-            <Form.Group>
-              <select id="inputState" className="form-control">
-                <option defaultValue>Filtrar por provincia...</option>
-                <option>San José</option>
-                <option>Alajuela</option>
-                <option>Heredia</option>
-                <option>Cartago</option>
-                <option>Puntarenas</option>
-                <option>Guanacaste</option>
-                <option>Limón</option>
-              </select>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Table>
-          <thead>
-            <tr className="listheader  d-flex">
-              <th className="col-1">Código</th>
-              <th className="col-1">Estatus</th>
-              <th className="col-2">Cliente</th>
-              <th className="col-4">Ubicación</th>
-              <th className="col-4">Propietario</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item, index) => {
-              return (
-                <tr
-                  key={index}
-                  className={
-                    item.status === "Arrendada" ? "arrendada " : "disponible "
-                  }
-                >
-                  <td className="col-1 codeButton">
-                    <Link to={"/sitedetail/" + index}>
-                      <span>{item.code}</span>
-                    </Link>
-                  </td>
+      <nav className="navbar navbar-light  mb-3">
+        <div className="ml-auto">
+          <button
+            onClick={() => setTableBox(Table_valla)}
+            className="btn btn-primary mx-2"
+          >
+            Vallas
+          </button>
 
-                  <td className="col-1">{item.status_name}</td>
-                  <td className="col-2">{item.client_name}</td>
-                  <td className="col-4">{item.route}</td>
-                  <td className="col-4">{item.owner_id}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
-      <br />
-
-      <Link to="/">
-        <button className="btn btn-primary">Regresar</button>
-      </Link>
-      {/* <DataGridx /> */}
+          <Link to="/table_clients">
+            <button className="btn btn-secondary mx-2">Clientes</button>
+          </Link>
+          <Link to="/table_owners">
+            <button className="btn btn-secondary mx-2">Propietarios</button>
+          </Link>
+          <Link to="/table_users">
+            <button className="btn btn-secondary mx-2">Usuarios</button>
+          </Link>
+        </div>
+      </nav>
     </div>
   );
 };
