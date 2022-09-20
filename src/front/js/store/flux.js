@@ -21,6 +21,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error get vallas", error));
       },
 
+
+      
       // Use getActions to call a function within a fuction
 
       getMessage: () => {

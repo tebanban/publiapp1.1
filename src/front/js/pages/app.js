@@ -105,7 +105,7 @@ export const App = () => {
       <Link to="/">
         <button className="btn btn-primary">Regresar</button>
       </Link>
-      <DataGridx />
+      {/* <DataGridx /> */}
     </div>
   );
 };
