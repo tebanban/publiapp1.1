@@ -1,3 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .link {
   color: #fff;
   text-decoration: none;
@@ -52,4 +65,13 @@ tr:hover {
 .navbar {
   position: relative;
   height: 50px;
+}
+
+.appBox {
+  width: 90%;
+  margin: auto;
+}
+
+.appNav {
+  width: auto;
 }

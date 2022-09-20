@@ -23,8 +23,8 @@ def handle_person():
     return "Se recibió un POST"
   else:
     return "Se recibió un GET"
-##########################################################################################################
-# Get all users 
+
+######################################## Get all users ###############################################
 
 @api.route("/user/", methods=["GET"])  
 def get_all_users():
@@ -52,7 +52,7 @@ def get_single_user(id):
         db.session.commit()
         return jsonify(user.serialize()), 200
 
-# Get all vallas:
+################################## Get all vallas:##########################
 
 @api.route("/valla/", methods=["GET"])   
 def get_vallas():
@@ -86,7 +86,7 @@ def get_single_valla(id):
         db.session.commit()
         return jsonify(valla.serialize()), 200
 
-# Get all owners:
+######################### Get all owners ############################################
 
 @api.route("/owner/", methods=["GET"])   
 def get_all_owners():
@@ -116,7 +116,7 @@ def get_single_owner(id):
         return jsonify(owner.serialize()), 200
 
         
-# Get all clients:
+############################### Get all clients#####################################
 
 @api.route("/client/", methods=["GET"])   
 def get_all_clients():
@@ -125,7 +125,7 @@ def get_all_clients():
     all_clients = list(map(lambda x: x.serialize(), all_clients)) 
     return jsonify(all_clients), 200
 
-# Handle single owner:
+# Handle single client:
 
 @api.route("/client/<int:id>", methods=["GET", "PUT"])  
 def get_single_client(id):
@@ -135,7 +135,7 @@ def get_single_client(id):
         return jsonify(single_client.serialize()), 200
     
     if request.method == 'PUT':   
-        client = Owner.query.get(id)
+        client = Client.query.get(id)
         client.name = request.json['client_name']  
         client.code = request.json['client_code'] 
         client.created = request.json['created']

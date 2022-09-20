@@ -1,13 +1,11 @@
-import Tempdata from "../../js/store/tempdata.json"; //import fake database
-
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
 
-      site: Tempdata, //json object imported
-
       allVallas: [],
+      allOwners: [],
+      allClients: [],
     },
 
     actions: {
@@ -21,8 +19,26 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error get vallas", error));
       },
 
+      getOwners: () => {
+        //fetching owners table
+        fetch(process.env.BACKEND_URL + "/api/owner")
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ allOwners: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error get owners", error));
+      },
 
-      
+      getClients: () => {
+        //fetching  clients table
+        fetch(process.env.BACKEND_URL + "/api/client")
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ allClients: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error get clients", error));
+      },
+
       // Use getActions to call a function within a fuction
 
       getMessage: () => {

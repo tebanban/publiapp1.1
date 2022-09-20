@@ -122,10 +122,8 @@ class Valla(db.Model):
             "view": self.view,
             "route":self.route,
             "owner_id": self.owner_id,
-            "status_name": status.name,
-            "owner_name": owner.name,
-            "client_name": client.name
-            
+            "status_id": self.status_id,
+            "client_id": self.client_id
         }
         
 class Status(db.Model):
@@ -139,7 +137,7 @@ class Status(db.Model):
     def serialize(self):
         return {
             "status_id": self.id,
-            "status_name": self.name,
+            "self_name": self.name
         }   
         
 class Size(db.Model):

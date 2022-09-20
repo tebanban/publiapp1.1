@@ -4,12 +4,9 @@ import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 import { Col, Row, Form, Table } from "react-bootstrap";
 
-
-
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
-  
 
   //Filter by status
   const data = store.allVallas.filter((index) => {
@@ -24,7 +21,9 @@ export const Table_valla = () => {
 
   return (
     <div>
-      <div className="container">
+      <div className="mx-2">
+        {/* Filters at the top................................................................... */}
+        
         <Row className="mb-1">
           <Col md={4}>
             <input
@@ -65,6 +64,9 @@ export const Table_valla = () => {
             </Form.Group>
           </Col>
         </Row>
+
+        {/* Table content................................................................... */}
+
         <Table>
           <thead>
             <tr className="listheader  d-flex">
