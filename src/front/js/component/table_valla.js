@@ -113,8 +113,8 @@ export const Table_valla = () => {
       </div>
       <br />
 
-      <Link to="/">
-        <button className="btn btn-primary">Regresar</button>
+      <Link to="/formValla">
+        <button className="btn btn-primary"> + </button>
       </Link>
       {/* <DataGridx /> */}
     </div>

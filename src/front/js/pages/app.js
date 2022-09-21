@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/app.scss";
 import { Table_valla } from "../component/table_valla";
-import {Table_owner} from "../component/table_owner"
+import { Table_owner } from "../component/table_owner";
 
 export const App = () => {
   const [tableBox, setTableBox] = useState(<Table_valla />);
@@ -18,7 +18,7 @@ export const App = () => {
 
         <button
           onClick={() => setTableBox(<Table_owner />)}
-          className="btn btn-secondary mx-2"
+          className="btn btn-primary mx-2"
         >
           Propietarios
         </button>
