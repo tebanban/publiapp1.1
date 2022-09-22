@@ -10,11 +10,9 @@ export const FormValla = () => {
 
   return (
     <Form className="form">
-      <h4>Registrar nueva valla</h4>
-
       <Form.Group className="form-group my-2">
         <label for="code" className="col-md-2 control-label">
-          Código
+          Código<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <input
@@ -29,7 +27,7 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label for="name" className="col-md-2 control-label">
-          Nombre
+          Nombre<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <input
@@ -44,7 +42,7 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label for="format" className="col-md-2 control-label">
-          Format
+          Format<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select className="form-control" id="format" name="format">
@@ -58,7 +56,7 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label for="view" className="col-md-2 control-label">
-          Sentido
+          Sentido<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <input
@@ -73,7 +71,7 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label for="route" className="col-md-2 control-label">
-          Ruta
+          Ruta<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <input
@@ -88,7 +86,7 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label for="code" className="col-md-2 control-label">
-          User
+          User<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select className="form-control" id="user" name="user">

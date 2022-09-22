@@ -65,6 +65,7 @@ tr:hover {
 .navbar {
   position: relative;
   height: 50px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .appBox {
@@ -79,13 +80,11 @@ tr:hover {
 .form {
   width: 90%;
   margin: auto;
-  
 }
 
 .form-group {
   display: flex;
   margin: auto;
-  
 }
 .control-label {
   text-align: right;
