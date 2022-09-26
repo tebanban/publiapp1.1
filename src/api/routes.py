@@ -61,7 +61,7 @@ def get_vallas():
     all_vallas = list(map(lambda x: x.serialize(), all_vallas)) 
     return jsonify(all_vallas), 200
 
-# Handle single valla:
+################################ Get or Edit single valla: ##########################
 
 @api.route("/valla/<int:id>", methods=["GET", "PUT"])  
 def get_single_valla(id):
@@ -70,12 +70,13 @@ def get_single_valla(id):
         single_valla = Valla.query.get(id)
         return jsonify(single_valla.serialize()), 200
     
+    ###Edit single Valla#######
     if request.method == 'PUT':   
         valla = Valla.query.get(id)
         valla.code = request.json['code'] 
         valla.name = request.json['name']  
         valla.format = request.json['format'] 
-        valla.ligth = request.json['ligth']
+        valla.light = request.json['light']
         valla.price_low = request.json['price_low']
         valla.price_high = request.json['price_high']
         valla.view = request.json['view']
@@ -86,6 +87,28 @@ def get_single_valla(id):
         db.session.commit()
         return jsonify(valla.serialize()), 200
 
+###########################################   Create single valla   ###################
+
+@api.route("/valla/", methods=[ "POST"])  
+def create_single_valla():
+    
+        valla = Valla()
+        valla.code = request.json['code'] 
+        valla.name = request.json['name']  
+        valla.format = request.json['format'] 
+        valla.light = request.json['light']
+        valla.price_low = request.json['price_low']
+        valla.price_high = request.json['price_high']
+        valla.view = request.json['view']
+        valla.route = request.json['route']
+        valla.dateCreated = request.json['dateCreated']
+        valla.comment = request.json['comment']
+        valla.owner_id = request.json['owner_id']
+        db.session.add(valla)   
+        db.session.commit()
+        return jsonify(valla.serialize()), 200
+
+    
 ######################### Get all owners ############################################
 
 @api.route("/owner/", methods=["GET"])   

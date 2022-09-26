@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       allVallas: [],
       allOwners: [],
       allClients: [],
+      registerNewValla: "",
     },
 
     actions: {
@@ -37,6 +38,30 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ allClients: data }), console.log(data);
           })
           .catch((error) => console.log("Error get clients", error));
+      },
+      // put
+      postNewValla: (code, name, format, view, route, user) => {
+        const requestOptions = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + getStore().token,
+          },
+          body: JSON.stringify({
+            code: code,
+            name: name,
+            format: format,
+            view: view,
+            route: route,
+            user: user,
+          }),
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla/", requestOptions)
+          .then((response) => response.json())
+          .then((data) => setStore({ registerNewValla: data }))
+          .catch((error) =>
+            console.log("Error when registering new valla", error)
+          );
       },
 
       // Use getActions to call a function within a fuction

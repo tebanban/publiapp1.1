@@ -89,12 +89,12 @@ class Valla(db.Model):
     code = db.Column(db.String(10), unique=True, nullable=False)
     name = db.Column(db.String(150), unique=False, nullable=False)
     format = db.Column(db.String(20), unique=False,default='Horizontal / Vertical', nullable= False)
-    ligth = db.Column(db.Boolean, default='True') 
+    light = db.Column(db.Boolean, default='True') 
     price_low = db.Column(db.Float, unique=False, nullable=True)  
     price_high = db.Column(db.Float, unique=False, nullable=True)
     view = db.Column(db.String(150), unique=False, nullable=False)
     route = db.Column(db.String(150), unique=False, nullable=False)
-    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
+    dateCreated = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
     comment = db.Column(db.Text, unique=False, nullable=True) 
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=False) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
@@ -110,20 +110,26 @@ class Valla(db.Model):
     def serialize(self):
          status = Status.query.filter_by(id=self.status_id).first() 
          client = Client.query.filter_by(id=self.client_id).first() 
-         owner = Owner.query.filter_by(id=self.owner.id).first() 
+         owner = Owner.query.filter_by(id=self.owner_id).first() 
          
          return  {
             "id": self.id,
             "code": self.code,
             "name": self.name,
             "format": self.format,
+            "light": self.light,
             "price_low": self.price_low,
             "price_high": self.price_high,
             "view": self.view,
             "route":self.route,
+            "dateCreated": self.dateCreated,
+            "comment": self.comment,
             "owner_id": self.owner_id,
-            "status_id": self.status_id,
             "client_id": self.client_id,
+            "user_id": self.user_id,
+            "order_id": self.order_id,
+            "status_id": self.status_id,
+            "size_id": self.size_id,
             "type_id": self.client_id
         }
         
