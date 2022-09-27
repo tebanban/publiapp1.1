@@ -75,9 +75,9 @@ export const Table_valla = () => {
               <th className="col-2">Nombre</th>
               <th className="col-2">Ruta</th>
               <th className="col-2">Sentido</th>
-              <th className="col-1">Formato</th>
+              <th className="col-1">Horiz/Vert</th>
               <th className="col-1">Tipo</th>
-              <th className="col-1">Status Id</th>
+              <th className="col-1">Status</th>
               <th className="col-1">Cliente Id</th>
               <th className="col-1">Propietario Id</th>
             </tr>
@@ -100,9 +100,9 @@ export const Table_valla = () => {
                   <td className="col-2">{item.name}</td>
                   <td className="col-2">{item.route}</td>
                   <td className="col-2">{item.view}</td>
-                  <td className="col-1">{item.format}</td>
-                  <td className="col-1">{item.type}</td>
-                  <td className="col-1">{item.status_id}</td>
+                  <td className="col-1">{item.layout}</td>
+                  <td className="col-1">{item.tipology}</td>
+                  <td className="col-1">{item.status}</td>
                   <td className="col-1">{item.client_id}</td>
                   <td className="col-1">{item.owner_id}</td>
                 </tr>
