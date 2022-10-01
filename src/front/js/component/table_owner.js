@@ -89,10 +89,10 @@ export const Table_owner = () => {
                 >
                   <td className="col-1 codeButton">
                     <Link to={"/sitedetail/" + index}>
-                      <span>{item.owner_code}</span>
+                      <span>{item.code}</span>
                     </Link>
                   </td>
-                  <td className="col-3">{item.owner_name}</td>
+                  <td className="col-3">{item.name}</td>
                   <td className="col-3">{item.email}</td>
                   <td className="col-3">{item.phone}</td>
                   <td className="col-2">{item.company}</td>

@@ -47,8 +47,10 @@ def get_single_user(id):
         user.name= request.json["name"]
         user.email= request.json["email"]
         user.is_active= request.json["is_active"]
-        user.created= request.json["created"]
-        user.role_id= request.json["role_id"]
+        user.role= request.json["role"]
+        user.modified_on= request.json["modified_on"]
+        user.updated_on= request.json["updated_on"]
+
         db.session.commit()
         return jsonify(user.serialize()), 200
 
@@ -73,37 +75,47 @@ def get_single_valla(id):
     ###Edit single Valla#######
     if request.method == 'PUT':   
         valla = Valla.query.get(id)
+        
         valla.code = request.json['code'] 
         valla.name = request.json['name']  
-        valla.format = request.json['format'] 
+        valla.typology = request.json['typology']
+        valla.layout = request.json['layout'] 
+        valla.size = request.json['size'] 
         valla.light = request.json['light']
         valla.price_low = request.json['price_low']
         valla.price_high = request.json['price_high']
         valla.view = request.json['view']
         valla.route = request.json['route']
-        valla.created = request.json['created']
         valla.comment = request.json['comment']
-        valla.owner_id = request.json['owner_id']   
+        valla.owner_id = request.json['owner_id'] 
+        valla.client_id = request.json['client_id']
+        valla.user_id = request.json['user_id']   
+
+        db.session.add(valla) 
         db.session.commit()
         return jsonify(valla.serialize()), 200
 
 ###########################################   Create single valla   ###################
 
-@api.route("/valla/", methods=[ "POST"])  
+@api.route("/valla/", methods=["POST"])  
 def create_single_valla():
     
         valla = Valla()
+        
         valla.code = request.json['code'] 
         valla.name = request.json['name']  
-        valla.format = request.json['format'] 
+        valla.typology = request.json['typology']
+        valla.layout = request.json['layout'] 
+        valla.size = request.json['size'] 
         valla.light = request.json['light']
         valla.price_low = request.json['price_low']
         valla.price_high = request.json['price_high']
         valla.view = request.json['view']
         valla.route = request.json['route']
-        valla.dateCreated = request.json['dateCreated']
         valla.comment = request.json['comment']
         valla.owner_id = request.json['owner_id']
+        valla.client_id = request.json['client_id']
+       
         db.session.add(valla)   
         db.session.commit()
         return jsonify(valla.serialize()), 200
@@ -129,12 +141,13 @@ def get_single_owner(id):
     
     if request.method == 'PUT':   
         owner = Owner.query.get(id)
-        owner.name = request.json['owner_name']  
-        owner.code = request.json['owner_code'] 
-        owner.created = request.json['created']
+
+        owner.name = request.json['name']  
+        owner.code = request.json['code'] 
         owner.phone = request.json['owner_phone']
         owner.email = request.json['owner_email'] 
         owner.company = request.json['owner_company']
+        
         db.session.commit()
         return jsonify(owner.serialize()), 200
 
@@ -159,12 +172,12 @@ def get_single_client(id):
     
     if request.method == 'PUT':   
         client = Client.query.get(id)
-        client.name = request.json['client_name']  
-        client.code = request.json['client_code'] 
-        client.created = request.json['created']
-        client.phone = request.json['client_phone']
-        client.email = request.json['client_email'] 
-        client.company = request.json['client_company']
+        
+        client.name = request.json['name']  
+        client.code = request.json['code'] 
+        client.phone = request.json['phone']
+        client.email = request.json['email'] 
+        client.company = request.json['company']
         db.session.commit()
         return jsonify(client.serialize()), 200
 

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-
 import { Form, Button, Stack } from "react-bootstrap";
 
 export const FormValla = () => {
@@ -9,6 +8,8 @@ export const FormValla = () => {
   const params = useParams();
 
   const [data, setData] = useState();
+
+  const dataOwners = store.allOwners;
 
   const handleInputChange = (e) => {
     // console.log(e.target.name + ":" + e.target.value);
@@ -20,18 +21,26 @@ export const FormValla = () => {
     console.log(
       data.code,
       data.name,
-      data.format,
-      data.view,
-      data.route,
-      data.user
+      data.typology,
+      data.layout,
+      data.owner_id,
+      data.user_id
     );
     actions.postNewValla(
       data.code,
       data.name,
-      data.format,
+      data.typology,
+      data.layout,
+      data.size,
+      data.light,
+      data.price_low,
+      data.price_high,
       data.view,
       data.route,
-      data.user
+      data.comment,
+      data.user_id,
+      data.client_id,
+      data.owner_id
     );
   };
 
@@ -70,14 +79,31 @@ export const FormValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="format" className="col-md-2 control-label">
-          Format<span className="text-danger "> *</span>
+        <label htmlFor="typology" className="col-md-2 control-label">
+          Tipo<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select
             className="form-control"
-            id="format"
-            name="format"
+            id="typology"
+            name="typology"
+            onChange={handleInputChange}
+          >
+            <option disable="true">Seleccionar...</option>
+            <option value="unipolar2">Unipolar 2 caras</option>
+            <option value="unipolar1">Unipolar 1 cara</option>
+          </select>
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="layout" className="col-md-2 control-label">
+          Horiz/Vert<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <select
+            className="form-control"
+            id="layout"
+            name="layout"
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
@@ -87,15 +113,64 @@ export const FormValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="view" className="col-md-2 control-label">
-          Sentido<span className="text-danger "> *</span>
+        <label htmlFor="size" className="col-md-2 control-label">
+          Dimensiones<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <select
+            className="form-control"
+            id="size"
+            name="size"
+            onChange={handleInputChange}
+          >
+            <option disable="true">Seleccionar...</option>
+            <option value="8.50 x 11.00 m">8.50 x 11.00 m</option>
+            <option value="7.20 x 9.00 m">7.20 x 9.00 m</option>
+          </select>
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="light" className="col-md-2 control-label">
+          Iluminación<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <input
+            className=""
+            id="light"
+            name="light"
+            required=""
+            type="checkbox"
+            onChange={handleInputChange}
+          />
+        </div>
+      </Form.Group>
+
+      <Form.Group className="form-group my-2">
+        <label htmlFor="price_low" className="col-md-2 control-label">
+          Precio menor <span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <input
             className="form-control"
-            id="view"
+            id="price_low"
             maxLength="20"
-            name="view"
+            name="price_low"
+            required=""
+            type="text"
+            onChange={handleInputChange}
+          />
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="price_high" className="col-md-2 control-label">
+          Precio mayor <span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <input
+            className="form-control"
+            id="price_high"
+            maxLength="20"
+            name="price_high"
             required=""
             type="text"
             onChange={handleInputChange}
@@ -119,20 +194,88 @@ export const FormValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="user" className="col-md-2 control-label">
-          User<span className="text-danger "> *</span>
+        <label htmlFor="view" className="col-md-2 control-label">
+          Sentido<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <input
+            className="form-control"
+            id="view"
+            maxLength="20"
+            name="view"
+            required=""
+            type="text"
+            onChange={handleInputChange}
+          />
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="comment" className="col-md-2 control-label">
+          Comentario<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <input
+            className="form-control"
+            id="comment"
+            maxLength="20"
+            name="comment"
+            required=""
+            type="text"
+            onChange={handleInputChange}
+          />
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="user_id" className="col-md-2 control-label">
+          Usuario<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select
             className="form-control"
-            id="user"
-            name="user"
+            id="user_id"
+            name="user_id"
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="user1">User1</option>
-            <option value="user2">User2</option>
-            <option value="user3">User3</option>
+            <option value="User 1">user 1</option>
+            <option value="User 2">User 2</option>
+            <option value="User 3">User 3</option>
+          </select>
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="client_id" className="col-md-2 control-label">
+          Cliente<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <select
+            className="form-control"
+            id="client_id"
+            name="client_id"
+            onChange={handleInputChange}
+          >
+            <option disable="true">Seleccionar...</option>
+            <option value="Client 1">Client 1</option>
+            <option value="Client 2">Client 2</option>
+            <option value="Client 3">Client 3</option>
+          </select>
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="owner_id" className="col-md-2 control-label">
+          Propietario<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-10">
+          <select
+            className="form-control"
+            id="owner_id"
+            name="owner_id"
+            onChange={handleInputChange}
+          >
+            <option disable="true">Seleccionar...</option>
+            <option value="Owner 1">Owner 1</option>
+            <option value="Owner 2">Owner 2</option>
+            <option value="Owner 3">Owner 3</option>
           </select>
         </div>
       </Form.Group>

@@ -39,26 +39,55 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("Error get clients", error));
       },
-      // put
-      postNewValla: (code, name, format, view, route, user) => {
+      // post new valla
+
+      postNewValla: (
+        code,
+        name,
+        typology,
+        layout,
+        size,
+        light,
+        price_low,
+        price_high,
+        view,
+        route,
+        comment,
+        user_id,
+        client_id,
+        owner_id
+      ) => {
         const requestOptions = {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + getStore().token,
+            "Accept": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST"
+            
           },
           body: JSON.stringify({
             code: code,
             name: name,
-            format: format,
+            typology: typology,
+            layout: layout,
+            size: size,
+            light: light,
+            price_low: price_low,
+            price_high: price_high,
             view: view,
             route: route,
-            user: user,
+            comment: comment,
+            user_id: user_id,
+            client_id: client_id,
+            owner_id: owner_id,
           }),
         };
-        fetch(process.env.BACKEND_URL + "/api/valla/", requestOptions)
+         fetch(process.env.BACKEND_URL + "/api/valla/", requestOptions)
           .then((response) => response.json())
-          .then((data) => setStore({ registerNewValla: data }))
+          .then((data) => {
+            console.log(data), setStore({ registerNewValla: data });
+          })
           .catch((error) =>
             console.log("Error when registering new valla", error)
           );
