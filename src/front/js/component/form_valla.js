@@ -9,6 +9,8 @@ export const FormValla = () => {
 
   const [data, setData] = useState();
 
+  const dataOwners = store.allOwners;
+
   const handleInputChange = (e) => {
     // console.log(e.target.name + ":" + e.target.value);
     setData({ ...data, [e.target.name]: e.target.value });
@@ -16,11 +18,18 @@ export const FormValla = () => {
 
   const submitNewValla = (e) => {
     e.preventDefault();
-    console.log(data.code, data.name);
+    console.log(
+      data.code,
+      data.name,
+      data.typology,
+      data.layout,
+      data.owner_id,
+      data.user_id
+    );
     actions.postNewValla(
       data.code,
       data.name,
-      data.tipology,
+      data.typology,
       data.layout,
       data.size,
       data.light,
@@ -70,14 +79,14 @@ export const FormValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="tipology" className="col-md-2 control-label">
+        <label htmlFor="typology" className="col-md-2 control-label">
           Tipo<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select
             className="form-control"
-            id="tipology"
-            name="tipology"
+            id="typology"
+            name="typology"
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
@@ -115,8 +124,8 @@ export const FormValla = () => {
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="8.50">8.50 x 11.00 m</option>
-            <option value="7.20">7.20 x 9.00 m</option>
+            <option value="8.50 x 11.00 m">8.50 x 11.00 m</option>
+            <option value="7.20 x 9.00 m">7.20 x 9.00 m</option>
           </select>
         </div>
       </Form.Group>
@@ -217,56 +226,56 @@ export const FormValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="user" className="col-md-2 control-label">
+        <label htmlFor="user_id" className="col-md-2 control-label">
           Usuario<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select
             className="form-control"
-            id="user"
-            name="user"
+            id="user_id"
+            name="user_id"
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="user1">User1</option>
-            <option value="user2">User2</option>
-            <option value="user3">User3</option>
+            <option value="User 1">user 1</option>
+            <option value="User 2">User 2</option>
+            <option value="User 3">User 3</option>
           </select>
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="client" className="col-md-2 control-label">
+        <label htmlFor="client_id" className="col-md-2 control-label">
           Cliente<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select
             className="form-control"
-            id="client"
-            name="client"
+            id="client_id"
+            name="client_id"
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="user1">Client1</option>
-            <option value="user2">Client2</option>
-            <option value="user3">Client3</option>
+            <option value="Client 1">Client 1</option>
+            <option value="Client 2">Client 2</option>
+            <option value="Client 3">Client 3</option>
           </select>
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="owner" className="col-md-2 control-label">
+        <label htmlFor="owner_id" className="col-md-2 control-label">
           Propietario<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
           <select
             className="form-control"
-            id="owner"
-            name="owner"
+            id="owner_id"
+            name="owner_id"
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="user1">Owner1</option>
-            <option value="user2">Owner2</option>
-            <option value="user3">Owner3</option>
+            <option value="Owner 1">Owner 1</option>
+            <option value="Owner 2">Owner 2</option>
+            <option value="Owner 3">Owner 3</option>
           </select>
         </div>
       </Form.Group>

@@ -36,14 +36,14 @@ class Valla(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
     name = db.Column(db.String(150), unique=False, nullable=False)
-    tipology = db.Column(db.String(20), default='unipolar 2 caras', unique=False, nullable= False)
-    layout = db.Column(db.String(20), default='vertical', unique=False, nullable= False)
-    size = db.Column(db.String(20), default='7.20 x 9.00 m', unique=False, nullable= False)
+    typology = db.Column(db.String(20), default='unipolar 2 caras', unique=False, nullable= True)
+    layout = db.Column(db.String(20), default='vertical', unique=False, nullable= True)
+    size = db.Column(db.String(20), default='7.20 x 9.00 m', unique=False, nullable= True)
     light = db.Column(db.Boolean, default='True') 
     price_low = db.Column(db.Float, unique=False, nullable=True)  
     price_high = db.Column(db.Float, unique=False, nullable=True)
-    view = db.Column(db.String(150), unique=False, nullable=False)
-    route = db.Column(db.String(150), unique=False, nullable=False)
+    view = db.Column(db.String(150), unique=False, nullable=True)
+    route = db.Column(db.String(150), unique=False, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     comment = db.Column(db.String (200), unique=False, nullable=True) 
     status = db.Column(db.String(20), default= 'disponible', nullable=False)
@@ -67,7 +67,7 @@ class Valla(db.Model):
             "id": self.id,
             "code": self.code,
             "name": self.name,
-            "tipology": self.tipology,
+            "typology": self.typology,
             "layout": self.layout,
             "size": self.size,
             "light": self.light,

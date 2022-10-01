@@ -78,7 +78,7 @@ def get_single_valla(id):
         
         valla.code = request.json['code'] 
         valla.name = request.json['name']  
-        valla.tipology = request.json['tipology']
+        valla.typology = request.json['typology']
         valla.layout = request.json['layout'] 
         valla.size = request.json['size'] 
         valla.light = request.json['light']
@@ -97,14 +97,14 @@ def get_single_valla(id):
 
 ###########################################   Create single valla   ###################
 
-@api.route("/valla/", methods=[ "POST"])  
+@api.route("/valla/", methods=["POST"])  
 def create_single_valla():
     
         valla = Valla()
         
         valla.code = request.json['code'] 
         valla.name = request.json['name']  
-        valla.tipology = request.json['tipology']
+        valla.typology = request.json['typology']
         valla.layout = request.json['layout'] 
         valla.size = request.json['size'] 
         valla.light = request.json['light']
