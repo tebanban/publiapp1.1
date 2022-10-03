@@ -7,40 +7,41 @@ export const FormValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
-  const [data, setData] = useState();
+  const [dataVallas, setDataVallas] = useState();  // Get all vallas from store
 
-  const dataOwners = store.allOwners;
+  const dataOwners = store.allOwners   //Get all owners from store, select name in dropdown list
+  
 
   const handleInputChange = (e) => {
     // console.log(e.target.name + ":" + e.target.value);
-    setData({ ...data, [e.target.name]: e.target.value });
+    setDataVallas({ ...dataVallas, [e.target.name]: e.target.value });
   };
 
   const submitNewValla = (e) => {
     e.preventDefault();
     console.log(
-      data.code,
-      data.name,
-      data.typology,
-      data.layout,
-      data.owner_id,
-      data.user_id
+      dataVallas.code,
+      dataVallas.name,
+      dataVallas.typology,
+      dataVallas.layout,
+      dataVallas.owner_id,
+      dataVallas.user_id
     );
     actions.postNewValla(
-      data.code,
-      data.name,
-      data.typology,
-      data.layout,
-      data.size,
-      data.light,
-      data.price_low,
-      data.price_high,
-      data.view,
-      data.route,
-      data.comment,
-      data.user_id,
-      data.client_id,
-      data.owner_id
+      dataVallas.code,
+      dataVallas.name,
+      dataVallas.typology,
+      dataVallas.layout,
+      dataVallas.size,
+      dataVallas.light,
+      dataVallas.price_low,
+      dataVallas.price_high,
+      dataVallas.view,
+      dataVallas.route,
+      dataVallas.comment,
+      dataVallas.user_id,
+      dataVallas.client_id,
+      dataVallas.owner_id
     );
   };
 
@@ -54,7 +55,7 @@ export const FormValla = () => {
           <input
             className="form-control"
             id="code"
-            maxLength="5"
+            maxLength="6"
             name="code"
             required
             type="text"
@@ -70,7 +71,7 @@ export const FormValla = () => {
           <input
             className="form-control"
             id="name"
-            maxLength="10"
+            maxLength="150"
             name="name"
             required=""
             type="text"
@@ -158,7 +159,7 @@ export const FormValla = () => {
             maxLength="20"
             name="price_low"
             required=""
-            type="text"
+            type="float"
             onChange={handleInputChange}
           />
         </div>
@@ -174,7 +175,7 @@ export const FormValla = () => {
             maxLength="20"
             name="price_high"
             required=""
-            type="text"
+            type="float"
             onChange={handleInputChange}
           />
         </div>
@@ -187,7 +188,7 @@ export const FormValla = () => {
           <input
             className="form-control"
             id="route"
-            maxLength="20"
+            maxLength="150"
             name="route"
             required=""
             type="text"
@@ -203,7 +204,7 @@ export const FormValla = () => {
           <input
             className="form-control"
             id="view"
-            maxLength="20"
+            maxLength="100"
             name="view"
             required=""
             type="text"
@@ -219,7 +220,7 @@ export const FormValla = () => {
           <input
             className="form-control"
             id="comment"
-            maxLength="20"
+            maxLength="200"
             name="comment"
             required=""
             type="text"
@@ -273,10 +274,10 @@ export const FormValla = () => {
             name="owner_id"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
-            <option value="1">Owner 1</option>
-            <option value="2">Owner 2</option>
-            <option value="3">Owner 3 </option>
+            <option value="" disable="true">Seleccionar...</option>
+            {dataOwners.map((item, index)=>(
+              <option key={index} value={item.id}>{item.name}</option>))}
+
           </select>
         </div>
       </Form.Group>

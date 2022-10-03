@@ -47,10 +47,10 @@ class Valla(db.Model):
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     comment = db.Column(db.String (200), unique=False, nullable=True) 
     status = db.Column(db.String(20), default= 'disponible', nullable=False)
-    owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=True) #FK
+    owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=False) #FK
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False) #FK
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False) #FK
     
       
     
