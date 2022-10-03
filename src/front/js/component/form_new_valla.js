@@ -1,16 +1,18 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Stack } from "react-bootstrap";
 
-export const FormValla = () => {
+export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
-  const [dataVallas, setDataVallas] = useState();  // Get all vallas from store
+  const [dataVallas, setDataVallas] = useState(); // Get all vallas from store
 
-  const dataOwners = store.allOwners   //Get all owners from store, select name in dropdown list
-  
+  const dataOwners = store.allOwners; //Get all owners from store
+  const dataClients = store.allClients;
+  const dataUsers = store.allUsers;
 
   const handleInputChange = (e) => {
     // console.log(e.target.name + ":" + e.target.value);
@@ -214,7 +216,7 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label htmlFor="comment" className="col-md-2 control-label">
-          Comentario<span className="text-danger "> *</span>
+          Comentario
         </label>
         <div className="col-md-10">
           <input
@@ -239,9 +241,14 @@ export const FormValla = () => {
             name="user_id"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
-            <option value="1">User 1</option>
-            <option value="2">User 2</option>
+            <option value="" disable="true">
+              Seleccionar...
+            </option>
+            {dataUsers.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
           </select>
         </div>
       </Form.Group>
@@ -256,10 +263,14 @@ export const FormValla = () => {
             name="client_id"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
-            <option value="1">Client 1</option>
-            <option value="2">Client 2</option>
-            <option value="3">Client 3</option>
+            <option value="" disable="true">
+              Seleccionar...
+            </option>
+            {dataClients.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
           </select>
         </div>
       </Form.Group>
@@ -274,10 +285,14 @@ export const FormValla = () => {
             name="owner_id"
             onChange={handleInputChange}
           >
-            <option value="" disable="true">Seleccionar...</option>
-            {dataOwners.map((item, index)=>(
-              <option key={index} value={item.id}>{item.name}</option>))}
-
+            <option value="" disable="true">
+              Seleccionar...
+            </option>
+            {dataOwners.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
           </select>
         </div>
       </Form.Group>
@@ -289,7 +304,10 @@ export const FormValla = () => {
         <Button variant="primary" onClick={submitNewValla}>
           Submit
         </Button>
-        <Button variant="outline-secondary">Cancel</Button>
+        <Link to="/app">
+          <button className="btn btn-secondary  mx-2">Cancel</button>
+        </Link>
+        
       </Stack>
     </Form>
   );

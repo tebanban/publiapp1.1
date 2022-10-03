@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       allVallas: [],
       allOwners: [],
       allClients: [],
+      allUsers: [],
       registerNewValla: "",
     },
 
@@ -38,6 +39,16 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ allClients: data }), console.log(data);
           })
           .catch((error) => console.log("Error get clients", error));
+      },
+
+      getUsers: () => {
+        //fetching  clients table
+        fetch(process.env.BACKEND_URL + "/api/user")
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ allUsers: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error get users", error));
       },
       // post new valla
 

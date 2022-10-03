@@ -157,7 +157,7 @@ def get_single_owner(id):
 @api.route("/client/", methods=["GET"])   
 def get_all_clients():
 
-    all_clients = Owner.query.all()
+    all_clients = Client.query.all()
     all_clients = list(map(lambda x: x.serialize(), all_clients)) 
     return jsonify(all_clients), 200
 
