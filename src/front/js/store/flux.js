@@ -61,10 +61,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST"
-            
           },
           body: JSON.stringify({
             code: code,
@@ -83,7 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             owner_id: owner_id,
           }),
         };
-         fetch(process.env.BACKEND_URL + "/api/valla/", requestOptions)
+        fetch(process.env.BACKEND_URL + "/api/valla", requestOptions)
           .then((response) => response.json())
           .then((data) => {
             console.log(data), setStore({ registerNewValla: data });

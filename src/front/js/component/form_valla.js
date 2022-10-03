@@ -45,7 +45,7 @@ export const FormValla = () => {
   };
 
   return (
-    <Form className="form">
+    <Form className="form" method="post">
       <Form.Group className="form-group my-2">
         <label htmlFor="code" className="col-md-2 control-label">
           Código<span className="text-danger "> *</span>
@@ -131,17 +131,19 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label htmlFor="light" className="col-md-2 control-label">
-          Iluminación<span className="text-danger "> *</span>
+          Ilumninación<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
-          <input
-            className=""
+          <select
+            className="form-control"
             id="light"
             name="light"
-            required=""
-            type="checkbox"
             onChange={handleInputChange}
-          />
+          >
+            <option disable="true">Seleccionar...</option>
+            <option value="Yes">Si</option>
+            <option value="No">No</option>
+          </select>
         </div>
       </Form.Group>
 
@@ -237,9 +239,8 @@ export const FormValla = () => {
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="User 1">user 1</option>
-            <option value="User 2">User 2</option>
-            <option value="User 3">User 3</option>
+            <option value="1">User 1</option>
+            <option value="2">User 2</option>
           </select>
         </div>
       </Form.Group>
@@ -255,9 +256,9 @@ export const FormValla = () => {
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="Client 1">Client 1</option>
-            <option value="Client 2">Client 2</option>
-            <option value="Client 3">Client 3</option>
+            <option value="1">Client 1</option>
+            <option value="2">Client 2</option>
+            <option value="3">Client 3</option>
           </select>
         </div>
       </Form.Group>
@@ -273,9 +274,9 @@ export const FormValla = () => {
             onChange={handleInputChange}
           >
             <option disable="true">Seleccionar...</option>
-            <option value="Owner 1">Owner 1</option>
-            <option value="Owner 2">Owner 2</option>
-            <option value="Owner 3">Owner 3</option>
+            <option value="1">Owner 1</option>
+            <option value="2">Owner 2</option>
+            <option value="3">Owner 3 </option>
           </select>
         </div>
       </Form.Group>
