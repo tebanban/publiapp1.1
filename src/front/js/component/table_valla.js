@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
@@ -6,16 +6,21 @@ import { Col, Row, Form, Table } from "react-bootstrap";
 
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
-  const [query, setQuery] = useState("");
 
+  useEffect(() => {
+		actions.getVallas();
+		
+	}, []);
+
+  const [query, setQuery] = useState("");
 
   //Filter by status
   const dataVallas = store.allVallas.filter((index) => {
     if (query === "") {
       return index;
-    } else if (index.ode.toLowerCase().includes(query.toLowerCase())) {
+    } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
       return index;
-    } else if (index.status_id.toLowerCase().includes(query.toLowerCase())) {
+    } else if (index.status.toLowerCase().includes(query.toLowerCase())) {
       return index;
     }
   });

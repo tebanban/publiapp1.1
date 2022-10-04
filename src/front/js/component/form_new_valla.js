@@ -8,7 +8,7 @@ export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
-  const [dataVallas, setDataVallas] = useState(); // Get all vallas from store
+  const [dataVallas, setdataVallas] = useState(); // Get all vallas from store
 
   const dataOwners = store.allOwners; //Get all owners from store
   const dataClients = store.allClients;
@@ -16,7 +16,7 @@ export const FormNewValla = () => {
 
   const handleInputChange = (e) => {
     // console.log(e.target.name + ":" + e.target.value);
-    setDataVallas({ ...dataVallas, [e.target.name]: e.target.value });
+    setdataVallas({ ...dataVallas, [e.target.name]: e.target.value });
   };
 
   const submitNewValla = (e) => {

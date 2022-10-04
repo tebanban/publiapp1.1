@@ -1,9 +1,15 @@
+import {
+  FaceRetouchingNatural,
+  SettingsApplications,
+} from "@mui/icons-material";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
 
       allVallas: [],
+      singleValla: [],
       allOwners: [],
       allClients: [],
       allUsers: [],
@@ -18,41 +24,27 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             setStore({ allVallas: data }), console.log(data);
           })
-          .catch((error) => console.log("Error get vallas", error));
+          .catch((error) => console.log("Error fetching vallas", error));
       },
 
-      getOwners: () => {
-        //fetching owners table
-        fetch(process.env.BACKEND_URL + "/api/owner")
+      getSingleValla: (id) => {
+        //get or edit single valla
+        const requestOptions = {
+          method: "GET, POST",
+          headers: {
+            "Content-Type": "aplication/json",
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, requestOptions)
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allOwners: data }), console.log(data);
+            setStore({ singleValla: data }), console.log(data);
           })
-          .catch((error) => console.log("Error get owners", error));
+          .catch((error) => console.log("Error fetching single valla", error));
       },
-
-      getClients: () => {
-        //fetching  clients table
-        fetch(process.env.BACKEND_URL + "/api/client")
-          .then((res) => res.json())
-          .then((data) => {
-            setStore({ allClients: data }), console.log(data);
-          })
-          .catch((error) => console.log("Error get clients", error));
-      },
-
-      getUsers: () => {
-        //fetching  clients table
-        fetch(process.env.BACKEND_URL + "/api/user")
-          .then((res) => res.json())
-          .then((data) => {
-            setStore({ allUsers: data }), console.log(data);
-          })
-          .catch((error) => console.log("Error get users", error));
-      },
-      // post new valla
 
       postNewValla: (
+        //post new valla
         code,
         name,
         typology,
@@ -99,6 +91,37 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error when registering new valla", error)
           );
       },
+
+      getOwners: () => {
+        //fetching owners table
+        fetch(process.env.BACKEND_URL + "/api/owner")
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ allOwners: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error get owners", error));
+      },
+
+      getClients: () => {
+        //fetching  clients table
+        fetch(process.env.BACKEND_URL + "/api/client")
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ allClients: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error get clients", error));
+      },
+
+      getUsers: () => {
+        //fetching  clients table
+        fetch(process.env.BACKEND_URL + "/api/user")
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ allUsers: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error get users", error));
+      },
+      // post new valla
 
       // Use getActions to call a function within a fuction
 
