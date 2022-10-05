@@ -6,17 +6,17 @@ import { Form, Button, Stack } from "react-bootstrap";
 
 export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
+
   const params = useParams();
 
-  const [dataVallas, setdataVallas] = useState(); // Get all vallas from store
-
+  const [dataVallas, setDataVallas] = useState();
   const dataOwners = store.allOwners; //Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
 
   const handleInputChange = (e) => {
     // console.log(e.target.name + ":" + e.target.value);
-    setdataVallas({ ...dataVallas, [e.target.name]: e.target.value });
+    setDataVallas({ ...dataVallas, [e.target.name]: e.target.value });
   };
 
   const submitNewValla = (e) => {
@@ -307,7 +307,6 @@ export const FormNewValla = () => {
         <Link to="/app">
           <button className="btn btn-secondary  mx-2">Cancel</button>
         </Link>
-        
       </Stack>
     </Form>
   );

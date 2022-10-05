@@ -1,15 +1,25 @@
-import {
-  FaceRetouchingNatural,
-  SettingsApplications,
-} from "@mui/icons-material";
-
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
 
       allVallas: [],
-      singleValla: [],
+      singleValla: {
+        code:"",
+        name:"",
+        typology:"",
+        layout:"",
+        size:"",
+        light:"",
+        price_low:"",
+        price_high:"",
+        view:"",
+        route:"",
+        comment:"",
+        user_id:"",
+        client_id:"",
+        owner_id:"",
+      },
       allOwners: [],
       allClients: [],
       allUsers: [],
@@ -17,8 +27,9 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
     actions: {
+
       getVallas: () => {
-        //fetching vallas table
+        //fetching All vallas
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
@@ -27,15 +38,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error fetching vallas", error));
       },
 
-      getSingleValla: (id) => {
+      getSingleValla: id => {
         //get or edit single valla
-        const requestOptions = {
-          method: "GET, POST",
-          headers: {
-            "Content-Type": "aplication/json",
-          },
-        };
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id, requestOptions)
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id)
           .then((res) => res.json())
           .then((data) => {
             setStore({ singleValla: data }), console.log(data);
@@ -60,7 +65,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         client_id,
         owner_id
       ) => {
-        const requestOptions = {
+        fetch(process.env.BACKEND_URL + "/api/valla", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -81,8 +86,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             client_id: client_id,
             owner_id: owner_id,
           }),
-        };
-        fetch(process.env.BACKEND_URL + "/api/valla", requestOptions)
+        })
           .then((response) => response.json())
           .then((data) => {
             console.log(data), setStore({ registerNewValla: data });

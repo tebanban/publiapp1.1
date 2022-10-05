@@ -34,7 +34,11 @@ const Layout = () => {
             <Route exact path="/app" component={App}></Route>
             <Route exact path="/modal" component={Modalbox} />
             <Route exact path="/formNewValla" component={FormNewValla} />
-            <Route exact path="/formEditValla/:theid" component={FormEditValla} />
+            <Route
+              exact
+              path="/formEditValla/:theid"
+              component={FormEditValla}
+            />
             <Route exact path="/sitedetail/:theid" component={Sitedetail} />
             <Route path="*" component={Error404} />
           </Switch>

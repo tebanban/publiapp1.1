@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
@@ -6,12 +6,6 @@ import { Col, Row, Form, Table } from "react-bootstrap";
 
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
-
-  useEffect(() => {
-		actions.getVallas();
-		
-	}, []);
-
   const [query, setQuery] = useState("");
 
   //Filter by status

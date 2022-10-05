@@ -8,6 +8,7 @@ export const Home = () => {
   const dataValla = store.allVallas;
   const dataOwner = store.allOwners;
 
+
   // console.log(process.env.VARIABLE_NAME);
   console.log(store.allVallas, store.allOwners);
 
