@@ -7,13 +7,15 @@ export const FormUpdateValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams(); // get the valla id from the URL
   const id = params.id; // store the valla id as a variable
-  console.log("this id the id: " + id);
+  console.log("this is the id: " + id);
 
-  useEffect(() => {       // send id to the flux when loading
+  useEffect(() => {
+    // send id to the flux when loading
     actions.getSingleValla(id);
   }, []);
 
-
+  const singleValla = store.singleValla;
+  console.log(singleValla);
   const [editValla, setEditValla] = useState();
   const handleInputChange = (e) => {
     setEditValla({ ...editValla, [e.target.name]: e.target.value });
@@ -67,6 +69,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            placeholder={singleValla.name}
             className="form-control"
             id="name"
             maxLength="150"

@@ -28,27 +28,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 
     actions: {
       getVallas: () => {
-        //////////////////////////////////////////////////////////////////////////////////fetching All vallas
+        //////////////////////////////////////////////////////////////////////////////////GET All vallas
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
             setStore({ allVallas: data }), console.log(data);
           })
-          .catch((error) => console.log("Error fetching vallas", error));
+          .catch((error) => console.log("Error getting all vallas", error));
       },
 
       getSingleValla: (id) => {
-        //////////////////////////////////////////////////////////////////get single valla
+        ////////////////////////////////////////////////////////////////////////////////////GET Single valla
         fetch(process.env.BACKEND_URL + "/api/valla/" + id)
           .then((res) => res.json())
           .then((data) => {
             setStore({ singleValla: data }), console.log(data);
           })
-          .catch((error) => console.log("Error fetching single valla", error));
+          .catch((error) => console.log("Error getting single valla", error));
       },
 
       postNewValla: (
-        ///////////////////////////////////////////////////////////////////post new valla
+        ///////////////////////////////////////////////////////////////////POST new valla
         code,
         name,
         typology,
@@ -96,7 +96,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getOwners: () => {
-        //fetching owners table
+        ///////////////////////////////////////////////////////////////////////////////fetching owners table
         fetch(process.env.BACKEND_URL + "/api/owner")
           .then((res) => res.json())
           .then((data) => {
