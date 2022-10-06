@@ -14,7 +14,7 @@ import Error404 from "./pages/Error404";
 import Modalbox from "./component/modal";
 import Dashboard from "./pages/dashboard";
 import { FormNewValla } from "./component/form_new_valla";
-import { FormEditValla } from "./component/form_edit_valla";
+import { FormUpdateValla } from "./component/form_update_valla";
 
 //create your first component
 const Layout = () => {
@@ -36,10 +36,10 @@ const Layout = () => {
             <Route exact path="/formNewValla" component={FormNewValla} />
             <Route
               exact
-              path="/formEditValla/:theid"
-              component={FormEditValla}
+              path="/formUpdateValla/:id"
+              component={FormUpdateValla}
             />
-            <Route exact path="/sitedetail/:theid" component={Sitedetail} />
+            <Route exact path="/sitedetail/:id" component={Sitedetail} />
             <Route path="*" component={Error404} />
           </Switch>
           <Footer />

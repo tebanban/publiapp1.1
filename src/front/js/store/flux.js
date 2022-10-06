@@ -5,20 +5,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       allVallas: [],
       singleValla: {
-        code:"",
-        name:"",
-        typology:"",
-        layout:"",
-        size:"",
-        light:"",
-        price_low:"",
-        price_high:"",
-        view:"",
-        route:"",
-        comment:"",
-        user_id:"",
-        client_id:"",
-        owner_id:"",
+        code: "",
+        name: "",
+        typology: "",
+        layout: "",
+        size: "",
+        light: "",
+        price_low: "",
+        price_high: "",
+        view: "",
+        route: "",
+        comment: "",
+        user_id: "",
+        client_id: "",
+        owner_id: "",
       },
       allOwners: [],
       allClients: [],
@@ -27,9 +27,8 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
     actions: {
-
       getVallas: () => {
-        //fetching All vallas
+        //////////////////////////////////////////////////////////////////////////////////fetching All vallas
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
@@ -38,8 +37,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error fetching vallas", error));
       },
 
-      getSingleValla: id => {
-        //get or edit single valla
+      getSingleValla: (id) => {
+        //////////////////////////////////////////////////////////////////get single valla
         fetch(process.env.BACKEND_URL + "/api/valla/" + id)
           .then((res) => res.json())
           .then((data) => {
@@ -49,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       postNewValla: (
-        //post new valla
+        ///////////////////////////////////////////////////////////////////post new valla
         code,
         name,
         typology,

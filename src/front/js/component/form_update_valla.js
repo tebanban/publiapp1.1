@@ -1,11 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Stack } from "react-bootstrap";
 
-export const FormEditValla = () => {
+export const FormUpdateValla = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
+  const params = useParams(); // get the valla id from the URL
+  const id = params.id; // store the valla id as a variable
+  console.log("this id the id: " + id);
+
+  useEffect(() => {       // send id to the flux when loading
+    actions.getSingleValla(id);
+  }, []);
+
 
   const [editValla, setEditValla] = useState();
   const handleInputChange = (e) => {
@@ -16,20 +23,22 @@ export const FormEditValla = () => {
     e.preventDefault();
 
     actions.getSingleValla(
-      editValla.code,
-      editValla.name,
-      editValla.typology,
-      editValla.layout,
-      editValla.size,
-      editValla.light,
-      editValla.price_low,
-      editValla.price_high,
-      editValla.view,
-      editValla.route,
-      editValla.comment,
-      editValla.user_id,
-      editValla.client_id,
-      editValla.owner_id
+      id
+
+      // editValla.code,
+      // editValla.name,
+      // editValla.typology,
+      // editValla.layout,
+      // editValla.size,
+      // editValla.light,
+      // editValla.price_low,
+      // editValla.price_high,
+      // editValla.view,
+      // editValla.route,
+      // editValla.comment,
+      // editValla.user_id,
+      // editValla.client_id,
+      // editValla.owner_id
     );
   };
 
@@ -41,7 +50,7 @@ export const FormEditValla = () => {
         </label>
         <div className="col-md-10">
           <input
-            placeholder={store.singleValla.code}
+            placeholder={params.id}
             className="form-control"
             id="code"
             maxLength="6"
@@ -231,7 +240,6 @@ export const FormEditValla = () => {
             <option value="" disable="true">
               Seleccionar...
             </option>
-            
           </select>
         </div>
       </Form.Group>
@@ -249,7 +257,6 @@ export const FormEditValla = () => {
             <option value="" disable="true">
               Seleccionar...
             </option>
-            
           </select>
         </div>
       </Form.Group>
@@ -267,7 +274,6 @@ export const FormEditValla = () => {
             <option value="" disable="true">
               Seleccionar...
             </option>
-            
           </select>
         </div>
       </Form.Group>
