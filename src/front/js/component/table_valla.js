@@ -8,14 +8,13 @@ export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
 
-
   //Filter by status
-  const dataVallas = store.allVallas.filter((index) => {
+  const allVallas = store.allVallas.filter((index) => {
     if (query === "") {
       return index;
-    } else if (index.ode.toLowerCase().includes(query.toLowerCase())) {
+    } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
       return index;
-    } else if (index.status_id.toLowerCase().includes(query.toLowerCase())) {
+    } else if (index.status.toLowerCase().includes(query.toLowerCase())) {
       return index;
     }
   });
@@ -83,7 +82,7 @@ export const Table_valla = () => {
             </tr>
           </thead>
           <tbody>
-            {dataVallas.map((item, index) => {
+            {allVallas.map((item, index) => {
               return (
                 <tr
                   key={index}
@@ -93,7 +92,7 @@ export const Table_valla = () => {
                   }
                 >
                   <td className="col-1 codeButton">
-                    <Link to={"/sitedetail/" + index}>
+                    <Link to={"/FormUpdateValla/" + item.id}>
                       <span>{item.code}</span>
                     </Link>
                   </td>
@@ -113,8 +112,8 @@ export const Table_valla = () => {
       </div>
       <br />
 
-      <Link to="/formValla">
-        <button className="btn btn-primary"> + </button>
+      <Link to="/formNewValla">
+        <button className="btn btn-primary"> + Crear Valla </button>
       </Link>
       {/* <DataGridx /> */}
     </div>
