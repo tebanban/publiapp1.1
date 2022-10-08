@@ -26,10 +26,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       newValla: "",
       updatedValla: "",
     },
-
+    ////////////////////////////////////////////////////////////////////////////////// GET All vallas
     actions: {
       getVallas: () => {
-        ////////////////////////////////////////////////////////////////////////////////// GET All vallas
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
@@ -37,9 +36,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("Error getting all vallas", error));
       },
-
+      //////////////////////////////////////////////////////////////////////////////////// GET Single valla
       getSingleValla: (id) => {
-        //////////////////////////////////////////////////////////////////////////////////// GET Single valla
         fetch(process.env.BACKEND_URL + "/api/valla/" + id)
           .then((res) => res.json())
           .then((data) => {
@@ -48,9 +46,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error getting single valla", error));
       },
 
+      //////////////////////////////////////////////////////////////////////////////////// DELETE Single valla
+      deleteSingleValla: (id) => {
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .catch((error) => console.log("Error deleting single valla", error));
+      },
+
+      /////////////////////////////////////////////////////////////////// ///////////Update single valla
       updateValla: (
         id,
-        /////////////////////////////////////////////////////////////////// Update single valla
         code,
         name,
         typology,
@@ -96,9 +103,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error when updating single valla", error)
           );
       },
-
+      ///////////////////////////////////////////////////////////////////POST new valla
       postNewValla: (
-        ///////////////////////////////////////////////////////////////////POST new valla
         code,
         name,
         typology,

@@ -13,8 +13,8 @@ import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
 import Modalbox from "./component/modal";
 import Dashboard from "./pages/dashboard";
-import { FormNewValla } from "./component/form_new_valla";
-import { FormUpdateValla } from "./component/form_update_valla";
+import { FormNewValla } from "./pages/form_new_valla";
+import { FormUpdateValla } from "./pages/form_update_valla";
 
 //create your first component
 const Layout = () => {

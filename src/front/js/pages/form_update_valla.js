@@ -16,6 +16,10 @@ export const FormUpdateValla = () => {
 
   const singleValla = store.singleValla;
   console.log(singleValla);
+
+  const deleteSingleValla = () => {
+    actions.deleteSingleValla(id);
+  };
   const [editValla, setEditValla] = useState();
   const handleInputChange = (e) => {
     setEditValla({ ...editValla, [e.target.name]: e.target.value });
@@ -292,11 +296,15 @@ export const FormUpdateValla = () => {
         className="mx-auto justify-content-center"
       >
         <Button variant="primary" onClick={submitSingleValla}>
-          Submit
+          Actualizar
         </Button>
         <Link to="/app">
-          <button className="btn btn-secondary  mx-2">Cancel</button>
+          <button className="btn btn-secondary  mx-2">Cancelar</button>
         </Link>
+        <Button className="btn btn-danger  mx-2" onClick={deleteSingleValla}>
+            Eliminar
+        </Button>
+        
       </Stack>
     </Form>
   );

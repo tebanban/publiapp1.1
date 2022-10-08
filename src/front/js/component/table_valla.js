@@ -92,7 +92,7 @@ export const Table_valla = () => {
                   }
                 >
                   <td className="col-1 codeButton">
-                    <Link to={"/sitedetail/" + index}>
+                    <Link to={"/FormUpdateValla/" + item.id}>
                       <span>{item.code}</span>
                     </Link>
                   </td>
