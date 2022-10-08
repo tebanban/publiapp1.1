@@ -63,7 +63,7 @@ def get_vallas():
     all_vallas = list(map(lambda x: x.serialize(), all_vallas)) 
     return jsonify(all_vallas), 200
 
-################################ Get or Edit single valla: ##########################
+################################ Get or Update single valla: ##########################
 
 @api.route("/valla/<int:id>", methods=["GET", "PUT"])  
 def get_single_valla(id):
@@ -75,25 +75,56 @@ def get_single_valla(id):
     ###Edit single Valla#######
     if request.method == 'PUT':   
         valla = Valla.query.get(id)
-        
-        valla.code = request.json['code'] 
-        valla.name = request.json['name']  
-        valla.typology = request.json['typology']
-        valla.layout = request.json['layout'] 
-        valla.size = request.json['size'] 
-        valla.light = request.json['light']
-        valla.price_low = request.json['price_low']
-        valla.price_high = request.json['price_high']
-        valla.view = request.json['view']
-        valla.route = request.json['route']
-        valla.comment = request.json['comment']
-        valla.owner_id = request.json['owner_id'] 
-        valla.client_id = request.json['client_id']
-        valla.user_id = request.json['user_id']   
 
-        db.session.add(valla) 
+        if valla is None:
+            raise APIException("valla not found", status_code=404)
+        
+        if "code" in request.json:
+            valla.code = request.json['code']
+        if "name" in request.json:
+            valla.name = request.json['name']  
+        if "typology" in request.json:    
+            valla.typology = request.json['typology']
+        if "layout" in request.json:
+            valla.layout = request.json['layout']
+        if "size" in request.json: 
+            valla.size = request.json['size'] 
+        if "light" in request.json:
+            valla.light = request.json['light']
+        if "price_low" in request.json:
+            valla.price_low = request.json['price_low']
+        if "price_high" in request.json:
+            valla.price_high = request.json['price_high']
+        if "view" in request.json:
+            valla.view = request.json['view']
+        if "route" in request.json:
+            valla.route = request.json['route']
+        if "comment" in request.json:
+            valla.comment = request.json['comment']
+        if "owner_id" in request.json:
+            valla.owner_id = request.json['owner_id'] 
+        if "client_id" in request.json:
+            valla.client_id = request.json['client_id']
+        if "user_id" in request.json:
+            valla.user_id = request.json['user_id']   
+
+        
         db.session.commit()
         return jsonify(valla.serialize()), 200
+
+###########################################   Delete single Valla ####################
+@api.route("/valla/<int:id>", methods= ["DELETE"])
+def delete_single_valla(id):
+        valla= Valla.query.get(id)
+
+        if valla is None:
+            raise APIException("Valla not found", status_code=404)
+        
+        db.session.delete(valla)
+        db.session.commit()
+        return jsonify(valla.serialize()), 200
+
+
 
 ###########################################   Create single valla   ###################
 

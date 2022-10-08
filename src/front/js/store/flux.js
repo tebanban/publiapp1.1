@@ -23,12 +23,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       allOwners: [],
       allClients: [],
       allUsers: [],
-      registerNewValla: "",
+      newValla: "",
+      updatedValla: "",
     },
 
     actions: {
       getVallas: () => {
-        //////////////////////////////////////////////////////////////////////////////////GET All vallas
+        ////////////////////////////////////////////////////////////////////////////////// GET All vallas
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
@@ -38,13 +39,62 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getSingleValla: (id) => {
-        ////////////////////////////////////////////////////////////////////////////////////GET Single valla
+        //////////////////////////////////////////////////////////////////////////////////// GET Single valla
         fetch(process.env.BACKEND_URL + "/api/valla/" + id)
           .then((res) => res.json())
           .then((data) => {
             setStore({ singleValla: data }), console.log(data);
           })
           .catch((error) => console.log("Error getting single valla", error));
+      },
+
+      updateValla: (
+        id,
+        /////////////////////////////////////////////////////////////////// Update single valla
+        code,
+        name,
+        typology,
+        layout,
+        size,
+        light,
+        price_low,
+        price_high,
+        view,
+        route,
+        comment,
+        user_id,
+        client_id,
+        owner_id
+      ) => {
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            code: code,
+            name: name,
+            typology: typology,
+            layout: layout,
+            size: size,
+            light: light,
+            price_low: price_low,
+            price_high: price_high,
+            view: view,
+            route: route,
+            comment: comment,
+            user_id: user_id,
+            client_id: client_id,
+            owner_id: owner_id,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data), setStore({ updatedValla: data });
+          })
+          .catch((error) =>
+            console.log("Error when updating single valla", error)
+          );
       },
 
       postNewValla: (
@@ -88,7 +138,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data), setStore({ registerNewValla: data });
+            console.log(data), setStore({ newValla: data });
           })
           .catch((error) =>
             console.log("Error when registering new valla", error)

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Stack } from "react-bootstrap";
@@ -7,10 +6,8 @@ import { Form, Button, Stack } from "react-bootstrap";
 export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
 
-  const params = useParams();
-
   const [dataVallas, setDataVallas] = useState();
-  const dataOwners = store.allOwners; //Get all owners from store
+  const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
 

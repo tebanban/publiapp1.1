@@ -9,7 +9,7 @@ export const Table_valla = () => {
   const [query, setQuery] = useState("");
 
   //Filter by status
-  const dataVallas = store.allVallas.filter((index) => {
+  const allVallas = store.allVallas.filter((index) => {
     if (query === "") {
       return index;
     } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
@@ -82,7 +82,7 @@ export const Table_valla = () => {
             </tr>
           </thead>
           <tbody>
-            {dataVallas.map((item, index) => {
+            {allVallas.map((item, index) => {
               return (
                 <tr
                   key={index}

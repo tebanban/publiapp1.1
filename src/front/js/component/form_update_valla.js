@@ -5,12 +5,12 @@ import { Form, Button, Stack } from "react-bootstrap";
 
 export const FormUpdateValla = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams(); // get the valla id from the URL
-  const id = params.id; // store the valla id as a variable
+  const params = useParams(); //////////////////////////// get  valla id from the URL
+  const id = params.id; ////////////////////////////////// store valla id as a variable
   console.log("this is the id: " + id);
 
   useEffect(() => {
-    // send id to the flux when loading
+    /////////////////////////////////////// send valla id to the flux when loading
     actions.getSingleValla(id);
   }, []);
 
@@ -24,23 +24,22 @@ export const FormUpdateValla = () => {
   const submitSingleValla = (e) => {
     e.preventDefault();
 
-    actions.getSingleValla(
-      id
-
-      // editValla.code,
-      // editValla.name,
-      // editValla.typology,
-      // editValla.layout,
-      // editValla.size,
-      // editValla.light,
-      // editValla.price_low,
-      // editValla.price_high,
-      // editValla.view,
-      // editValla.route,
-      // editValla.comment,
-      // editValla.user_id,
-      // editValla.client_id,
-      // editValla.owner_id
+    actions.updateValla(
+      id,
+      editValla.code,
+      editValla.name,
+      editValla.typology,
+      editValla.layout,
+      editValla.size,
+      editValla.light,
+      editValla.price_low,
+      editValla.price_high,
+      editValla.view,
+      editValla.route,
+      editValla.comment,
+      editValla.user_id,
+      editValla.client_id,
+      editValla.owner_id
     );
   };
 
@@ -52,7 +51,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
-            placeholder={params.id}
+            defaultValue={singleValla.code}
             className="form-control"
             id="code"
             maxLength="6"
@@ -69,7 +68,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
-            placeholder={singleValla.name}
+            defaultValue={singleValla.name}
             className="form-control"
             id="name"
             maxLength="150"
@@ -91,7 +90,7 @@ export const FormUpdateValla = () => {
             name="typology"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
+            <option value={singleValla.typology}>{singleValla.typology}</option>
             <option value="unipolar2">Unipolar 2 caras</option>
             <option value="unipolar1">Unipolar 1 cara</option>
           </select>
@@ -108,7 +107,7 @@ export const FormUpdateValla = () => {
             name="layout"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
+            <option value={singleValla.layout}>{singleValla.layout}</option>
             <option value="horizontal">Horizontal</option>
             <option value="vertical">Vertical</option>
           </select>
@@ -125,7 +124,7 @@ export const FormUpdateValla = () => {
             name="size"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
+            <option value={singleValla.size}>{singleValla.size}</option>
             <option value="8.50 x 11.00 m">8.50 x 11.00 m</option>
             <option value="7.20 x 9.00 m">7.20 x 9.00 m</option>
           </select>
@@ -142,7 +141,7 @@ export const FormUpdateValla = () => {
             name="light"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
+            <option value={singleValla.light}>{singleValla.light}</option>
             <option value="Yes">Si</option>
             <option value="No">No</option>
           </select>
@@ -155,6 +154,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.price_low}
             className="form-control"
             id="price_low"
             maxLength="20"
@@ -171,6 +171,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.price_high}
             className="form-control"
             id="price_high"
             maxLength="20"
@@ -187,6 +188,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.route}
             className="form-control"
             id="route"
             maxLength="150"
@@ -203,6 +205,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.view}
             className="form-control"
             id="view"
             maxLength="100"
@@ -219,6 +222,7 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.comment}
             className="form-control"
             id="comment"
             maxLength="200"
@@ -240,9 +244,10 @@ export const FormUpdateValla = () => {
             name="user_id"
             onChange={handleInputChange}
           >
-            <option value="" disable="true">
-              Seleccionar...
+            <option defaultValue={singleValla.user_id}>
+              {singleValla.user_id}
             </option>
+            <option></option>
           </select>
         </div>
       </Form.Group>
@@ -257,8 +262,8 @@ export const FormUpdateValla = () => {
             name="client_id"
             onChange={handleInputChange}
           >
-            <option value="" disable="true">
-              Seleccionar...
+            <option defaultValue={singleValla.client_id}>
+              {singleValla.client_id}
             </option>
           </select>
         </div>
@@ -274,8 +279,8 @@ export const FormUpdateValla = () => {
             name="owner_id"
             onChange={handleInputChange}
           >
-            <option value="" disable="true">
-              Seleccionar...
+            <option defaultValue={singleValla.owner_id}>
+              {singleValla.owner_id}
             </option>
           </select>
         </div>
