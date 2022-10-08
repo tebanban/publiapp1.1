@@ -1,9 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Form, Button, Stack } from "react-bootstrap";
+import vallaPhoto from "../../img/SJ36-A_Garantias_Sociales.jpg";
+import {
+  Form,
+  Button,
+  Stack,
+  Popover,
+  OverlayTrigger,
+  Card
+} from "react-bootstrap";
 
-export const FormUpdateValla = () => {
+export const FormUpdateValla = () => {           
   const { store, actions } = useContext(Context);
   const params = useParams(); //////////////////////////// get  valla id from the URL
   const id = params.id; ////////////////////////////////// store valla id as a variable
@@ -46,13 +54,32 @@ export const FormUpdateValla = () => {
       editValla.owner_id
     );
   };
+  const popover = (
+    <Popover id="popover-basic">
+      <Button className="btn btn-danger mx-2" onClick={deleteSingleValla}>
+        Confirmar eliminación de Valla
+      </Button>
+    </Popover>
+  );
 
   return (
     <Form className="form">
+      <Stack
+        direction="horizontal"
+        gap={2}
+        className="mx-auto justify-content-center"
+      >
+        <Card rounded>
+          <Card.Img src={vallaPhoto} style={{ width: '15rem' }}/>
+        </Card>
+        <Card rounded>
+          <Card.Img src={vallaPhoto} style={{ width: '15rem' }}/>
+        </Card>
+      </Stack>
       <Form.Group className="form-group my-2">
-        <label htmlFor="code" className="col-md-2 control-label">
+        <Form.Label htmlFor="code" className="col-md-2 control-label">
           Código<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={singleValla.code}
@@ -67,9 +94,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="name" className="col-md-2 control-label">
+        <Form.Label htmlFor="name" className="col-md-2 control-label">
           Nombre<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={singleValla.name}
@@ -84,9 +111,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="typology" className="col-md-2 control-label">
+        <Form.Label htmlFor="typology" className="col-md-2 control-label">
           Tipo<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <select
             className="form-control"
@@ -101,9 +128,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="layout" className="col-md-2 control-label">
+        <Form.Label htmlFor="layout" className="col-md-2 control-label">
           Horiz/Vert<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <select
             className="form-control"
@@ -118,9 +145,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="size" className="col-md-2 control-label">
+        <Form.Label htmlFor="size" className="col-md-2 control-label">
           Dimensiones<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <select
             className="form-control"
@@ -135,9 +162,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="light" className="col-md-2 control-label">
+        <Form.Label htmlFor="light" className="col-md-2 control-label">
           Ilumninación<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <select
             className="form-control"
@@ -153,9 +180,9 @@ export const FormUpdateValla = () => {
       </Form.Group>
 
       <Form.Group className="form-group my-2">
-        <label htmlFor="price_low" className="col-md-2 control-label">
+        <Form.Label htmlFor="price_low" className="col-md-2 control-label">
           Precio menor <span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={singleValla.price_low}
@@ -170,9 +197,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="price_high" className="col-md-2 control-label">
+        <Form.Label htmlFor="price_high" className="col-md-2 control-label">
           Precio mayor <span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={singleValla.price_high}
@@ -187,9 +214,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="route" className="col-md-2 control-label">
+        <Form.Label htmlFor="route" className="col-md-2 control-label">
           Ruta<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={singleValla.route}
@@ -204,9 +231,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="view" className="col-md-2 control-label">
+        <Form.Label htmlFor="view" className="col-md-2 control-label">
           Sentido<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={singleValla.view}
@@ -221,9 +248,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="comment" className="col-md-2 control-label">
+        <Form.Label htmlFor="comment" className="col-md-2 control-label">
           Comentario
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={singleValla.comment}
@@ -238,9 +265,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="user_id" className="col-md-2 control-label">
+        <Form.Label htmlFor="user_id" className="col-md-2 control-label">
           Usuario<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <select
             className="form-control"
@@ -256,9 +283,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="client_id" className="col-md-2 control-label">
+        <Form.Label htmlFor="client_id" className="col-md-2 control-label">
           Cliente<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <select
             className="form-control"
@@ -273,9 +300,9 @@ export const FormUpdateValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <label htmlFor="owner_id" className="col-md-2 control-label">
+        <Form.Label htmlFor="owner_id" className="col-md-2 control-label">
           Propietario<span className="text-danger "> *</span>
-        </label>
+        </Form.Label>
         <div className="col-md-10">
           <select
             className="form-control"
@@ -301,10 +328,9 @@ export const FormUpdateValla = () => {
         <Link to="/app">
           <button className="btn btn-secondary  mx-2">Cancelar</button>
         </Link>
-        <Button className="btn btn-danger  mx-2" onClick={deleteSingleValla}>
-            Eliminar
-        </Button>
-        
+        <OverlayTrigger trigger="click" placement="top" overlay={popover}>
+          <Button variant="danger">Eliminar Valla</Button>
+        </OverlayTrigger>
       </Stack>
     </Form>
   );
