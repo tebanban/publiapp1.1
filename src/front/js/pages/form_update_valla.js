@@ -1,46 +1,49 @@
-import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Stack } from "react-bootstrap";
 
-export const FormValla = () => {
+export const FormUpdateValla = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
+  const params = useParams(); //////////////////////////// get  valla id from the URL
+  const id = params.id; ////////////////////////////////// store valla id as a variable
+  console.log("this is the id: " + id);
 
-  const [data, setData] = useState();
+  useEffect(() => {
+    /////////////////////////////////////// send valla id to the flux when loading
+    actions.getSingleValla(id);
+  }, []);
 
-  const dataOwners = store.allOwners;
+  const singleValla = store.singleValla;
+  console.log(singleValla);
 
+  const deleteSingleValla = () => {
+    actions.deleteSingleValla(id);
+  };
+  const [editValla, setEditValla] = useState();
   const handleInputChange = (e) => {
-    // console.log(e.target.name + ":" + e.target.value);
-    setData({ ...data, [e.target.name]: e.target.value });
+    setEditValla({ ...editValla, [e.target.name]: e.target.value });
   };
 
-  const submitNewValla = (e) => {
+  const submitSingleValla = (e) => {
     e.preventDefault();
-    console.log(
-      data.code,
-      data.name,
-      data.typology,
-      data.layout,
-      data.owner_id,
-      data.user_id
-    );
-    actions.postNewValla(
-      data.code,
-      data.name,
-      data.typology,
-      data.layout,
-      data.size,
-      data.light,
-      data.price_low,
-      data.price_high,
-      data.view,
-      data.route,
-      data.comment,
-      data.user_id,
-      data.client_id,
-      data.owner_id
+
+    actions.updateValla(
+      id,
+      editValla.code,
+      editValla.name,
+      editValla.typology,
+      editValla.layout,
+      editValla.size,
+      editValla.light,
+      editValla.price_low,
+      editValla.price_high,
+      editValla.view,
+      editValla.route,
+      editValla.comment,
+      editValla.user_id,
+      editValla.client_id,
+      editValla.owner_id
     );
   };
 
@@ -52,9 +55,10 @@ export const FormValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.code}
             className="form-control"
             id="code"
-            maxLength="5"
+            maxLength="6"
             name="code"
             required
             type="text"
@@ -68,9 +72,10 @@ export const FormValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.name}
             className="form-control"
             id="name"
-            maxLength="10"
+            maxLength="150"
             name="name"
             required=""
             type="text"
@@ -89,7 +94,7 @@ export const FormValla = () => {
             name="typology"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
+            <option value={singleValla.typology}>{singleValla.typology}</option>
             <option value="unipolar2">Unipolar 2 caras</option>
             <option value="unipolar1">Unipolar 1 cara</option>
           </select>
@@ -106,7 +111,7 @@ export const FormValla = () => {
             name="layout"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
+            <option value={singleValla.layout}>{singleValla.layout}</option>
             <option value="horizontal">Horizontal</option>
             <option value="vertical">Vertical</option>
           </select>
@@ -123,7 +128,7 @@ export const FormValla = () => {
             name="size"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
+            <option value={singleValla.size}>{singleValla.size}</option>
             <option value="8.50 x 11.00 m">8.50 x 11.00 m</option>
             <option value="7.20 x 9.00 m">7.20 x 9.00 m</option>
           </select>
@@ -131,17 +136,19 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label htmlFor="light" className="col-md-2 control-label">
-          Iluminación<span className="text-danger "> *</span>
+          Ilumninación<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
-          <input
-            className=""
+          <select
+            className="form-control"
             id="light"
             name="light"
-            required=""
-            type="checkbox"
             onChange={handleInputChange}
-          />
+          >
+            <option value={singleValla.light}>{singleValla.light}</option>
+            <option value="Yes">Si</option>
+            <option value="No">No</option>
+          </select>
         </div>
       </Form.Group>
 
@@ -151,12 +158,13 @@ export const FormValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.price_low}
             className="form-control"
             id="price_low"
             maxLength="20"
             name="price_low"
             required=""
-            type="text"
+            type="float"
             onChange={handleInputChange}
           />
         </div>
@@ -167,12 +175,13 @@ export const FormValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.price_high}
             className="form-control"
             id="price_high"
             maxLength="20"
             name="price_high"
             required=""
-            type="text"
+            type="float"
             onChange={handleInputChange}
           />
         </div>
@@ -183,9 +192,10 @@ export const FormValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.route}
             className="form-control"
             id="route"
-            maxLength="20"
+            maxLength="150"
             name="route"
             required=""
             type="text"
@@ -199,9 +209,10 @@ export const FormValla = () => {
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.view}
             className="form-control"
             id="view"
-            maxLength="20"
+            maxLength="100"
             name="view"
             required=""
             type="text"
@@ -211,13 +222,14 @@ export const FormValla = () => {
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label htmlFor="comment" className="col-md-2 control-label">
-          Comentario<span className="text-danger "> *</span>
+          Comentario
         </label>
         <div className="col-md-10">
           <input
+            defaultValue={singleValla.comment}
             className="form-control"
             id="comment"
-            maxLength="20"
+            maxLength="200"
             name="comment"
             required=""
             type="text"
@@ -236,10 +248,10 @@ export const FormValla = () => {
             name="user_id"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
-            <option value="User 1">user 1</option>
-            <option value="User 2">User 2</option>
-            <option value="User 3">User 3</option>
+            <option defaultValue={singleValla.user_id}>
+              {singleValla.user_id}
+            </option>
+            <option></option>
           </select>
         </div>
       </Form.Group>
@@ -254,10 +266,9 @@ export const FormValla = () => {
             name="client_id"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
-            <option value="Client 1">Client 1</option>
-            <option value="Client 2">Client 2</option>
-            <option value="Client 3">Client 3</option>
+            <option defaultValue={singleValla.client_id}>
+              {singleValla.client_id}
+            </option>
           </select>
         </div>
       </Form.Group>
@@ -272,22 +283,28 @@ export const FormValla = () => {
             name="owner_id"
             onChange={handleInputChange}
           >
-            <option disable="true">Seleccionar...</option>
-            <option value="Owner 1">Owner 1</option>
-            <option value="Owner 2">Owner 2</option>
-            <option value="Owner 3">Owner 3</option>
+            <option defaultValue={singleValla.owner_id}>
+              {singleValla.owner_id}
+            </option>
           </select>
         </div>
       </Form.Group>
+
       <Stack
         direction="horizontal"
         gap={2}
         className="mx-auto justify-content-center"
       >
-        <Button variant="primary" onClick={submitNewValla}>
-          Submit
+        <Button variant="primary" onClick={submitSingleValla}>
+          Actualizar
         </Button>
-        <Button variant="outline-secondary">Cancel</Button>
+        <Link to="/app">
+          <button className="btn btn-secondary  mx-2">Cancelar</button>
+        </Link>
+        <Button className="btn btn-danger  mx-2" onClick={deleteSingleValla}>
+            Eliminar
+        </Button>
+        
       </Stack>
     </Form>
   );
