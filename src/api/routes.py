@@ -12,16 +12,18 @@ api = Blueprint('api', __name__)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
+###################################################################### POST TOKEN #########################
 @api.route("/token", methods=["POST"])
 def get_token():
-    username = request.json.get("username", None)
+    email = request.json.get("email", None)
     password = request.json.get("password", None)
-    if username != "test" or password != "test":
-        return jsonify({"msg": "Bad username or password"}), 401
+    if email != "test" or password != "test":
+        return jsonify({"msg": "Incorrect email or password"}), 401
 
-    access_token = create_access_token(identity=username)
+    access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
+#################################################################### HELLO ##############################
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 

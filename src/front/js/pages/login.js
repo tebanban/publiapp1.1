@@ -20,13 +20,11 @@ export const Login = () => {
           <input
             type="text"
             placeholder="email"
-            value="email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <input
             type="password"
             placeholder="password"
-            value="password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
           <Button variant="primary" onClick={sendCredentials}>

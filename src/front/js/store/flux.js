@@ -25,9 +25,29 @@ const getState = ({ getStore, getActions, setStore }) => {
       allUsers: [],
       newValla: "",
       updatedValla: "",
+      token: ""
     },
-    ////////////////////////////////////////////////////////////////////////////////// GET All vallas
+
     actions: {
+      sendCredentials: (email, password) => {
+        fetch(process.env.BACKEND_URL + "/api/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data), setStore({ token: data });
+          })
+          .catch((error) => console.log("Error when login", error));
+      },
+
+      ////////////////////////////////////////////////////////////////////////////////// GET All vallas
       getVallas: () => {
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
@@ -150,9 +170,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error when registering new valla", error)
           );
       },
-
+      ///////////////////////////////////////////////////////////////////////////////GET owners table
       getOwners: () => {
-        ///////////////////////////////////////////////////////////////////////////////fetching owners table
         fetch(process.env.BACKEND_URL + "/api/owner")
           .then((res) => res.json())
           .then((data) => {
