@@ -14,23 +14,27 @@ export const Login = () => {
 
   return (
     <div className="text-center mt-5">
-      <Form className="form">
-        <Form.Group>
+      <Form className="form-login p-4 rounded">
+        <Form.Group className=" my-2">
           <h1>Login Page</h1>
           <input
+            className="form-control"
             type="text"
             placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
+        </Form.Group>
+        <Form.Group className=" my-2">
           <input
+            className="form-control"
             type="password"
             placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <Button variant="primary" onClick={sendCredentials}>
-            Enviar
-          </Button>
         </Form.Group>
+        <Button variant="primary" onClick={sendCredentials}>
+          Enviar
+        </Button>
       </Form>
     </div>
   );

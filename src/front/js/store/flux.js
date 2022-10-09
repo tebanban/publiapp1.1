@@ -25,7 +25,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       allUsers: [],
       newValla: "",
       updatedValla: "",
-      token: ""
     },
 
     actions: {
@@ -42,7 +41,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data), setStore({ token: data });
+            console.log("This came from the backend", data),
+              sessionStorage.setItem("token", data.access_token);
           })
           .catch((error) => console.log("Error when login", error));
       },
