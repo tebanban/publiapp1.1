@@ -24,11 +24,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       allClients: [],
       allUsers: [],
       newValla: "",
-      updatedValla: "",
+      updatedValla: null,
+      token: null,
     },
 
     actions: {
-      sendCredentials: (email, password) => {
+      ///////////////////////////////////////////////////////// POST Token////////////////////////////////////////
+      login: (email, password) => {
         fetch(process.env.BACKEND_URL + "/api/token", {
           method: "POST",
           headers: {
@@ -44,7 +46,16 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("This came from the backend", data),
               sessionStorage.setItem("token", data.access_token);
           })
+          .then((data) => {
+            setStore({ token: data });
+          })
           .catch((error) => console.log("Error when login", error));
+      },
+//////////////////////////////////////////////////////////////////////////LOG OUT/////////////////////////
+      logout: () => {
+              sessionStorage.removeItem("token");
+              console.log("Login out");
+              setStore({token: null})
       },
 
       ////////////////////////////////////////////////////////////////////////////////// GET All vallas

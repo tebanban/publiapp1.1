@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import logoNav from "../../img/logo-nav.png";
 
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
+  const token = sessionStorage.getItem("token");
+
+  const logout = ()=>{
+    actions.logout();
+  }
+
   return (
     <nav className="navbar navbar-light mb-3 ">
       <Link to="/">
@@ -14,9 +22,16 @@ export const Navbar = () => {
         />
       </Link>
       <div className="ml-auto">
-        {/* <Link to="/dashboard">
-          <button className="btn btn-primary mx-2">Dash</button>
-        </Link> */}
+        {token && token != "" && token != "undefined" ? (
+          <button className="btn btn-primary mx-2" onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="btn btn-primary mx-2">Login</button>
+          </Link>
+        )}
+
         <Link to="/app">
           <button className="btn btn-primary mx-2">App</button>
         </Link>
