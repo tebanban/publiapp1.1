@@ -223,7 +223,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getCurrentUser: () => {
-        const store = getStore();
         fetch(process.env.BACKEND_URL + "/api/private", {
           method: "GET",
           headers: {
