@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
+      current_user: null,
 
       allVallas: [],
       singleValla: {
@@ -24,10 +25,38 @@ const getState = ({ getStore, getActions, setStore }) => {
       allClients: [],
       allUsers: [],
       newValla: "",
-      updatedValla: "",
+      updatedValla: null,
+      token2: "",
     },
-    ////////////////////////////////////////////////////////////////////////////////// GET All vallas
+
     actions: {
+      /////////////////////////////////////////////////////////  LOG IN ////////////////////////////////////////
+      login: (email, password) => {
+        fetch(process.env.BACKEND_URL + "/api/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("This came from the backend", data),
+              sessionStorage.setItem("token", data.access_token);
+          })
+          .catch((error) => console.log("Error when login", error));
+      },
+      //////////////////////////////////////////////////////////////////////////LOG OUT/////////////////////////
+      logout: () => {
+        sessionStorage.removeItem("token");
+        console.log("Login out");
+        setStore({ token: null });
+      },
+
+      ////////////////////////////////////////////////////////////////////////////////// GET All vallas
       getVallas: () => {
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
@@ -150,9 +179,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error when registering new valla", error)
           );
       },
-
+      ///////////////////////////////////////////////////////////////////////////////GET owners table
       getOwners: () => {
-        ///////////////////////////////////////////////////////////////////////////////fetching owners table
         fetch(process.env.BACKEND_URL + "/api/owner")
           .then((res) => res.json())
           .then((data) => {
@@ -191,6 +219,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => setStore({ message: data.message }))
           .catch((error) =>
             console.log("Error loading message from backend", error)
+          );
+      },
+
+      getCurrentUser: () => {
+        fetch(process.env.BACKEND_URL + "/api/private", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("token"), ///////
+          },
+        })
+          .then((resp) => resp.json())
+          .then((data) => {
+            setStore({ current_user: data.logged_in_as }),
+              console.log("The current user is: " + data.logged_in_as);
+          })
+          .catch((error) =>
+            console.log("Error loading current_user from backend", error)
           );
       },
     },

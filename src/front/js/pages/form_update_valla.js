@@ -2,16 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import vallaPhoto from "../../img/SJ36-A_Garantias_Sociales.jpg";
-import {
-  Form,
-  Button,
-  Stack,
-  Popover,
-  OverlayTrigger,
-  Card
-} from "react-bootstrap";
+import { OverlayTrigger, Card } from "react-bootstrap";
+import { Form, Button, Stack, Popover } from "react-bootstrap";
 
-export const FormUpdateValla = () => {           
+export const FormUpdateValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams(); //////////////////////////// get  valla id from the URL
   const id = params.id; ////////////////////////////////// store valla id as a variable
@@ -69,11 +63,11 @@ export const FormUpdateValla = () => {
         gap={2}
         className="mx-auto justify-content-center"
       >
-        <Card rounded>
-          <Card.Img src={vallaPhoto} style={{ width: '15rem' }}/>
+        <Card className="rounded">
+          <Card.Img src={vallaPhoto} style={{ width: "15rem" }} />
         </Card>
-        <Card rounded>
-          <Card.Img src={vallaPhoto} style={{ width: '15rem' }}/>
+        <Card className="rounded">
+          <Card.Img src={vallaPhoto} style={{ width: "15rem" }} />
         </Card>
       </Stack>
       <Form.Group className="form-group my-2">
