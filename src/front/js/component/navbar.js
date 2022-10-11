@@ -6,6 +6,7 @@ import logoNav from "../../img/logo-nav.png";
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const token = sessionStorage.getItem("token");
+  const current_user = store.current_user
 
   const logout = ()=>{
     actions.logout();
@@ -24,7 +25,7 @@ export const Navbar = () => {
       <div className="ml-auto">
         {token && token != "" && token != "undefined" ? (
           <button className="btn btn-primary mx-2" onClick={logout}>
-            Logout
+            <i className="fa fa-user" aria-hidden="true"></i>{" " + current_user}
           </button>
         ) : (
           <Link to="/login">

@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
+      current_user: null,
 
       allVallas: [],
       singleValla: {
@@ -25,11 +26,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       allUsers: [],
       newValla: "",
       updatedValla: null,
-      token: null,
+      token2: "",
     },
 
     actions: {
-      ///////////////////////////////////////////////////////// POST Token////////////////////////////////////////
+      /////////////////////////////////////////////////////////  LOG IN ////////////////////////////////////////
       login: (email, password) => {
         fetch(process.env.BACKEND_URL + "/api/token", {
           method: "POST",
@@ -46,16 +47,13 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("This came from the backend", data),
               sessionStorage.setItem("token", data.access_token);
           })
-          .then((data) => {
-            setStore({ token: data });
-          })
           .catch((error) => console.log("Error when login", error));
       },
-//////////////////////////////////////////////////////////////////////////LOG OUT/////////////////////////
+      //////////////////////////////////////////////////////////////////////////LOG OUT/////////////////////////
       logout: () => {
-              sessionStorage.removeItem("token");
-              console.log("Login out");
-              setStore({token: null})
+        sessionStorage.removeItem("token");
+        console.log("Login out");
+        setStore({ token: null });
       },
 
       ////////////////////////////////////////////////////////////////////////////////// GET All vallas
@@ -221,6 +219,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => setStore({ message: data.message }))
           .catch((error) =>
             console.log("Error loading message from backend", error)
+          );
+      },
+
+      getCurrentUser: () => {
+        const store = getStore();
+        fetch(process.env.BACKEND_URL + "/api/private", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("token"), ///////
+          },
+        })
+          .then((resp) => resp.json())
+          .then((data) => {
+            setStore({ current_user: data.logged_in_as }),
+              console.log("The current user is: " + data.logged_in_as);
+          })
+          .catch((error) =>
+            console.log("Error loading current_user from backend", error)
           );
       },
     },

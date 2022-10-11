@@ -5,6 +5,7 @@ import { Table_owner } from "../component/table_owner";
 
 export const App = () => {
   const [tableBox, setTableBox] = useState(<Table_valla />);
+  
 
   return (
     <div className="appBox">

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Form, Button } from "react-bootstrap";
 import "../../styles/home.scss";
@@ -8,6 +8,8 @@ export const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const token = sessionStorage.getItem("token");
+
+  
 
   const login = () => {
     actions.login(email, password);

@@ -23,19 +23,30 @@ def get_token():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
+#################################################################### GET CURRENT_USER ##############################
+@api.route('/private', methods=['POST', 'GET'])
+@jwt_required()
+def getCurrentUSer():
+
+    
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+
 #################################################################### HELLO ##############################
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
     response_body = {
-        "message": "Hello! I'm a message that came from the backend"
+        "message": "Hello! I'm a message that came from the backend" 
     }
-
+    
     return jsonify(response_body), 200
-
-@api.route("/person", methods=['POST', 'GET']) # aquí especificamos que estos endpoints aceptan solicitudes POST y GET.
+    
+#################################################################### PERSON ##############################
+@api.route("/person", methods=['POST', 'GET']) 
 def handle_person():
-  if request.method == 'POST': # podemos entender qué tipo de request estamos manejando usando un condicional
+  if request.method == 'POST': 
     return "Se recibió un POST"
   else:
     return "Se recibió un GET"

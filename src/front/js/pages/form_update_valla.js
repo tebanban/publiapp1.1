@@ -63,10 +63,10 @@ export const FormUpdateValla = () => {
         gap={2}
         className="mx-auto justify-content-center"
       >
-        <Card rounded>
+        <Card className="rounded">
           <Card.Img src={vallaPhoto} style={{ width: "15rem" }} />
         </Card>
-        <Card rounded>
+        <Card className="rounded">
           <Card.Img src={vallaPhoto} style={{ width: "15rem" }} />
         </Card>
       </Stack>
