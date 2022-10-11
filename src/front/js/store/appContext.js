@@ -33,7 +33,7 @@ const injectContext = (PassedComponent) => {
       state.actions.getUsers();
       state.actions.getOwners();
       state.actions.getVallas();
-      state.actions.getSingleValla();
+      state.actions.getCurrentUser();
       
     }, []);
 

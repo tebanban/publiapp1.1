@@ -76,3 +76,9 @@ docs/Install_postgres.md
 # Psql shell
 
 -\q (exit postgres)
+
+# Generate FLASK_SECRET_KEY
+
+python
+import os;
+print(os.urandom(16));
