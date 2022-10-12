@@ -63,6 +63,7 @@ def get_all_users():
 ############################################ Handle single user: #############################
     
 @api.route("/user/<int:id>", methods=["GET", "PUT"])  
+@jwt_required()
 def get_single_user(id):
 
     if request.method == "GET":
@@ -93,6 +94,7 @@ def get_vallas():
 ################################ GET single valla: ##########################
 
 @api.route("/valla/<int:id>", methods=["GET", "PUT"])  
+@jwt_required()
 def get_single_valla(id):
 
     if request.method == 'GET':                                           
@@ -141,6 +143,7 @@ def get_single_valla(id):
 
 ###########################################   Delete single Valla ####################
 @api.route("/valla/<int:id>", methods= ["DELETE"])
+@jwt_required()
 def delete_single_valla(id):
         valla= Valla.query.get(id)
 
@@ -155,7 +158,8 @@ def delete_single_valla(id):
 
 ###########################################   Create single valla   ###################
 
-@api.route("/valla/", methods=["POST"])  
+@api.route("/valla/", methods=["POST"]) 
+@jwt_required() 
 def create_single_valla():
     
         valla = Valla()

@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
-      token: null,
+      token: null || sessionStorage.getItem("token"),
       current_user: null,
 
       allVallas: [],
@@ -32,10 +32,9 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
     actions: {
-      /////////////////////////////////////////////////////////  LOG IN ////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////  LOG IN
 
       login: (email, password) => {
-        const store = getStore(); //////not needed, just for console.log
         fetch(process.env.BACKEND_URL + "/api/token", {
           method: "POST",
           headers: {
@@ -50,35 +49,37 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log("This came from the backend", data),
               sessionStorage.setItem("token", data.access_token),
-              setStore({ token: data.access_token }),
-              console.log(store.token); /// to send token to the store setStore ???...
+              setStore({ token: data.access_token });
           })
           .catch((error) => console.log("Error when login", error));
       },
-      //////////////////////////////////////////////////////////////////////////LOG OUT/////////////////////////
+      //////////////////////////////////////////////////////////////////////////LOG OUT
       logout: () => {
         sessionStorage.removeItem("token");
         console.log("Logged out");
         setStore({ token: null });
       },
 
-      //////////////////////////////////////////////////////////////////////////// SYNC TOKEN /////////////
+      //////////////////////////////////////////////////////////////////////////// SYNC TOKEN
       syncTokenFromSessionStorage: () => {
         const token = sessionStorage.getItem("token");
-        console.log( "App just LocalAtmRounded, synching token from SessionStorage to store" , token);
-        if(token && token != "" && token != undefined ) setStore( {token: token})
-
+        console.log(
+          "App just LocalAtmRounded, synching token from SessionStorage to store",
+          token
+        );
+        if (token && token != "" && token != undefined)
+          setStore({ token: token });
       },
-       //////////////////////////////////////////////////////////////////////// GET CURRENT USER///////////////////
-       getCurrentUser: () => {
-        // const store = getStore();
-        const SessionToken = sessionStorage.getItem("token");
-        const opts = {
+      //////////////////////////////////////////////////////////////////////// GET CURRENT USER
+      getCurrentUser: () => {
+        const store = getStore();
+        // const SessionToken = sessionStorage.getItem("token");
+        const options = {
           headers: {
-            Authorization: "Bearer " + SessionToken
-          }
-        }
-        fetch(process.env.BACKEND_URL + "/api/private", opts)
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/private", options)
           .then((resp) => resp.json())
           .then((data) => {
             setStore({ current_user: data.logged_in_as }),
@@ -89,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
       },
 
-      ////////////////////////////////////////////////////////////////////////////////// GET All vallas
+      //////////////////////////////////////////////////////////////////////// GET All vallas
       getVallas: () => {
         fetch(process.env.BACKEND_URL + "/api/valla")
           .then((res) => res.json())
@@ -98,9 +99,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("Error getting all vallas", error));
       },
-      //////////////////////////////////////////////////////////////////////////////////// GET Single valla
+      ///////////////////////////////////////////////////////////////////////// GET Single valla
       getSingleValla: (id) => {
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id)
+        const store = getStore();
+        const options = {
+          headers: {
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((res) => res.json())
           .then((data) => {
             setStore({ singleValla: data }), console.log(data);
@@ -108,16 +115,21 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error getting single valla", error));
       },
 
-      //////////////////////////////////////////////////////////////////////////////////// DELETE Single valla
+      ///////////////////////////////////////////////////////////////////////DELETE Single valla
       deleteSingleValla: (id) => {
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id, {
+        const store = getStore();
+        const options = {
           method: "DELETE",
-        })
+          headers: {
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((res) => res.json())
           .catch((error) => console.log("Error deleting single valla", error));
       },
 
-      /////////////////////////////////////////////////////////////////// ///////////Update single valla
+      /////////////////////////////////////////////////////////////////Update single valla
       updateValla: (
         id,
         code,
@@ -135,10 +147,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         client_id,
         owner_id
       ) => {
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id, {
+        const store = getStore();
+        const options = {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
           },
           body: JSON.stringify({
             code: code,
@@ -156,7 +170,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             client_id: client_id,
             owner_id: owner_id,
           }),
-        })
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((response) => response.json())
           .then((data) => {
             console.log(data), setStore({ updatedValla: data });
@@ -212,7 +227,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error when registering new valla", error)
           );
       },
-      ///////////////////////////////////////////////////////////////////////////////GET owners table
+      ///////////////////////////////////////////////////////////////////////////////GET ALL owners table
       getOwners: () => {
         fetch(process.env.BACKEND_URL + "/api/owner")
           .then((res) => res.json())
@@ -223,7 +238,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getClients: () => {
-        //fetching  clients table
+        ////////////////////////////////////////////////////////////////////////////// GET ALL  clients table
         fetch(process.env.BACKEND_URL + "/api/client")
           .then((res) => res.json())
           .then((data) => {
@@ -233,7 +248,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getUsers: () => {
-        //fetching  clients table
+        ////////////////////////////////////////////////////////////////////////////////////GET ALL users
         fetch(process.env.BACKEND_URL + "/api/user")
           .then((res) => res.json())
           .then((data) => {
@@ -241,7 +256,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("Error get users", error));
       },
-      // post new valla
 
       // Use getActions to call a function within a fuction
 
@@ -254,8 +268,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error loading message from backend", error)
           );
       },
-
-      
     },
   };
 };

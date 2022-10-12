@@ -20,9 +20,9 @@ export const Login = () => {
     <div className="text-center mt-5">
       <h1>Login Page</h1>
       {token && token != "" && token != "undefined" ? (
-        <h5 className="text-danger">
-          Usted ha iniciado sesión como {current_user} with token: {token}
-        </h5>
+        <p className="text-danger">
+          Usted ha iniciado sesión con el usuario: {current_user}
+        </p>
       ) : (
         <Form className="form-login p-4 rounded">
           <Form.Group className=" my-2">
