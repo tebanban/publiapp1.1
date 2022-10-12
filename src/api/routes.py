@@ -24,7 +24,7 @@ def get_token():
     return jsonify(access_token=access_token)
 
 #################################################################### GET CURRENT_USER ##############################
-@api.route('/private', methods=['POST', 'GET'])
+@api.route('/private', methods=['GET'])
 @jwt_required()
 def getCurrentUSer():
 
@@ -51,7 +51,7 @@ def handle_person():
   else:
     return "Se recibió un GET"
 
-######################################## Get all users ###############################################
+################################################# Get all users ###############################################
 
 @api.route("/user/", methods=["GET"])  
 def get_all_users():
@@ -60,7 +60,7 @@ def get_all_users():
         all_users = list(map(lambda x: x.serialize(), all_users)) #Returns a list of dictionaries
         return jsonify(all_users), 200  # list object has no attribute 'serialize'
 
-# Handle single user:    
+############################################ Handle single user: #############################
     
 @api.route("/user/<int:id>", methods=["GET", "PUT"])  
 def get_single_user(id):
@@ -90,7 +90,7 @@ def get_vallas():
     all_vallas = list(map(lambda x: x.serialize(), all_vallas)) 
     return jsonify(all_vallas), 200
 
-################################ Get or Update single valla: ##########################
+################################ GET single valla: ##########################
 
 @api.route("/valla/<int:id>", methods=["GET", "PUT"])  
 def get_single_valla(id):
@@ -99,7 +99,7 @@ def get_single_valla(id):
         single_valla = Valla.query.get(id)
         return jsonify(single_valla.serialize()), 200
     
-    ###Edit single Valla#######
+    ##################################### UPDATE single Valla#######
     if request.method == 'PUT':   
         valla = Valla.query.get(id)
 

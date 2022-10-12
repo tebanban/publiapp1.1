@@ -34,6 +34,7 @@ const injectContext = (PassedComponent) => {
       state.actions.getOwners();
       state.actions.getVallas();
       state.actions.getCurrentUser();
+      state.actions.syncTokenFromSessionStorage()
       
     }, []);
 

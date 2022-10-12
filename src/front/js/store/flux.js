@@ -1,7 +1,10 @@
+import { LocalAtmRounded } from "@mui/icons-material";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
+      token: null,
       current_user: null,
 
       allVallas: [],
@@ -26,12 +29,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       allUsers: [],
       newValla: "",
       updatedValla: null,
-      token2: "",
     },
 
     actions: {
       /////////////////////////////////////////////////////////  LOG IN ////////////////////////////////////////
+
       login: (email, password) => {
+        const store = getStore(); //////not needed, just for console.log
         fetch(process.env.BACKEND_URL + "/api/token", {
           method: "POST",
           headers: {
@@ -45,15 +49,44 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => response.json())
           .then((data) => {
             console.log("This came from the backend", data),
-              sessionStorage.setItem("token", data.access_token);
+              sessionStorage.setItem("token", data.access_token),
+              setStore({ token: data.access_token }),
+              console.log(store.token); /// to send token to the store setStore ???...
           })
           .catch((error) => console.log("Error when login", error));
       },
       //////////////////////////////////////////////////////////////////////////LOG OUT/////////////////////////
       logout: () => {
         sessionStorage.removeItem("token");
-        console.log("Login out");
+        console.log("Logged out");
         setStore({ token: null });
+      },
+
+      //////////////////////////////////////////////////////////////////////////// SYNC TOKEN /////////////
+      syncTokenFromSessionStorage: () => {
+        const token = sessionStorage.getItem("token");
+        console.log( "App just LocalAtmRounded, synching token from SessionStorage to store" , token);
+        if(token && token != "" && token != undefined ) setStore( {token: token})
+
+      },
+       //////////////////////////////////////////////////////////////////////// GET CURRENT USER///////////////////
+       getCurrentUser: () => {
+        // const store = getStore();
+        const SessionToken = sessionStorage.getItem("token");
+        const opts = {
+          headers: {
+            Authorization: "Bearer " + SessionToken
+          }
+        }
+        fetch(process.env.BACKEND_URL + "/api/private", opts)
+          .then((resp) => resp.json())
+          .then((data) => {
+            setStore({ current_user: data.logged_in_as }),
+              console.log("The current user is: " + data.logged_in_as);
+          })
+          .catch((error) =>
+            console.log("Error loading current_user from backend", error)
+          );
       },
 
       ////////////////////////////////////////////////////////////////////////////////// GET All vallas
@@ -222,23 +255,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
       },
 
-      getCurrentUser: () => {
-        fetch(process.env.BACKEND_URL + "/api/private", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + sessionStorage.getItem("token"), ///////
-          },
-        })
-          .then((resp) => resp.json())
-          .then((data) => {
-            setStore({ current_user: data.logged_in_as }),
-              console.log("The current user is: " + data.logged_in_as);
-          })
-          .catch((error) =>
-            console.log("Error loading current_user from backend", error)
-          );
-      },
+      
     },
   };
 };
