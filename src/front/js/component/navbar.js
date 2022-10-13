@@ -33,7 +33,7 @@ export const Navbar = () => {
         </Link>
         {token && token != "" && token != "undefined" ? (
           <div className="d-inline-block mx-4">
-            <i class="fa fa-user" aria-hidden="true"></i>
+            <i className="fa fa-user" aria-hidden="true"></i>
             <NavDropdown
               title={current_user}
               id="basic-nav-dropdown"

@@ -1,5 +1,3 @@
-import { LocalAtmRounded } from "@mui/icons-material";
-
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -129,7 +127,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error deleting single valla", error));
       },
 
-      /////////////////////////////////////////////////////////////////Update single valla
+      /////////////////////////////////////////////////////////////////  Update single valla
       updateValla: (
         id,
         code,
@@ -197,10 +195,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         client_id,
         owner_id
       ) => {
-        fetch(process.env.BACKEND_URL + "/api/valla", {
+        const store = getStore();
+        const options = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
           },
           body: JSON.stringify({
             code: code,
@@ -218,7 +218,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             client_id: client_id,
             owner_id: owner_id,
           }),
-        })
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla", options)
           .then((response) => response.json())
           .then((data) => {
             console.log(data), setStore({ newValla: data });
