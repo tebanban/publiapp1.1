@@ -15,7 +15,7 @@ import Modalbox from "./component/modal";
 import Dashboard from "./pages/dashboard";
 import { FormNewValla } from "./pages/form_new_valla";
 import { FormUpdateValla } from "./pages/form_update_valla";
-import { Login } from "./pages/login";
+
 
 //create your first component
 const Layout = () => {
@@ -30,7 +30,6 @@ const Layout = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
             <Route exact path="/demo" component={Demo} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/app" component={App}></Route>

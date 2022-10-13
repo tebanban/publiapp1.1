@@ -24,7 +24,7 @@ export const Navbar = () => {
           style={{ width: "100px" }}
         />
       </Link>
-      <div className="ml-auto">
+      <div className="ml-auto d-inline-block">
         <Link to="/app">
           <button className="btn btn-primary mx-2">App</button>
         </Link>
@@ -32,16 +32,21 @@ export const Navbar = () => {
           <button className="btn btn-primary mx-2">Home</button>
         </Link>
         {token && token != "" && token != "undefined" ? (
-          <NavDropdown
-            title={current_user}
-            id="basic-nav-dropdown"
-            className="d-inline-block btn "
-          >
-            <NavDropdown.Item onClick={logout}>Cerrar sesión</NavDropdown.Item>
-          </NavDropdown>
+          <div className="d-inline-block mx-4">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <NavDropdown
+              title={current_user}
+              id="basic-nav-dropdown"
+              className="btn"
+            >
+              <NavDropdown.Item onClick={logout}>
+                Cerrar sesión
+              </NavDropdown.Item>
+            </NavDropdown>
+          </div>
         ) : (
-          <Link to="/login">
-            <button className="btn btn-primary mx-2">Iniciar sesión</button>
+          <Link to="/">
+            <button className="btn btn-primary mx-2">Acceder</button>
           </Link>
         )}
       </div>

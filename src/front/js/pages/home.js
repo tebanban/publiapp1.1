@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import logoCover from "../../img/logo-publiex.png";
 import "../../styles/home.scss";
+import { Login } from "../component/login"
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -15,8 +16,9 @@ export const Home = () => {
   return (
     <div className="text-center mt-5">
       <p className="m-5">
-        <img src={logoCover} />
+        <img src={logoCover} style={{"width" : "250px"}}/>
       </p>
+      <Login />
       <div className="alert alert-info">
         {store.message || "Loading message from the backend..."}
       </div>

@@ -17,14 +17,15 @@ export const Login = () => {
   };
 
   return (
-    <div className="text-center mt-5">
-      <h1>Login Page</h1>
+    <div className="text-center my-3">
+      
       {token && token != "" && token != "undefined" ? (
         <p className="text-danger">
           Usted ha iniciado sesión con el usuario: {current_user}
         </p>
       ) : (
         <Form className="form-login p-4 rounded">
+        <h3>Please Login</h3>
           <Form.Group className=" my-2">
             <input
               className="form-control"
