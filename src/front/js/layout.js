@@ -16,7 +16,6 @@ import Dashboard from "./pages/dashboard";
 import { FormNewValla } from "./pages/form_new_valla";
 import { FormUpdateValla } from "./pages/form_update_valla";
 
-
 //create your first component
 const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -35,11 +34,7 @@ const Layout = () => {
             <Route exact path="/app" component={App}></Route>
             <Route exact path="/modal" component={Modalbox} />
             <Route exact path="/formNewValla" component={FormNewValla} />
-            <Route
-              exact
-              path="/formUpdateValla/:id"
-              component={FormUpdateValla}
-            />
+            <Route exact path="/formUpdateValla/:id" component={FormUpdateValla} />
             <Route exact path="/sitedetail/:id" component={Sitedetail} />
             <Route path="*" component={Error404} />
           </Switch>

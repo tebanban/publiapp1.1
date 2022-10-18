@@ -12,7 +12,7 @@ api = Blueprint('api', __name__)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
-###################################################################### POST TOKEN #########################
+###################################################################### POST TOKEN 
 @api.route("/token", methods=["POST"])
 def get_token():
     email = request.json.get("email", None)
@@ -23,7 +23,7 @@ def get_token():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
-#################################################################### GET CURRENT_USER ##############################
+#################################################################### GET CURRENT_USER 
 @api.route('/private', methods=['GET'])
 @jwt_required()
 def getCurrentUSer():
@@ -33,25 +33,8 @@ def getCurrentUSer():
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
 
-#################################################################### HELLO ##############################
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend" 
-    }
-    
-    return jsonify(response_body), 200
-    
-#################################################################### PERSON ##############################
-@api.route("/person", methods=['POST', 'GET']) 
-def handle_person():
-  if request.method == 'POST': 
-    return "Se recibió un POST"
-  else:
-    return "Se recibió un GET"
-
-################################################# Get all users ###############################################
+#################################################################### Get all users 
 
 @api.route("/user/", methods=["GET"])  
 def get_all_users():
@@ -60,10 +43,10 @@ def get_all_users():
         all_users = list(map(lambda x: x.serialize(), all_users)) #Returns a list of dictionaries
         return jsonify(all_users), 200  # list object has no attribute 'serialize'
 
-############################################ Handle single user: #############################
+################################################################### Handle single user: 
     
 @api.route("/user/<int:id>", methods=["GET", "PUT"])  
-@jwt_required()
+# @jwt_required()
 def get_single_user(id):
 
     if request.method == "GET":
@@ -77,12 +60,12 @@ def get_single_user(id):
         user.is_active= request.json["is_active"]
         user.role= request.json["role"]
         user.modified_on= request.json["modified_on"]
-        user.updated_on= request.json["updated_on"]
+        
 
         db.session.commit()
         return jsonify(user.serialize()), 200
 
-################################## Get all vallas:##########################
+################################################################# Get all vallas
 
 @api.route("/valla/", methods=["GET"])   
 def get_vallas():
@@ -91,7 +74,7 @@ def get_vallas():
     all_vallas = list(map(lambda x: x.serialize(), all_vallas)) 
     return jsonify(all_vallas), 200
 
-################################ GET single valla: ##########################
+#######################################################################  GET single valla
 
 @api.route("/valla/<int:id>", methods=["GET", "PUT"])  
 @jwt_required()
@@ -101,7 +84,7 @@ def get_single_valla(id):
         single_valla = Valla.query.get(id)
         return jsonify(single_valla.serialize()), 200
     
-    ##################################### UPDATE single Valla#######
+    ############################################################### UPDATE single Valla
     if request.method == 'PUT':   
         valla = Valla.query.get(id)
 
@@ -141,7 +124,7 @@ def get_single_valla(id):
         db.session.commit()
         return jsonify(valla.serialize()), 200
 
-###########################################   Delete single Valla ####################
+#####################################################################   Delete single Valla 
 @api.route("/valla/<int:id>", methods= ["DELETE"])
 @jwt_required()
 def delete_single_valla(id):
@@ -156,7 +139,7 @@ def delete_single_valla(id):
 
 
 
-###########################################   Create single valla   ###################
+#####################################################################   Create single valla  
 
 @api.route("/valla/", methods=["POST"]) 
 @jwt_required() 
@@ -183,7 +166,7 @@ def create_single_valla():
         return jsonify(valla.serialize()), 200
 
     
-######################### Get all owners ############################################
+############################################################### Get all owners 
 
 @api.route("/owner/", methods=["GET"])   
 def get_owners():
@@ -214,7 +197,7 @@ def get_single_owner(id):
         return jsonify(owner.serialize()), 200
 
         
-############################### Get all clients#####################################
+############################################################### Get all clients
 
 @api.route("/client/", methods=["GET"])   
 def get_all_clients():
@@ -243,7 +226,23 @@ def get_single_client(id):
         db.session.commit()
         return jsonify(client.serialize()), 200
 
+#################################################################### HELLO 
+@api.route('/hello', methods=['POST', 'GET'])
+def handle_hello():
 
+    response_body = {
+        "message": "Hello! I'm a message that came from the backend" 
+    }
+    
+    return jsonify(response_body), 200
+    
+#################################################################### PERSON 
+@api.route("/person", methods=['POST', 'GET']) 
+def handle_person():
+  if request.method == 'POST': 
+    return "Se recibió un POST"
+  else:
+    return "Se recibió un GET"
 
 
 
