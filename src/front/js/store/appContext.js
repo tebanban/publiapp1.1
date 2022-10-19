@@ -34,8 +34,8 @@ const injectContext = (PassedComponent) => {
       state.actions.getOwners();
       state.actions.getVallas();
       state.actions.getCurrentUser();
-      state.actions.syncTokenFromSessionStorage()
-      
+      state.actions.syncTokenFromSessionStorage();
+      state.actions.isAuthStatus();
     }, []);
 
     // The initial value for the context is not null anymore, but the current state of this component,

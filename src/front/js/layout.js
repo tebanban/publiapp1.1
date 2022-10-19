@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
@@ -11,16 +11,20 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
-import Modalbox from "./component/modal";
 import Dashboard from "./pages/dashboard";
 import { FormNewValla } from "./pages/form_new_valla";
 import { FormUpdateValla } from "./pages/form_update_valla";
+import { Context } from "./store/appContext";
 
 //create your first component
 const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = process.env.BASENAME || "";
+  const { store } = useContext(Context);
+
+  const token = store.token;
+
 
   return (
     <div className="d-flex flex-column h-100">
@@ -31,11 +35,18 @@ const Layout = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/demo" component={Demo} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/app" component={App}></Route>
-            <Route exact path="/modal" component={Modalbox} />
-            <Route exact path="/formNewValla" component={FormNewValla} />
-            <Route exact path="/formUpdateValla/:id" component={FormUpdateValla} />
-            <Route exact path="/sitedetail/:id" component={Sitedetail} />
+            <Route exact path="/app">
+              {!token ? <Redirect to="/" /> : <App />}
+            </Route>
+            <Route exact path="/formNewValla">
+              {!token ? <Redirect to="/" /> : <FormNewValla />}
+            </Route>
+            <Route exact path="/formUpdateValla/:id">
+              {!token ? <Redirect to="/" /> : <FormUpdateValla />}
+            </Route>
+            <Route exact path="/sitedetail/:id">
+              {!token ? <Redirect to="/" /> : <Sitedetail />}{" "}
+            </Route>
             <Route path="*" component={Error404} />
           </Switch>
           <Footer />

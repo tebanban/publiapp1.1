@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: null,
       token: null || sessionStorage.getItem("token"),
       current_user: null,
+      isAuth: null,
 
       allVallas: [],
       singleValla: {
@@ -49,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               sessionStorage.setItem("token", data.access_token),
               setStore({ token: data.access_token });
           })
-          .then(()=>window.location.reload())     // this reloads the home page to show the current user
+          .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when login", error));
       },
       //////////////////////////////////////////////////////////////////////////LOG OUT
@@ -62,12 +63,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       //////////////////////////////////////////////////////////////////////////// SYNC TOKEN
       syncTokenFromSessionStorage: () => {
         const token = sessionStorage.getItem("token");
-        console.log(
-          "App just LocalAtmRounded, synching token from SessionStorage to store",
-          token
-        );
-        if (token && token != "" && token != undefined)
-          setStore({ token: token });
+        console.log("App just Loaded, synching token from SessionStorage to store");
+        if (token && token != "" && token != undefined) setStore({ token: token });
       },
       //////////////////////////////////////////////////////////////////////// GET CURRENT USER
       getCurrentUser: () => {
@@ -84,9 +81,17 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ current_user: data.logged_in_as }),
               console.log("The current user is: " + data.logged_in_as);
           })
-          .catch((error) =>
-            console.log("Error loading current_user from backend", error)
-          );
+          .catch((error) => console.log("Error loading current_user from backend", error));
+      },
+
+      //////////////////////////////////////////////////////////////////////// Is Auth
+      isAuthStatus: () => {
+        const store = getStore();
+        const status = "standardUser";
+        if (store.current_user && store.current_user != null && store.current_user != undefined) {
+          setStore({ isAuth: status });
+        }
+        console.log("her goes isAuth function", status);
       },
 
       //////////////////////////////////////////////////////////////////////// GET All vallas
@@ -175,9 +180,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log(data), setStore({ updatedValla: data });
           })
-          .catch((error) =>
-            console.log("Error when updating single valla", error)
-          );
+          .catch((error) => console.log("Error when updating single valla", error));
       },
       ///////////////////////////////////////////////////////////////////POST new valla
       postNewValla: (
@@ -225,9 +228,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log(data), setStore({ newValla: data });
           })
-          .catch((error) =>
-            console.log("Error when registering new valla", error)
-          );
+          .catch((error) => console.log("Error when registering new valla", error));
       },
       ///////////////////////////////////////////////////////////////////////////////GET ALL owners table
       getOwners: () => {
@@ -266,9 +267,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/hello")
           .then((resp) => resp.json())
           .then((data) => setStore({ message: data.message }))
-          .catch((error) =>
-            console.log("Error loading message from backend", error)
-          );
+          .catch((error) => console.log("Error loading message from backend", error));
       },
     },
   };
