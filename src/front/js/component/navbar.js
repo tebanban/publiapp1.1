@@ -2,18 +2,20 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import logoNav from "../../img/logo-nav.png";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const token = sessionStorage.getItem("token");
-  const current_user = store.current_user
+  const current_user = store.current_user;
 
-  const logout = ()=>{
+  const logout = () => {
     actions.logout();
-  }
+  };
 
   return (
-    <nav className="navbar navbar-light mb-3 ">
+    <Nav className="navbar navbar-light mb-3 ">
       <Link to="/">
         <img
           className="navbar-brand px-2 mb-0 h1"
@@ -22,24 +24,32 @@ export const Navbar = () => {
           style={{ width: "100px" }}
         />
       </Link>
-      <div className="ml-auto">
-        {token && token != "" && token != "undefined" ? (
-          <button className="btn btn-primary mx-2" onClick={logout}>
-            <i className="fa fa-user" aria-hidden="true"></i>{" " + current_user}
-          </button>
-        ) : (
-          <Link to="/login">
-            <button className="btn btn-primary mx-2">Login</button>
-          </Link>
-        )}
-
+      <div className="ml-auto d-inline-block">
         <Link to="/app">
           <button className="btn btn-primary mx-2">App</button>
         </Link>
         <Link to="/">
           <button className="btn btn-primary mx-2">Home</button>
         </Link>
+        {token && token != "" && token != "undefined" ? (
+          <div className="d-inline-block mx-4">
+            <i className="fa fa-user" aria-hidden="true"></i>
+            <NavDropdown
+              title={current_user}
+              id="basic-nav-dropdown"
+              className="btn"
+            >
+              <NavDropdown.Item onClick={logout}>
+                Cerrar sesión
+              </NavDropdown.Item>
+            </NavDropdown>
+          </div>
+        ) : (
+          <Link to="/">
+            <button className="btn btn-primary mx-2">Acceder</button>
+          </Link>
+        )}
       </div>
-    </nav>
+    </Nav>
   );
 };
