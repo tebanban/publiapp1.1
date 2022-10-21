@@ -7,6 +7,7 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
 
@@ -16,9 +17,14 @@ api = Blueprint('api', __name__)
 @api.route("/token", methods=["POST"])
 def get_token():
     email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    if email != "test" or password != "test":
-        return jsonify({"msg": "Incorrect email or password"}), 401
+    passwd = request.json.get("password", None)
+
+    user = User.query.filter_by(email=email).one_or_none()
+    
+    if not user:
+        return jsonify({"msg": "Tebanban: Incorrect email" }), 401
+    elif not user.password == passwd:          
+        return jsonify({"msg": "Tebanban: Incorrect  password" } , passwd, user.password), 401
 
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
@@ -43,7 +49,7 @@ def get_all_users():
         all_users = list(map(lambda x: x.serialize(), all_users)) #Returns a list of dictionaries
         return jsonify(all_users), 200  # list object has no attribute 'serialize'
 
-################################################################### Handle single user: 
+################################################################### GET and UPDATE  single user: 
     
 @api.route("/user/<int:id>", methods=["GET", "PUT"])  
 # @jwt_required()

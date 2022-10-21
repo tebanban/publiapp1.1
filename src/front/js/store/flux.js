@@ -50,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               sessionStorage.setItem("token", data.access_token),
               setStore({ token: data.access_token });
           })
-          .then(() => window.location.reload()) // this reloads the home page to show the current user
+          // .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when login", error));
       },
       //////////////////////////////////////////////////////////////////////////LOG OUT
