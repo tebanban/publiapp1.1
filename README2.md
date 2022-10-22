@@ -38,7 +38,7 @@ flask db stamp head
 
 psql
 \c database
-drop table alembic_version;
+drop table alembic_version;    # this won´t erase the data
 
 # dreamhost
 

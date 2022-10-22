@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, flash
 from api.models import db, User, Valla, Client, Owner, Order, Payment
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -13,21 +13,43 @@ api = Blueprint('api', __name__)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
-###################################################################### POST TOKEN 
+###################################################################### POST TOKEN  (LOG IN)
 @api.route("/token", methods=["POST"])
 def get_token():
     email = request.json.get("email", None)
     passwd = request.json.get("password", None)
 
     user = User.query.filter_by(email=email).one_or_none()
-    
+  
     if not user:
         return jsonify({"msg": "Tebanban: Incorrect email" }), 401
-    elif not user.password == passwd:          
-        return jsonify({"msg": "Tebanban: Incorrect  password" } , passwd, user.password), 401
+    elif not check_password_hash( user.password, passwd) :       
+        return jsonify({"msg": "Tebanban: Incorrect  password" }, user.password, passwd), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+    return jsonify( access_token=access_token ) 
+    
+    
+
+#######################################################################  REGISTER NEW USER
+@api.route("/register", methods=["POST"])
+def register_user():
+    email = request.json.get("email", None)
+    passwd = request.json.get("password" , None)
+    name = request.json.get("name" , None)
+    role = request.json.get("role" , None)
+    
+    user = User.query.filter_by(email=email).one_or_none()
+
+    if user:
+        return jsonify(({"msg": "User already exist"})), 401
+    
+    new_user = User(email=email, name=name, role=role, password=generate_password_hash(passwd, method='sha256'))
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify(({"msg": "Tebanban: User succesfully created"}, new_user.serialize())) ,200
 
 #################################################################### GET CURRENT_USER 
 @api.route('/private', methods=['GET'])
@@ -145,7 +167,7 @@ def delete_single_valla(id):
 
 
 
-#####################################################################   Create single valla  
+#####################################################################   POST single valla  
 
 @api.route("/valla/", methods=["POST"]) 
 @jwt_required() 
