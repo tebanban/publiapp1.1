@@ -106,7 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => resp.json())
           .then((data) => {
             setStore({ current_user: data.name, current_user_data: data }),
-              console.log("The current user is: " + data.name);
+              console.log("The current user email is: " + data.email);
           })
           .catch((error) =>
             console.log("Error loading current_user from backend", error)
