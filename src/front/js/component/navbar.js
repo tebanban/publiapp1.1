@@ -45,8 +45,8 @@ export const Navbar = () => {
             </NavDropdown>
           </div>
         ) : (
-          <Link to="/">
-            <button className="btn btn-primary mx-2">Acceder</button>
+          <Link to="/register">
+            <button className="btn btn-primary mx-2">Registrarse</button>
           </Link>
         )}
       </div>

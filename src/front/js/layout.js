@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
+import { Register } from "./component/register";
 import { App } from "./pages/app";
 import { Demo } from "./pages/demo";
 import { Sitedetail } from "./pages/sitedetail";
@@ -33,6 +34,7 @@ const Layout = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
             <Route exact path="/demo" component={Demo} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/app">
