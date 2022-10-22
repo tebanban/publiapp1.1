@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: null,
       token: null || sessionStorage.getItem("token"),
       current_user: null,
+      current_user_data: [],
       isAuth: null,
 
       allVallas: [],
@@ -50,7 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log("Register data from the backend: ", data);
           })
-          // .then(() => window.location.reload()) // this reloads the home page to show the current user
+          .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when register", error));
       },
 
@@ -73,7 +74,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               sessionStorage.setItem("token", data.access_token),
               setStore({ token: data.access_token });
           })
-          // .then(() => window.location.reload()) // this reloads the home page to show the current user
+          .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when login", error));
       },
       //////////////////////////////////////////////////////////////////////////LOG OUT
@@ -104,8 +105,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/private", options)
           .then((resp) => resp.json())
           .then((data) => {
-            setStore({ current_user: data.logged_in_as }),
-              console.log("The current user is: " + data.logged_in_as);
+            setStore({ current_user: data.name, current_user_data: data }),
+              console.log("The current user is: " + data.name);
           })
           .catch((error) =>
             console.log("Error loading current_user from backend", error)

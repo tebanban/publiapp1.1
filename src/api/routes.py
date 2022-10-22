@@ -22,14 +22,23 @@ def get_token():
     user = User.query.filter_by(email=email).one_or_none()
   
     if not user:
-        return jsonify({"msg": "Tebanban: Incorrect email" }), 401
+        return jsonify({"msg": "Tebanban: Email non existent" }), 401
     elif not check_password_hash( user.password, passwd) :       
-        return jsonify({"msg": "Tebanban: Incorrect  password" }, user.password, passwd), 401
+        return jsonify({"msg": "Tebanban: Incorrect  password" }), 401
 
     access_token = create_access_token(identity=email)
     return jsonify( access_token=access_token ) 
-    
-    
+    #################################################################### GET CURRENT_USER 
+@api.route('/private', methods=['GET'])
+@jwt_required()
+def getCurrentUSer():
+
+    # Access the identity of the current user with get_jwt_identity.
+    # The argument is the identity that was used when creating a JWT.
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email = current_user).first()
+    #return current user data:
+    return jsonify(user.serialize()), 200
 
 #######################################################################  REGISTER NEW USER
 @api.route("/register", methods=["POST"])
@@ -50,17 +59,6 @@ def register_user():
     db.session.commit()
 
     return jsonify(({"msg": "Tebanban: User succesfully created"}, new_user.serialize())) ,200
-
-#################################################################### GET CURRENT_USER 
-@api.route('/private', methods=['GET'])
-@jwt_required()
-def getCurrentUSer():
-
-    
-    # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
-
 
 #################################################################### Get all users 
 

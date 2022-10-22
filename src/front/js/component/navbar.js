@@ -1,14 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import logoNav from "../../img/logo-nav.png";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { Nav, Modal, Button } from "react-bootstrap/";
+import { UserProfile } from "../component/user_profile";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const token = sessionStorage.getItem("token");
   const current_user = store.current_user;
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const logout = () => {
     actions.logout();
@@ -33,16 +38,24 @@ export const Navbar = () => {
         </Link>
         {token && token != "" && token != "undefined" ? (
           <div className="d-inline-block mx-4">
-            <i className="fa fa-user" aria-hidden="true"></i>
-            <NavDropdown
-              title={current_user}
-              id="basic-nav-dropdown"
-              className="btn"
-            >
-              <NavDropdown.Item onClick={logout}>
-                Cerrar sesión
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Button variant="primary" onClick={handleShow}>
+              <i className="fa fa-user mx-2" aria-hidden="true" />
+              {current_user}
+            </Button>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>{/* <UserProfile /> */}</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="primary" onClick={logout}>
+                  Logout
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
         ) : (
           <Link to="/register">
