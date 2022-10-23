@@ -2,11 +2,17 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
-import { Col, Row, Form, Table } from "react-bootstrap";
+import { Col, Row, Form, Table, Modal, Button } from "react-bootstrap";
+import { FormNewValla } from "../component/form_new_valla";
 
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
+
+  // Modal here:
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   //Filter by status
   const allVallas = store.allVallas.filter((index) => {
@@ -36,11 +42,7 @@ export const Table_valla = () => {
           </Col>
           <Col md={4}>
             <Form.Group>
-              <select
-                onChange={(e) => setQuery(e.target.value)}
-                id="inputState"
-                className="form-control"
-              >
+              <select onChange={(e) => setQuery(e.target.value)} id="inputState" className="form-control">
                 <option defaultValue>Filtrar por estado...</option>
                 <option>Arrendada</option>
                 <option>Inactiva</option>
@@ -87,9 +89,7 @@ export const Table_valla = () => {
                 <tr
                   key={index}
                   // This dinamically changes the background color of the row
-                  className={
-                    item.status === "Arrendada" ? "arrendada " : "disponible "
-                  }
+                  className={item.status === "Arrendada" ? "arrendada " : "disponible "}
                 >
                   <td className="col-1 codeButton">
                     <Link to={"/FormUpdateValla/" + item.id}>
@@ -111,10 +111,20 @@ export const Table_valla = () => {
         </Table>
       </div>
       <br />
+      <Modal size="lg" show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Crear Nueva Valla</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FormNewValla />
+        </Modal.Body>
+      </Modal>
 
-      <Link to="/formNewValla">
-        <button className="btn btn-primary"> + Crear Valla </button>
-      </Link>
+      <button className="btn btn-primary" onClick={handleShow}>
+        {" "}
+        + Crear Valla{" "}
+      </button>
+
       {/* <DataGridx /> */}
     </div>
   );

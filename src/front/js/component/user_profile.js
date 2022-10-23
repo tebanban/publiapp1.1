@@ -16,21 +16,12 @@ export const UserProfile = () => {
   const submitUser = (e) => {
     e.preventDefault();
 
-    actions.updateUser(
-      id,
-      editUser.name,
-      editUser.email,
-      editUser.password,
-      editUser.role
-    );
+    actions.updateUser(id, editUser.name, editUser.email, editUser.password);
   };
 
   return (
     <Form className="form">
       <Form.Group className="form-group my-2">
-        <Form.Label htmlFor="name" className="col-md-2 control-label">
-          Nombre
-        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={current_user_data.name}
@@ -45,9 +36,6 @@ export const UserProfile = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <Form.Label htmlFor="name" className="col-md-2 control-label">
-          Email
-        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={current_user_data.email}
@@ -62,9 +50,6 @@ export const UserProfile = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <Form.Label htmlFor="name" className="col-md-2 control-label">
-          Password
-        </Form.Label>
         <div className="col-md-10">
           <input
             defaultValue={current_user_data.password}

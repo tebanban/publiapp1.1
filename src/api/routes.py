@@ -110,7 +110,7 @@ def get_single_valla(id):
         single_valla = Valla.query.get(id)
         return jsonify(single_valla.serialize()), 200
     
-    ############################################################### UPDATE single Valla
+    #################################################################### UPDATE single Valla
     if request.method == 'PUT':   
         valla = Valla.query.get(id)
 

@@ -19,7 +19,7 @@ class User(db.Model):
     orders= db.relationship('Order', backref='user', lazy=True)    # relationship
 
     def __repr__(self):
-        return 'User %r' % self.name   # This will be printed at the shell
+        return '%s' % self.name   # This will be printed at the shell
 
     def serialize(self):
         #role = Role.query.filter_by(id=self.role_id).first() 
@@ -60,10 +60,11 @@ class Valla(db.Model):
         return '<Valla %r>' % self.code
 
     def serialize(self):
-         client = Client.query.filter_by(id=self.client_id).first() 
-         owner = Owner.query.filter_by(id=self.owner_id).first() 
-         order = Order.query.filter_by(id=self.owner_id).first() 
-         user = User.query.filter_by(id=self.user_id).first() 
+        #  client = Client.query.filter_by(id=self.client_id).first() 
+        #  owner = Owner.query.filter_by(id=self.owner_id).first() 
+        #  order = Order.query.filter_by(id=self.owner_id).first() 
+        #  user = User.query.filter_by(id=self.user_id).first() 
+        #  owner_name = Owner.query.filter_by(id=self.id).first()
          
          return  {
             "id": self.id,
@@ -84,7 +85,8 @@ class Valla(db.Model):
             "client_id": self.client_id,
             "user_id": self.user_id,
             "order_id": self.order_id,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            
         }
         
                                             
@@ -101,7 +103,7 @@ class Owner(db.Model):
     vallas= db.relationship('Valla', backref='owner', lazy=True)    # relationship
     
     def __repr__(self):
-        return '<%r>' % self.name
+        return '%s' % self.name
     
     def serialize(self):
         return {
@@ -129,7 +131,7 @@ class Client(db.Model):
     orders= db.relationship('Order', backref='client', lazy=True)    # relationship
     
     def __repr__(self):
-        return '<%r>' % self.name
+        return '%s' % self.name
     
     def serialize(self):
         return {
@@ -156,7 +158,7 @@ class Order(db.Model):
     payments= db.relationship('Payment', backref='order', lazy=True)    # relationship
     
     def __repr__(self):
-        return '<Order %r>' % self.id
+        return ' %r' % self.id
     
     def serialize(self):
         return {
