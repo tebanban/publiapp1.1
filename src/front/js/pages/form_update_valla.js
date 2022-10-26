@@ -10,6 +10,9 @@ export const FormUpdateValla = () => {
   const params = useParams(); //////////////////////////// get  valla id from the URL
   const id = params.id; ////////////////////////////////// store valla id as a variable
   console.log("this is the id: " + id);
+  const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
+  const dataClients = store.allClients;
+  const dataUsers = store.allUsers;
 
   useEffect(() => {
     /////////////////////////////////////// send valla id to the flux when loading
@@ -58,11 +61,7 @@ export const FormUpdateValla = () => {
 
   return (
     <Form className="form">
-      <Stack
-        direction="horizontal"
-        gap={2}
-        className="mx-auto justify-content-center"
-      >
+      <Stack direction="horizontal" gap={2} className="mx-auto justify-content-center">
         <Card className="rounded">
           <Card.Img src={vallaPhoto} style={{ width: "15rem" }} />
         </Card>
@@ -109,12 +108,7 @@ export const FormUpdateValla = () => {
           Tipo<span className="text-danger "> *</span>
         </Form.Label>
         <div className="col-md-10">
-          <select
-            className="form-control"
-            id="typology"
-            name="typology"
-            onChange={handleInputChange}
-          >
+          <select className="form-control" id="typology" name="typology" onChange={handleInputChange}>
             <option value={singleValla.typology}>{singleValla.typology}</option>
             <option value="unipolar2">Unipolar 2 caras</option>
             <option value="unipolar1">Unipolar 1 cara</option>
@@ -126,12 +120,7 @@ export const FormUpdateValla = () => {
           Horiz/Vert<span className="text-danger "> *</span>
         </Form.Label>
         <div className="col-md-10">
-          <select
-            className="form-control"
-            id="layout"
-            name="layout"
-            onChange={handleInputChange}
-          >
+          <select className="form-control" id="layout" name="layout" onChange={handleInputChange}>
             <option value={singleValla.layout}>{singleValla.layout}</option>
             <option value="horizontal">Horizontal</option>
             <option value="vertical">Vertical</option>
@@ -143,12 +132,7 @@ export const FormUpdateValla = () => {
           Dimensiones<span className="text-danger "> *</span>
         </Form.Label>
         <div className="col-md-10">
-          <select
-            className="form-control"
-            id="size"
-            name="size"
-            onChange={handleInputChange}
-          >
+          <select className="form-control" id="size" name="size" onChange={handleInputChange}>
             <option value={singleValla.size}>{singleValla.size}</option>
             <option value="8.50 x 11.00 m">8.50 x 11.00 m</option>
             <option value="7.20 x 9.00 m">7.20 x 9.00 m</option>
@@ -160,12 +144,7 @@ export const FormUpdateValla = () => {
           Ilumninación<span className="text-danger "> *</span>
         </Form.Label>
         <div className="col-md-10">
-          <select
-            className="form-control"
-            id="light"
-            name="light"
-            onChange={handleInputChange}
-          >
+          <select className="form-control" id="light" name="light" onChange={handleInputChange}>
             <option value={singleValla.light}>{singleValla.light}</option>
             <option value="Yes">Si</option>
             <option value="No">No</option>
@@ -258,64 +237,54 @@ export const FormUpdateValla = () => {
           />
         </div>
       </Form.Group>
+
       <Form.Group className="form-group my-2">
-        <Form.Label htmlFor="user_id" className="col-md-2 control-label">
+        <label htmlFor="user_id" className="col-md-2 control-label">
           Usuario<span className="text-danger "> *</span>
-        </Form.Label>
+        </label>
         <div className="col-md-10">
-          <select
-            className="form-control"
-            id="user_id"
-            name="user_id"
-            onChange={handleInputChange}
-          >
-            <option defaultValue={singleValla.user_id}>
-              {singleValla.user_id}
-            </option>
-            <option></option>
+          <select className="form-control" id="user_id" name="user_id" onChange={handleInputChange}>
+            <option defaultValue="">{singleValla.user_id}</option>
+            {dataUsers.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
           </select>
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <Form.Label htmlFor="client_id" className="col-md-2 control-label">
+        <label htmlFor="client_id" className="col-md-2 control-label">
           Cliente<span className="text-danger "> *</span>
-        </Form.Label>
+        </label>
         <div className="col-md-10">
-          <select
-            className="form-control"
-            id="client_id"
-            name="client_id"
-            onChange={handleInputChange}
-          >
-            <option defaultValue={singleValla.client_id}>
-              {singleValla.client_id}
-            </option>
+          <select className="form-control" id="client_id" name="client_id" onChange={handleInputChange}>
+            <option defaultValue="">{singleValla.client_id}</option>
+            {dataClients.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
           </select>
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
-        <Form.Label htmlFor="owner_id" className="col-md-2 control-label">
+        <label htmlFor="owner_id" className="col-md-2 control-label">
           Propietario<span className="text-danger "> *</span>
-        </Form.Label>
+        </label>
         <div className="col-md-10">
-          <select
-            className="form-control"
-            id="owner_id"
-            name="owner_id"
-            onChange={handleInputChange}
-          >
-            <option defaultValue={singleValla.owner_id}>
-              {singleValla.owner_id}
-            </option>
+          <select className="form-control" id="owner_id" name="owner_id" onChange={handleInputChange}>
+            <option defaultValue="">{singleValla.owner_id}</option>
+            {dataOwners.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
           </select>
         </div>
       </Form.Group>
 
-      <Stack
-        direction="horizontal"
-        gap={2}
-        className="mx-auto justify-content-center"
-      >
+      <Stack direction="horizontal" gap={2} className="mx-auto justify-content-center">
         <Button variant="primary" onClick={submitSingleValla}>
           Actualizar
         </Button>
