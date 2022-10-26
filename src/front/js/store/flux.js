@@ -87,11 +87,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       //////////////////////////////////////////////////////////////////////////// SYNC TOKEN
       syncTokenFromSessionStorage: () => {
         const token = sessionStorage.getItem("token");
-        console.log(
-          "App just Loaded, synching token from SessionStorage to store"
-        );
-        if (token && token != "" && token != undefined)
-          setStore({ token: token });
+        console.log("App just Loaded, synching token from SessionStorage to store");
+        if (token && token != "" && token != undefined) setStore({ token: token });
       },
       //////////////////////////////////////////////////////////////////////// GET CURRENT USER
       getCurrentUser: () => {
@@ -108,20 +105,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ current_user: data.name, current_user_data: data }),
               console.log("The current user email is: " + data.email);
           })
-          .catch((error) =>
-            console.log("Error loading current_user from backend", error)
-          );
+          .catch((error) => console.log("Error loading current_user from backend", error));
       },
 
       //////////////////////////////////////////////////////////////////////// Is Auth
       isAuthStatus: () => {
         const store = getStore();
         const status = "standardUser";
-        if (
-          store.current_user &&
-          store.current_user != null &&
-          store.current_user != undefined
-        ) {
+        if (store.current_user && store.current_user != null && store.current_user != undefined) {
           setStore({ isAuth: status });
         }
         console.log("her goes isAuth function", status);
@@ -213,11 +204,31 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log(data), setStore({ updatedValla: data });
           })
-          .catch((error) =>
-            console.log("Error when updating single valla", error)
-          );
+          .catch((error) => console.log("Error when updating single valla", error));
       },
-      ///////////////////////////////////////////////////////////////////POST new valla
+
+      ///////////////////////////////////////////////////////////////////////// UPDATE single valla File
+      updateVallaFile: (id, files) => {
+        const store = getStore();
+        const body = new FormData();
+        body.append(picture_url, files[0]);
+        const options = {
+          body,
+          method: "PUT",
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success", data), setStore({ updatedValla: data });
+          })
+          .catch((error) => console.log("Error when updating single valla", error));
+      },
+
+      //////////////////////////////////////////////////////////////////////// POST new valla
       postNewValla: (
         code,
         name,
@@ -263,10 +274,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log(data), setStore({ newValla: data });
           })
-          .catch((error) =>
-            console.log("Error when registering new valla", error)
-          );
+          .catch((error) => console.log("Error when registering new valla", error));
       },
+
       ///////////////////////////////////////////////////////////////////////////////GET ALL owners table
       getOwners: () => {
         fetch(process.env.BACKEND_URL + "/api/owner")
@@ -304,9 +314,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/hello")
           .then((resp) => resp.json())
           .then((data) => setStore({ message: data.message }))
-          .catch((error) =>
-            console.log("Error loading message from backend", error)
-          );
+          .catch((error) => console.log("Error loading message from backend", error));
       },
     },
   };

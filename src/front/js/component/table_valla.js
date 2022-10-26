@@ -122,7 +122,7 @@ export const Table_valla = () => {
 
       <button className="btn btn-primary" onClick={handleShow}>
         {" "}
-        + Crear Valla{" "}
+        + Nueva Valla{" "}
       </button>
 
       {/* <DataGridx /> */}
