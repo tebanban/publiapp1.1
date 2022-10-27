@@ -20,6 +20,8 @@ cloudinary = "*"
 flask-admin = "*"
 mysqlclient = "*"
 flask-jwt-extended = "*"
+werkzeug = "*"
+cloudinary-cli = "*"
 
 [requires]
 python_version = "3.8"

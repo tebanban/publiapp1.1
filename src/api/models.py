@@ -2,13 +2,14 @@ from enum import unique
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), unique=False, nullable=False) 
     email = db.Column(db.String(120), unique=True, nullable=False) 
-    password = db.Column(db.String(10), unique=False, nullable=False)
+    password = db.Column(db.String(120), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
     role = db.Column(db.String(12), unique=False, nullable=False)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
@@ -18,7 +19,7 @@ class User(db.Model):
     orders= db.relationship('Order', backref='user', lazy=True)    # relationship
 
     def __repr__(self):
-        return 'User %r' % self.name   # This will be printed at the shell
+        return '%s' % self.name   # This will be printed at the shell
 
     def serialize(self):
         #role = Role.query.filter_by(id=self.role_id).first() 
@@ -31,6 +32,7 @@ class User(db.Model):
             "modified_on": self.modified_on
             # do not serialize the password, its a security breach
         }
+   
 
 class Valla(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -46,7 +48,8 @@ class Valla(db.Model):
     route = db.Column(db.String(150), unique=False, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     comment = db.Column(db.String (200), unique=False, nullable=True) 
-    status = db.Column(db.String(20), default= 'disponible', nullable=False)
+    status = db.Column(db.String(20), nullable=False)
+    picture_url = db.Column(db.String(250), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
@@ -58,10 +61,11 @@ class Valla(db.Model):
         return '<Valla %r>' % self.code
 
     def serialize(self):
-         client = Client.query.filter_by(id=self.client_id).first() 
-         owner = Owner.query.filter_by(id=self.owner_id).first() 
-         order = Order.query.filter_by(id=self.owner_id).first() 
-         user = User.query.filter_by(id=self.user_id).first() 
+        #  client = Client.query.filter_by(id=self.client_id).first() 
+        #  owner = Owner.query.filter_by(id=self.owner_id).first() 
+        #  order = Order.query.filter_by(id=self.owner_id).first() 
+        #  user = User.query.filter_by(id=self.user_id).first() 
+        #  owner_name = Owner.query.filter_by(id=self.id).first()
          
          return  {
             "id": self.id,
@@ -78,11 +82,13 @@ class Valla(db.Model):
             "modified_on": self.modified_on,
             "comment": self.comment,
             "status": self.status,
+            "pictur_url":self.picture_url,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
             "user_id": self.user_id,
             "order_id": self.order_id,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            
         }
         
                                             
@@ -99,7 +105,7 @@ class Owner(db.Model):
     vallas= db.relationship('Valla', backref='owner', lazy=True)    # relationship
     
     def __repr__(self):
-        return '<%r>' % self.name
+        return '%s' % self.name
     
     def serialize(self):
         return {
@@ -127,7 +133,7 @@ class Client(db.Model):
     orders= db.relationship('Order', backref='client', lazy=True)    # relationship
     
     def __repr__(self):
-        return '<%r>' % self.name
+        return '%s' % self.name
     
     def serialize(self):
         return {
@@ -154,7 +160,7 @@ class Order(db.Model):
     payments= db.relationship('Payment', backref='order', lazy=True)    # relationship
     
     def __repr__(self):
-        return '<Order %r>' % self.id
+        return ' %r' % self.id
     
     def serialize(self):
         return {

@@ -4,12 +4,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: null,
       token: null || sessionStorage.getItem("token"),
       current_user: null,
+      current_user_data: [],
       isAuth: null,
 
       allVallas: [],
       singleValla: {
         code: "",
         name: "",
+        status: "",
         typology: "",
         layout: "",
         size: "",
@@ -31,6 +33,29 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
     actions: {
+      /////////////////////////////////////////////////////////////////  REGISTER USER
+
+      register: (name, email, password, role) => {
+        fetch(process.env.BACKEND_URL + "/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            role: role,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Register data from the backend: ", data);
+          })
+          .then(() => window.location.reload()) // this reloads the home page to show the current user
+          .catch((error) => console.log("Error when register", error));
+      },
+
       /////////////////////////////////////////////////////////////////  LOG IN
 
       login: (email, password) => {
@@ -78,8 +103,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/private", options)
           .then((resp) => resp.json())
           .then((data) => {
-            setStore({ current_user: data.logged_in_as }),
-              console.log("The current user is: " + data.logged_in_as);
+            setStore({ current_user: data.name, current_user_data: data }),
+              console.log("The current user email is: " + data.email);
           })
           .catch((error) => console.log("Error loading current_user from backend", error));
       },
@@ -138,6 +163,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         id,
         code,
         name,
+        status,
         typology,
         layout,
         size,
@@ -161,6 +187,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify({
             code: code,
             name: name,
+            status: status,
             typology: typology,
             layout: layout,
             size: size,
@@ -182,10 +209,33 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("Error when updating single valla", error));
       },
-      ///////////////////////////////////////////////////////////////////POST new valla
+
+      ///////////////////////////////////////////////////////////////////////// UPDATE single valla File
+      updateVallaFile: (id, files) => {
+        const store = getStore();
+        const body = new FormData();
+        body.append(picture_url, files[0]);
+        const options = {
+          body,
+          method: "PUT",
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success", data), setStore({ updatedValla: data });
+          })
+          .catch((error) => console.log("Error when updating single valla", error));
+      },
+
+      //////////////////////////////////////////////////////////////////////// POST new valla
       postNewValla: (
         code,
         name,
+        status,
         typology,
         layout,
         size,
@@ -209,6 +259,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify({
             code: code,
             name: name,
+            status: status,
             typology: typology,
             layout: layout,
             size: size,
@@ -230,6 +281,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("Error when registering new valla", error));
       },
+
       ///////////////////////////////////////////////////////////////////////////////GET ALL owners table
       getOwners: () => {
         fetch(process.env.BACKEND_URL + "/api/owner")

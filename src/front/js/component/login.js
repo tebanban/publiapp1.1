@@ -10,7 +10,6 @@ export const Login = () => {
   const token = store.token;
 
   const current_user = store.current_user;
-  const isAuth = store.isAuth;
 
   const login = () => {
     actions.login(email, password);
@@ -20,7 +19,7 @@ export const Login = () => {
     <div className="text-center my-3">
       {token && token != "" && token != "undefined" ? (
         <p className="text-danger">
-          Usted ha iniciado sesión con el usuario: {current_user} as {isAuth}
+          Usted ha iniciado sesión con el usuario: {current_user}
         </p>
       ) : (
         <Form className="form-login p-4 rounded">

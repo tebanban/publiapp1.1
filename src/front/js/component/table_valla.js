@@ -2,11 +2,20 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
-import { Col, Row, Form, Table } from "react-bootstrap";
+import { Col, Row, Form, Table, Modal, Button } from "react-bootstrap";
+import { FormNewValla } from "../component/form_new_valla";
 
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
+
+  // Modal here:
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
+  const dataClients = store.allClients;
+  const dataUsers = store.allUsers;
 
   //Filter by status
   const allVallas = store.allVallas.filter((index) => {
@@ -22,7 +31,7 @@ export const Table_valla = () => {
   return (
     <div>
       <div className="mx-2">
-        {/* Filters at the top................................................................... */}
+        {/* ...............................................................Filters at the top.... */}
 
         <Row className="mb-1">
           <Col md={4}>
@@ -36,14 +45,10 @@ export const Table_valla = () => {
           </Col>
           <Col md={4}>
             <Form.Group>
-              <select
-                onChange={(e) => setQuery(e.target.value)}
-                id="inputState"
-                className="form-control"
-              >
+              <select onChange={(e) => setQuery(e.target.value)} id="inputState" className="form-control">
                 <option defaultValue>Filtrar por estado...</option>
                 <option>Arrendada</option>
-                <option>Inactiva</option>
+                <option>Disponible</option>
                 <option>Reservada</option>
                 <option>Deshabilitada</option>
               </select>
@@ -67,7 +72,7 @@ export const Table_valla = () => {
 
         {/* Table content................................................................... */}
 
-        <Table>
+        <Table striped hover size="sm">
           <thead>
             <tr className="listheader  d-flex">
               <th className="col-1">Código</th>
@@ -87,11 +92,9 @@ export const Table_valla = () => {
                 <tr
                   key={index}
                   // This dinamically changes the background color of the row
-                  className={
-                    item.status === "Arrendada" ? "arrendada " : "disponible "
-                  }
+                  className={item.status === "Arrendada" ? "arrendada " : "disponible "}
                 >
-                  <td className="col-1 codeButton">
+                  <td className="col-1 ">
                     <Link to={"/FormUpdateValla/" + item.id}>
                       <span>{item.code}</span>
                     </Link>
@@ -100,10 +103,14 @@ export const Table_valla = () => {
                   <td className="col-2">{item.route}</td>
                   <td className="col-2">{item.view}</td>
                   <td className="col-1">{item.layout}</td>
-                  <td className="col-1">{item.tipology}</td>
+                  <td className="col-1">{item.typology}</td>
                   <td className="col-1">{item.status}</td>
-                  <td className="col-1">{item.client_id}</td>
-                  <td className="col-1">{item.owner_id}</td>
+                  <td className="col-1">
+                    {dataClients.map((element, index) => (element.id == item.client_id ? element.name : ""))}
+                  </td>
+                  <td className="col-1">
+                    {dataOwners.map((element, index) => (element.id == item.owner_id ? element.name : ""))}
+                  </td>
                 </tr>
               );
             })}
@@ -111,10 +118,20 @@ export const Table_valla = () => {
         </Table>
       </div>
       <br />
+      <Modal size="lg" show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Crear Nueva Valla</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FormNewValla />
+        </Modal.Body>
+      </Modal>
 
-      <Link to="/formNewValla">
-        <button className="btn btn-primary"> + Crear Valla </button>
-      </Link>
+      <button className="btn btn-primary" onClick={handleShow}>
+        {" "}
+        + Nueva Valla{" "}
+      </button>
+
       {/* <DataGridx /> */}
     </div>
   );

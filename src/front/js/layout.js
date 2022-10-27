@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
+import { Register } from "./component/register";
 import { App } from "./pages/app";
 import { Demo } from "./pages/demo";
 import { Sitedetail } from "./pages/sitedetail";
@@ -12,7 +13,6 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
 import Dashboard from "./pages/dashboard";
-import { FormNewValla } from "./pages/form_new_valla";
 import { FormUpdateValla } from "./pages/form_update_valla";
 import { Context } from "./store/appContext";
 
@@ -33,13 +33,11 @@ const Layout = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
             <Route exact path="/demo" component={Demo} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/app">
               {!token ? <Redirect to="/" /> : <App />}
-            </Route>
-            <Route exact path="/formNewValla">
-              {!token ? <Redirect to="/" /> : <FormNewValla />}
             </Route>
             <Route exact path="/formUpdateValla/:id">
               {!token ? <Redirect to="/" /> : <FormUpdateValla />}
