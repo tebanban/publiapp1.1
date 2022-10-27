@@ -48,7 +48,7 @@ class Valla(db.Model):
     route = db.Column(db.String(150), unique=False, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     comment = db.Column(db.String (200), unique=False, nullable=True) 
-    status = db.Column(db.String(20), default= 'disponible', nullable=False)
+    status = db.Column(db.String(20), nullable=False)
     picture_url = db.Column(db.String(250), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK

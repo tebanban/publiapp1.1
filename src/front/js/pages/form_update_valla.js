@@ -37,6 +37,7 @@ export const FormUpdateValla = () => {
       id,
       editValla.code,
       editValla.name,
+      editValla.status,
       editValla.typology,
       editValla.layout,
       editValla.size,
@@ -86,6 +87,7 @@ export const FormUpdateValla = () => {
           />
         </div>
       </Form.Group>
+
       <Form.Group className="form-group my-2">
         <Form.Label htmlFor="name" className="col-md-2 control-label">
           Nombre<span className="text-danger "> *</span>
@@ -101,6 +103,20 @@ export const FormUpdateValla = () => {
             type="text"
             onChange={handleInputChange}
           />
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <Form.Label htmlFor="status" className="col-md-2 control-label">
+          Estatus<span className="text-danger "> *</span>
+        </Form.Label>
+        <div className="col-md-10">
+          <select className="form-control" id="status" name="status" onChange={handleInputChange}>
+            <option value={singleValla.status}>{singleValla.status}</option>
+            <option value="disponible">Disponible</option>
+            <option value="arrendada">Arrendada</option>
+            <option value="reservada">Reservada</option>
+            <option value="deshabilitada">Deshabilitada</option>
+          </select>
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">

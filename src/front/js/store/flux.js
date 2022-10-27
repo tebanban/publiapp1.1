@@ -11,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       singleValla: {
         code: "",
         name: "",
+        status: "",
         typology: "",
         layout: "",
         size: "",
@@ -162,6 +163,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         id,
         code,
         name,
+        status,
         typology,
         layout,
         size,
@@ -185,6 +187,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify({
             code: code,
             name: name,
+            status: status,
             typology: typology,
             layout: layout,
             size: size,
@@ -232,6 +235,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       postNewValla: (
         code,
         name,
+        status,
         typology,
         layout,
         size,
@@ -255,6 +259,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify({
             code: code,
             name: name,
+            status: status,
             typology: typology,
             layout: layout,
             size: size,

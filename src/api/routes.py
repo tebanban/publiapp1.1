@@ -122,6 +122,8 @@ def get_single_valla(id):
             valla.code = request.json.get('code', None)
         if "name" in request.json:
             valla.name = request.json.get('name', None)  
+        if "status" in request.json:
+            valla.status = request.json.get('status', None)  
         if "typology" in request.json:    
             valla.typology = request.json.get('typology', None)
         if "layout" in request.json:
@@ -182,6 +184,7 @@ def create_single_valla():
         
         valla.code = request.json.get('code', None) 
         valla.name = request.json.get('name', None)  
+        valla.status = request.json.get('status', None)  
         valla.typology = request.json.get('typology', None)
         valla.layout = request.json.get('layout', None) 
         valla.size = request.json.get('size', None) 
