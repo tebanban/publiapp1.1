@@ -1,38 +1,65 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, flash
 from api.models import db, User, Valla, Client, Owner, Order, Payment
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from werkzeug.security import generate_password_hash, check_password_hash
+import cloudinary
 
 api = Blueprint('api', __name__)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
-###################################################################### POST TOKEN 
+###################################################################### POST TOKEN  (LOG IN)
 @api.route("/token", methods=["POST"])
 def get_token():
     email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    if email != "test" or password != "test":
-        return jsonify({"msg": "Incorrect email or password"}), 401
+    passwd = request.json.get("password", None)
+
+    user = User.query.filter_by(email=email).one_or_none()
+  
+    if not user:
+        return jsonify({"msg": "Tebanban: Email non existent" }), 401
+    elif not check_password_hash( user.password, passwd) :       
+        return jsonify({"msg": "Tebanban: Incorrect  password" }), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
-
-#################################################################### GET CURRENT_USER 
+    return jsonify( access_token=access_token ) 
+    #################################################################### GET CURRENT_USER 
 @api.route('/private', methods=['GET'])
 @jwt_required()
 def getCurrentUSer():
 
-    
-    # Access the identity of the current user with get_jwt_identity
+    # Access the identity of the current user with get_jwt_identity.
+    # The argument is the identity that was used when creating a JWT.
     current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+    user = User.query.filter_by(email = current_user).first()
+    #return current user data:
+    return jsonify(user.serialize()), 200
 
+#######################################################################  REGISTER NEW USER
+@api.route("/register", methods=["POST"])
+def register_user():
+    email = request.json.get("email", None)
+    passwd = request.json.get("password" , None)
+    name = request.json.get("name" , None)
+    role = request.json.get("role" , None)
+    
+    user = User.query.filter_by(email=email).one_or_none()
+
+    if user:
+        return jsonify(({"msg": "User already exist"})), 401
+    
+    new_user = User(email=email, name=name, role=role, password=generate_password_hash(passwd, method='sha256'))
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify(({"msg": "Tebanban: User succesfully created"}, new_user.serialize())) ,200
 
 #################################################################### Get all users 
 
@@ -43,7 +70,7 @@ def get_all_users():
         all_users = list(map(lambda x: x.serialize(), all_users)) #Returns a list of dictionaries
         return jsonify(all_users), 200  # list object has no attribute 'serialize'
 
-################################################################### Handle single user: 
+################################################################### GET and UPDATE  single user: 
     
 @api.route("/user/<int:id>", methods=["GET", "PUT"])  
 # @jwt_required()
@@ -55,11 +82,11 @@ def get_single_user(id):
 
     if request.method == "PUT":
         user= User.query.get(id)
-        user.name= request.json["name"]
-        user.email= request.json["email"]
-        user.is_active= request.json["is_active"]
-        user.role= request.json["role"]
-        user.modified_on= request.json["modified_on"]
+        user.name= request.json.get("name", None)
+        user.email= request.json.get["email", None]
+        user.is_active= request.json.get["is_active", None]
+        user.role= request.json.get["role", None]
+        user.modified_on= request.json.get["modified_on", None]
         
 
         db.session.commit()
@@ -84,7 +111,7 @@ def get_single_valla(id):
         single_valla = Valla.query.get(id)
         return jsonify(single_valla.serialize()), 200
     
-    ############################################################### UPDATE single Valla
+    #################################################################### UPDATE single Valla
     if request.method == 'PUT':   
         valla = Valla.query.get(id)
 
@@ -92,38 +119,46 @@ def get_single_valla(id):
             raise APIException("valla not found", status_code=404)
         
         if "code" in request.json:
-            valla.code = request.json['code']
+            valla.code = request.json.get('code', None)
         if "name" in request.json:
-            valla.name = request.json['name']  
+            valla.name = request.json.get('name', None)  
+        if "status" in request.json:
+            valla.status = request.json.get('status', None)  
         if "typology" in request.json:    
-            valla.typology = request.json['typology']
+            valla.typology = request.json.get('typology', None)
         if "layout" in request.json:
-            valla.layout = request.json['layout']
+            valla.layout = request.json.get('layout', None)
         if "size" in request.json: 
-            valla.size = request.json['size'] 
+            valla.size = request.json.get('size', None) 
         if "light" in request.json:
-            valla.light = request.json['light']
+            valla.light = request.json.get('light', None)
         if "price_low" in request.json:
-            valla.price_low = request.json['price_low']
+            valla.price_low = request.json.get('price_low', None)
         if "price_high" in request.json:
-            valla.price_high = request.json['price_high']
+            valla.price_high = request.json.get('price_high', None)
         if "view" in request.json:
-            valla.view = request.json['view']
+            valla.view = request.json.get('view', None)
         if "route" in request.json:
-            valla.route = request.json['route']
+            valla.route = request.json.get('route', None)
         if "comment" in request.json:
-            valla.comment = request.json['comment']
+            valla.comment = request.json.get('comment', None)
         if "owner_id" in request.json:
-            valla.owner_id = request.json['owner_id'] 
+            valla.owner_id = request.json.get('owner_id', None) 
         if "client_id" in request.json:
-            valla.client_id = request.json['client_id']
+            valla.client_id = request.json.get('client_id', None)
         if "user_id" in request.json:
-            valla.user_id = request.json['user_id']   
-
-        
+            valla.user_id = request.json.get('user_id', None) 
+        if "picture_url" in request.files:
+            # upload file to cloudinary
+            result = cloudinary.uploader.upload(request.files['picture_url'])
+            # update the user with the given cloudinary image URL
+            valla.picture_url = result['secure_url']
+            
+        db.session.add(valla)
         db.session.commit()
         return jsonify(valla.serialize()), 200
-
+    else:
+        raise APIException('Tebanban: error ...')
 #####################################################################   Delete single Valla 
 @api.route("/valla/<int:id>", methods= ["DELETE"])
 @jwt_required()
@@ -139,7 +174,7 @@ def delete_single_valla(id):
 
 
 
-#####################################################################   Create single valla  
+#####################################################################   POST single valla  
 
 @api.route("/valla/", methods=["POST"]) 
 @jwt_required() 
@@ -147,19 +182,20 @@ def create_single_valla():
     
         valla = Valla()
         
-        valla.code = request.json['code'] 
-        valla.name = request.json['name']  
-        valla.typology = request.json['typology']
-        valla.layout = request.json['layout'] 
-        valla.size = request.json['size'] 
-        valla.light = request.json['light']
-        valla.price_low = request.json['price_low']
-        valla.price_high = request.json['price_high']
-        valla.view = request.json['view']
-        valla.route = request.json['route']
-        valla.comment = request.json['comment']
-        valla.owner_id = request.json['owner_id']
-        valla.client_id = request.json['client_id']
+        valla.code = request.json.get('code', None) 
+        valla.name = request.json.get('name', None)  
+        valla.status = request.json.get('status', None)  
+        valla.typology = request.json.get('typology', None)
+        valla.layout = request.json.get('layout', None) 
+        valla.size = request.json.get('size', None) 
+        valla.light = request.json.get('light', None)
+        valla.price_low = request.json.get('price_low', None)
+        valla.price_high = request.json.get('price_high', None)
+        valla.view = request.json.get('view', None)
+        valla.route = request.json.get('route', None)
+        valla.comment = request.json.get('comment', None)
+        valla.owner_id = request.json.get('owner_id', None)
+        valla.client_id = request.json.get('client_id', None)
        
         db.session.add(valla)   
         db.session.commit()
