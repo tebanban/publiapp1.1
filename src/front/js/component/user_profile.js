@@ -18,6 +18,9 @@ export const UserProfile = () => {
 
     actions.updateUser(id, editUser.name, editUser.email, editUser.password);
   };
+  const deleteUser = () => {
+    actions.deleteUser(current_user_data.id);
+  };
 
   return (
     <Form className="form">
@@ -66,6 +69,9 @@ export const UserProfile = () => {
 
       <Button variant="primary" onClick={submitUser}>
         Actualizar
+      </Button>
+      <Button variant="danger" className="mx-3" onClick={deleteUser}>
+        Eliminar cuenta
       </Button>
     </Form>
   );

@@ -56,6 +56,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error when register", error));
       },
 
+      ///////////////////////////////////////////////////////////////////////DELETE User
+      deleteUser: (id) => {
+        const store = getStore();
+        const options = {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/user/" + id, options)
+          .then((res) => res.json())
+          .catch((error) => console.log("Flux:Error deleting user", error));
+      },
+
       /////////////////////////////////////////////////////////////////  LOG IN
 
       login: (email, password) => {

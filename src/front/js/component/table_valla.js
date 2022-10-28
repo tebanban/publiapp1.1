@@ -45,7 +45,11 @@ export const Table_valla = () => {
           </Col>
           <Col md={4}>
             <Form.Group>
-              <select onChange={(e) => setQuery(e.target.value)} id="inputState" className="form-control">
+              <select
+                onChange={(e) => setQuery(e.target.value)}
+                id="inputState"
+                className="form-control"
+              >
                 <option defaultValue>Filtrar por estado...</option>
                 <option>Arrendada</option>
                 <option>Disponible</option>
@@ -72,7 +76,7 @@ export const Table_valla = () => {
 
         {/* Table content................................................................... */}
 
-        <Table striped hover size="sm">
+        <Table striped hover size="sm" className="table">
           <thead>
             <tr className="listheader  d-flex">
               <th className="col-1">Código</th>
@@ -82,8 +86,8 @@ export const Table_valla = () => {
               <th className="col-1">Horiz/Vert</th>
               <th className="col-1">Tipo</th>
               <th className="col-1">Status</th>
-              <th className="col-1">Cliente Id</th>
-              <th className="col-1">Propietario Id</th>
+              <th className="col-1">Cliente</th>
+              <th className="col-1">Arrendador</th>
             </tr>
           </thead>
           <tbody>
@@ -106,10 +110,14 @@ export const Table_valla = () => {
                   <td className="col-1">{item.typology}</td>
                   <td className="col-1">{item.status}</td>
                   <td className="col-1">
-                    {dataClients.map((element, index) => (element.id == item.client_id ? element.name : ""))}
+                    {dataClients.map((element, index) =>
+                      element.id == item.client_id ? element.name : ""
+                    )}
                   </td>
                   <td className="col-1">
-                    {dataOwners.map((element, index) => (element.id == item.owner_id ? element.name : ""))}
+                    {dataOwners.map((element, index) =>
+                      element.id == item.owner_id ? element.name : ""
+                    )}
                   </td>
                 </tr>
               );

@@ -43,6 +43,10 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
+.table {
+  font-size: small;
+}
+
 .navbar {
   position: relative;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
@@ -58,7 +62,7 @@ body {
 }
 
 .form {
-  width: 90%;
+  width: 80%;
   margin: auto;
 }
 

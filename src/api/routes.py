@@ -92,6 +92,20 @@ def get_single_user(id):
         db.session.commit()
         return jsonify(user.serialize()), 200
 
+#####################################################################   Delete single User 
+@api.route("/user/<int:id>", methods= ["DELETE"])
+@jwt_required()
+def delete_single_user(id):
+        user= User.query.get(id)
+
+        if user is None:
+            raise APIException("User not found", status_code=404)
+        
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify("The user was deleted", user.serialize()), 200
+
+
 ################################################################# Get all vallas
 
 @api.route("/valla/", methods=["GET"])   

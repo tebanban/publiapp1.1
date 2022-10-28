@@ -25,7 +25,6 @@ const Layout = () => {
 
   const token = store.token;
 
-
   return (
     <div className="d-flex flex-column h-100">
       <BrowserRouter basename={basename}>
@@ -37,13 +36,13 @@ const Layout = () => {
             <Route exact path="/demo" component={Demo} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/app">
-              {!token ? <Redirect to="/" /> : <App />}
+              {token == "undefined" || !token ? <Redirect to="/" /> : <App />}
             </Route>
             <Route exact path="/formUpdateValla/:id">
-              {!token ? <Redirect to="/" /> : <FormUpdateValla />}
+              {token == "undefined" || !token ? <Redirect to="/" /> : <FormUpdateValla />}
             </Route>
             <Route exact path="/sitedetail/:id">
-              {!token ? <Redirect to="/" /> : <Sitedetail />}{" "}
+              {token == "undefined" || !token ? <Redirect to="/" /> : <Sitedetail />}{" "}
             </Route>
             <Route path="*" component={Error404} />
           </Switch>
