@@ -18,10 +18,11 @@ export const FormNewValla = () => {
 
   const submitNewValla = (e) => {
     e.preventDefault();
-    console.log(dataValla.name, files);
+    console.log(dataValla.name);
     actions.postNewValla(
       dataValla.code,
       dataValla.name,
+      dataValla.status,
       dataValla.typology,
       dataValla.layout,
       dataValla.size,
@@ -61,6 +62,19 @@ export const FormNewValla = () => {
             type="text"
             onChange={handleInputChange}
           />
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="typology" className="col-md-3 control-label">
+          Estatus<span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-9">
+          <select className="form-control" id="status" name="status" onChange={handleInputChange}>
+            <option value="disponible">Disponible</option>
+            <option value="arrendada">Arrendada</option>
+            <option value="reservada">Reservada</option>
+            <option value="deshabilitada">Deshabilitada</option>
+          </select>
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
