@@ -119,7 +119,7 @@ def get_single_valla(id):
             raise APIException("valla not found", status_code=404)
         
         if "code" in request.json:
-            valla.code = request.json.get('code', None)
+            valla.code = request.json.get('code')
         if "name" in request.json:
             valla.name = request.json.get('name', None)  
         if "status" in request.json:
@@ -154,7 +154,7 @@ def get_single_valla(id):
             # update the user with the given cloudinary image URL
             valla.picture_url = result['secure_url']
             
-        db.session.add(valla)
+       
         db.session.commit()
         return jsonify(valla.serialize()), 200
     else:
@@ -174,32 +174,34 @@ def delete_single_valla(id):
 
 
 
-#####################################################################   POST single valla  
+#####################################################################   POST New valla  
 
 @api.route("/valla/", methods=["POST"]) 
 @jwt_required() 
-def create_single_valla():
+def create_new_valla():
     
         valla = Valla()
+        if not request.json['code'] or not request.json['name'] or not request.json['status'] or not request.json['typology']:
+            return jsonify('Please enter all the fields'), 200 
+        else:
+            valla.code = request.json.get('code') 
+            valla.name = request.json.get('name')  
+            valla.status = request.json.get('status')  
+            valla.typology = request.json.get('typology')
+            valla.layout = request.json.get('layout', None) 
+            valla.size = request.json.get('size', None) 
+            valla.light = request.json.get('light', None)
+            valla.price_low = request.json.get('price_low', None)
+            valla.price_high = request.json.get('price_high', None)
+            valla.view = request.json.get('view', None)
+            valla.route = request.json.get('route', None)
+            valla.comment = request.json.get('comment', None)
+            valla.owner_id = request.json.get('owner_id', None)
+            valla.client_id = request.json.get('client_id', None)
         
-        valla.code = request.json.get('code', None) 
-        valla.name = request.json.get('name', None)  
-        valla.status = request.json.get('status', None)  
-        valla.typology = request.json.get('typology', None)
-        valla.layout = request.json.get('layout', None) 
-        valla.size = request.json.get('size', None) 
-        valla.light = request.json.get('light', None)
-        valla.price_low = request.json.get('price_low', None)
-        valla.price_high = request.json.get('price_high', None)
-        valla.view = request.json.get('view', None)
-        valla.route = request.json.get('route', None)
-        valla.comment = request.json.get('comment', None)
-        valla.owner_id = request.json.get('owner_id', None)
-        valla.client_id = request.json.get('client_id', None)
-       
-        db.session.add(valla)   
-        db.session.commit()
-        return jsonify(valla.serialize()), 200
+            db.session.add(valla)   
+            db.session.commit()
+            return jsonify(valla.serialize()), 200
 
     
 ############################################################### Get all owners 
