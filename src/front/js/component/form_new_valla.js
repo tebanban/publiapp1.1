@@ -6,35 +6,35 @@ import { Form, Button, Stack } from "react-bootstrap";
 export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
 
-  const [dataValla, setDataValla] = useState();
+  const [inputDataValla, setInputDataValla] = useState();
   const [files, setFiles] = useState();
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
 
   const handleInputChange = (e) => {
-    setDataValla({ ...dataValla, [e.target.name]: e.target.value });
+    setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
   };
 
   const submitNewValla = (e) => {
     e.preventDefault();
-    console.log(dataValla.name);
+    console.log(inputDataValla.name);
     actions.postNewValla(
-      dataValla.code,
-      dataValla.name,
-      dataValla.status,
-      dataValla.typology,
-      dataValla.layout,
-      dataValla.size,
-      dataValla.light,
-      dataValla.price_low,
-      dataValla.price_high,
-      dataValla.view,
-      dataValla.route,
-      dataValla.comment,
-      dataValla.user_id,
-      dataValla.client_id,
-      dataValla.owner_id
+      inputDataValla.code,
+      inputDataValla.name,
+      inputDataValla.status,
+      inputDataValla.typology,
+      inputDataValla.layout,
+      inputDataValla.size,
+      inputDataValla.light,
+      inputDataValla.price_low,
+      inputDataValla.price_high,
+      inputDataValla.view,
+      inputDataValla.route,
+      inputDataValla.comment,
+      inputDataValla.user_id,
+      inputDataValla.client_id,
+      inputDataValla.owner_id
     );
   };
 
