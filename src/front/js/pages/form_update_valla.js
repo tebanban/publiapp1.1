@@ -124,7 +124,12 @@ export const FormUpdateValla = () => {
           Tipo<span className="text-danger "> *</span>
         </Form.Label>
         <div className="col-md-10">
-          <select className="form-control" id="typology" name="typology" onChange={handleInputChange}>
+          <select
+            className="form-control"
+            id="typology"
+            name="typology"
+            onChange={handleInputChange}
+          >
             <option value={singleValla.typology}>{singleValla.typology}</option>
             <option value="unipolar2">Unipolar 2 caras</option>
             <option value="unipolar1">Unipolar 1 cara</option>
@@ -260,7 +265,9 @@ export const FormUpdateValla = () => {
         </label>
         <div className="col-md-10">
           <select className="form-control" id="user_id" name="user_id" onChange={handleInputChange}>
-            <option defaultValue="">{dataUsers.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}</option>
+            <option defaultValue="">
+              {dataUsers.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
+            </option>
             {dataUsers.map((item, index) => (
               <option key={index} value={item.id}>
                 {item.name}
@@ -274,9 +281,16 @@ export const FormUpdateValla = () => {
           Cliente<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
-          <select className="form-control" id="client_id" name="client_id" onChange={handleInputChange}>
+          <select
+            className="form-control"
+            id="client_id"
+            name="client_id"
+            onChange={handleInputChange}
+          >
             <option defaultValue="">
-              {dataClients.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
+              {dataClients.map((item, index) =>
+                item.id == singleValla.client_id ? item.name : ""
+              )}
             </option>
             {dataClients.map((item, index) => (
               <option key={index} value={item.id}>
@@ -291,7 +305,12 @@ export const FormUpdateValla = () => {
           Propietario<span className="text-danger "> *</span>
         </label>
         <div className="col-md-10">
-          <select className="form-control" id="owner_id" name="owner_id" onChange={handleInputChange}>
+          <select
+            className="form-control"
+            id="owner_id"
+            name="owner_id"
+            onChange={handleInputChange}
+          >
             <option defaultValue="">
               {dataOwners.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
             </option>
@@ -301,6 +320,22 @@ export const FormUpdateValla = () => {
               </option>
             ))}
           </select>
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="file" className="col-md-2 control-label">
+          Fotografía
+        </label>
+        <div className="col-md-10">
+          <input
+            className="form-control"
+            id="file"
+            name="file"
+            type="file"
+            onChange={(e) => {
+              setFiles(e.target.files);
+            }}
+          />
         </div>
       </Form.Group>
 
