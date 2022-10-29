@@ -99,7 +99,7 @@ export const Table_valla = () => {
                   className={item.status === "Arrendada" ? "arrendada " : "disponible "}
                 >
                   <td className="col-1 ">
-                    <Link to={"/FormUpdateValla/" + item.id}>
+                    <Link to={"/DetailValla/" + item.id}>
                       <span>{item.code}</span>
                     </Link>
                   </td>

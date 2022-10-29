@@ -13,7 +13,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
 import Dashboard from "./pages/dashboard";
-import { FormUpdateValla } from "./pages/form_update_valla";
+import { DetailValla } from "./pages/detail_valla";
 import { Context } from "./store/appContext";
 
 //create your first component
@@ -38,8 +38,8 @@ const Layout = () => {
             <Route exact path="/app">
               {token == "undefined" || !token ? <Redirect to="/" /> : <App />}
             </Route>
-            <Route exact path="/formUpdateValla/:id">
-              {token == "undefined" || !token ? <Redirect to="/" /> : <FormUpdateValla />}
+            <Route exact path="/detailValla/:id">
+              {token == "undefined" || !token ? <Redirect to="/" /> : <DetailValla />}
             </Route>
             <Route exact path="/sitedetail/:id">
               {token == "undefined" || !token ? <Redirect to="/" /> : <Sitedetail />}{" "}

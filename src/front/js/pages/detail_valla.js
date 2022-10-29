@@ -4,9 +4,8 @@ import { Context } from "../store/appContext";
 import vallaPhoto from "../../img/SJ36-A_Garantias_Sociales.jpg";
 import { OverlayTrigger, Card } from "react-bootstrap";
 import { Form, Button, Stack, Popover, Container, Col, Row } from "react-bootstrap";
-import { fontSize, height } from "@mui/system";
 
-export const FormUpdateValla = () => {
+export const DetailValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams(); //////////////////////////// get  valla id from the URL
   const id = params.id; ////////////////////////////////// store valla id as a variable
@@ -63,23 +62,19 @@ export const FormUpdateValla = () => {
   );
 
   return (
-    <Container className="mt-3">
+    <Container className="py-4">
       <Row>
-        <Col>
-          <Stack direction="vertical" gap={2} className=" justify-content-center">
-            <h1 bg variant="danger">
-              {singleValla.code}
-            </h1>
-            <Card className="rounded">
-              <Card.Img src={vallaPhoto} style={{ width: "32rem" }} />
-            </Card>
-            <Card className="rounded">
-              <iframe
-                src="https://www.google.com/maps/d/embed?mid=13aMR2lXL4XA-igQkTlgOtssB09I&ehbc=2E312F"
-                style={{ width: "32rem", height: "20rem" }}
-              ></iframe>
-            </Card>
-          </Stack>
+        <Col className="text-center">
+          <h1 bg>{singleValla.code}</h1>
+          <div className="rounded">
+            <Card.Img src={vallaPhoto} style={{ width: "32rem" }} />
+          </div>
+          <div className="rounded">
+            <iframe
+              src="https://www.google.com/maps/d/embed?mid=13aMR2lXL4XA-igQkTlgOtssB09I&ehbc=2E312F"
+              style={{ width: "32rem", height: "22rem" }}
+            ></iframe>
+          </div>
         </Col>
         <Col>
           <Form className="form">
