@@ -14,6 +14,9 @@ export const DetailValla = () => {
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
   const [files, setFiles] = useState();
+  if (files) {
+    console.log(files[0]);
+  }
 
   useEffect(() => {
     /////////////////////////////////////// send valla id to the flux when loading
@@ -52,6 +55,7 @@ export const DetailValla = () => {
       inputDataValla.client_id,
       inputDataValla.owner_id
     );
+    actions.updateVallaFile(id, files);
   };
   const popover = (
     <Popover id="popover-basic">
@@ -65,7 +69,7 @@ export const DetailValla = () => {
     <Container className="py-4">
       <Row>
         <Col className="text-center">
-          <h1 bg>{singleValla.code}</h1>
+          <h1>{singleValla.code}</h1>
           <div className="rounded">
             <Card.Img src={vallaPhoto} style={{ width: "32rem" }} />
           </div>

@@ -12,7 +12,6 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
-import Dashboard from "./pages/dashboard";
 import { DetailValla } from "./pages/detail_valla";
 import { Context } from "./store/appContext";
 
@@ -34,7 +33,7 @@ const Layout = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/demo" component={Demo} />
-            <Route exact path="/dashboard" component={Dashboard} />
+
             <Route exact path="/app">
               {token == "undefined" || !token ? <Redirect to="/" /> : <App />}
             </Route>

@@ -8,7 +8,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
-import cloudinary
+import cloudinary.uploader
 
 api = Blueprint('api', __name__)
 
@@ -127,6 +127,7 @@ def get_single_valla(id):
     
     #################################################################### UPDATE single Valla
     if request.method == 'PUT':   
+    
         valla = Valla.query.get(id)
 
         if valla is None:
@@ -162,6 +163,26 @@ def get_single_valla(id):
             valla.client_id = request.json.get('client_id', None)
         if "user_id" in request.json:
             valla.user_id = request.json.get('user_id', None) 
+        
+            
+       
+        db.session.commit()
+        return jsonify(valla.serialize()), 200
+    else:
+        raise APIException('Tebanban: error ...')
+
+#################################################################### UPDATE single Valla File
+@api.route("/vallaFile/<int:id>", methods=["PUT"])  
+@jwt_required()
+def update_valla_file(id):
+
+    
+        valla = Valla.query.get(id)
+
+        if valla is None:
+            raise APIException("valla not found", status_code=404)
+        
+        
         if "picture_url" in request.files:
             # upload file to cloudinary
             result = cloudinary.uploader.upload(request.files['picture_url'])
@@ -171,8 +192,8 @@ def get_single_valla(id):
        
         db.session.commit()
         return jsonify(valla.serialize()), 200
-    else:
-        raise APIException('Tebanban: error ...')
+      
+
 #####################################################################   Delete single Valla 
 @api.route("/valla/<int:id>", methods= ["DELETE"])
 @jwt_required()

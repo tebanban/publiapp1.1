@@ -224,25 +224,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error when updating single valla", error));
       },
 
-      ///////////////////////////////////////////////////////////////////////// UPDATE single valla File
+      ///////////////////////////////////////////////////////////////////////// UPDATE  valla File
       updateVallaFile: (id, files) => {
         const store = getStore();
+        console.log("the files: ", files);
         const body = new FormData();
-        body.append(picture_url, files[0]);
+        body.append("picture_url", files[0]);
         const options = {
           body,
           method: "PUT",
           headers: {
-            // "Content-Type": "application/json",
             Authorization: "Bearer " + store.token,
           },
         };
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
+        fetch(process.env.BACKEND_URL + "/api/vallaFile/" + id, options)
           .then((response) => response.json())
           .then((data) => {
-            console.log("Success", data), setStore({ updatedValla: data });
+            console.log("Success", data);
           })
-          .catch((error) => console.log("Error when updating single valla", error));
+          .catch((error) => console.log("Error when updating single valla file", error));
       },
 
       //////////////////////////////////////////////////////////////////////// POST new valla
