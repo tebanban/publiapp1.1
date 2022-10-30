@@ -82,7 +82,7 @@ class Valla(db.Model):
             "modified_on": self.modified_on,
             "comment": self.comment,
             "status": self.status,
-            "pictur_url":self.picture_url,
+            "picture_url":self.picture_url,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
             "user_id": self.user_id,

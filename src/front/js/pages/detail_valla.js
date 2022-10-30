@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import vallaPhoto from "../../img/SJ36-A_Garantias_Sociales.jpg";
 import { OverlayTrigger, Card } from "react-bootstrap";
 import { Form, Button, Stack, Popover, Container, Col, Row } from "react-bootstrap";
 
@@ -13,7 +12,9 @@ export const DetailValla = () => {
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
+  console.log(vallaPhoto);
   const [files, setFiles] = useState();
+
   if (files) {
     console.log(files[0]);
   }
@@ -33,7 +34,7 @@ export const DetailValla = () => {
   const handleInputChange = (e) => {
     setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
   };
-
+  const vallaPhoto = singleValla.picture_url;
   const submitSingleValla = (e) => {
     e.preventDefault();
 
@@ -68,12 +69,12 @@ export const DetailValla = () => {
   return (
     <Container className="py-4">
       <Row>
-        <Col className="text-center">
+        <Col className="pictureBox">
           <h1>{singleValla.code}</h1>
-          <div className="rounded">
-            <Card.Img src={vallaPhoto} style={{ width: "32rem" }} />
+          <div className="rounded my-3">
+            <Card.Img src={singleValla.picture_url} style={{ width: "32rem", height: "22rem" }} />
           </div>
-          <div className="rounded">
+          <div className="rounded mb-0">
             <iframe
               src="https://www.google.com/maps/d/embed?mid=13aMR2lXL4XA-igQkTlgOtssB09I&ehbc=2E312F"
               style={{ width: "32rem", height: "22rem" }}

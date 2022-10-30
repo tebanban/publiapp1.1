@@ -81,3 +81,10 @@ body {
   padding-right: 15px;
   align-self: center;
 }
+
+.pictureBox {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

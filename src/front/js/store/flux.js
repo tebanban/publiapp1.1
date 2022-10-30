@@ -172,7 +172,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error deleting single valla", error));
       },
 
-      /////////////////////////////////////////////////////////////////  Update single valla
+      /////////////////////////////////////////////////////////////////  Update  valla
       updateValla: (
         id,
         code,

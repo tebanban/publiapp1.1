@@ -6,7 +6,6 @@ import { Home } from "./pages/home";
 import { Register } from "./component/register";
 import { App } from "./pages/app";
 import { Demo } from "./pages/demo";
-import { Sitedetail } from "./pages/sitedetail";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -40,9 +39,7 @@ const Layout = () => {
             <Route exact path="/detailValla/:id">
               {token == "undefined" || !token ? <Redirect to="/" /> : <DetailValla />}
             </Route>
-            <Route exact path="/sitedetail/:id">
-              {token == "undefined" || !token ? <Redirect to="/" /> : <Sitedetail />}{" "}
-            </Route>
+
             <Route path="*" component={Error404} />
           </Switch>
           <Footer />
