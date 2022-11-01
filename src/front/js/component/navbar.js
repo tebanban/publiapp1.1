@@ -50,7 +50,7 @@ export const Navbar = () => {
                 <UserProfile />
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="danger" onClick={logout}>
+                <Button variant="primary" onClick={logout}>
                   Cerrar sesión
                 </Button>
               </Modal.Footer>

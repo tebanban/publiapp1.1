@@ -6,35 +6,35 @@ import { Form, Button, Stack } from "react-bootstrap";
 export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
 
-  const [dataValla, setDataValla] = useState();
+  const [inputDataValla, setInputDataValla] = useState();
   const [files, setFiles] = useState();
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
 
   const handleInputChange = (e) => {
-    setDataValla({ ...dataValla, [e.target.name]: e.target.value });
+    setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
   };
 
   const submitNewValla = (e) => {
     e.preventDefault();
-    console.log(dataValla.name);
+    console.log(inputDataValla.name);
     actions.postNewValla(
-      dataValla.code,
-      dataValla.name,
-      dataValla.status,
-      dataValla.typology,
-      dataValla.layout,
-      dataValla.size,
-      dataValla.light,
-      dataValla.price_low,
-      dataValla.price_high,
-      dataValla.view,
-      dataValla.route,
-      dataValla.comment,
-      dataValla.user_id,
-      dataValla.client_id,
-      dataValla.owner_id
+      inputDataValla.code,
+      inputDataValla.name,
+      inputDataValla.status,
+      inputDataValla.typology,
+      inputDataValla.layout,
+      inputDataValla.size,
+      inputDataValla.light,
+      inputDataValla.price_low,
+      inputDataValla.price_high,
+      inputDataValla.view,
+      inputDataValla.route,
+      inputDataValla.comment,
+      inputDataValla.user_id,
+      inputDataValla.client_id,
+      inputDataValla.owner_id
     );
   };
 
@@ -45,7 +45,15 @@ export const FormNewValla = () => {
           Código<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <input className="form-control" id="code" maxLength="6" name="code" required type="text" onChange={handleInputChange} />
+          <input
+            className="form-control"
+            id="code"
+            maxLength="6"
+            name="code"
+            required
+            type="text"
+            onChange={handleInputChange}
+          />
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
@@ -82,7 +90,12 @@ export const FormNewValla = () => {
           Tipo<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <select className="form-control" id="typology" name="typology" onChange={handleInputChange}>
+          <select
+            className="form-control"
+            id="typology"
+            name="typology"
+            onChange={handleInputChange}
+          >
             <option disable="true">Seleccionar...</option>
             <option value="unipolar2">Unipolar 2 caras</option>
             <option value="unipolar1">Unipolar 1 cara</option>
@@ -228,7 +241,12 @@ export const FormNewValla = () => {
           Cliente<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <select className="form-control" id="client_id" name="client_id" onChange={handleInputChange}>
+          <select
+            className="form-control"
+            id="client_id"
+            name="client_id"
+            onChange={handleInputChange}
+          >
             <option value="" disable="true">
               Seleccionar...
             </option>
@@ -245,7 +263,12 @@ export const FormNewValla = () => {
           Propietario<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <select className="form-control" id="owner_id" name="owner_id" onChange={handleInputChange}>
+          <select
+            className="form-control"
+            id="owner_id"
+            name="owner_id"
+            onChange={handleInputChange}
+          >
             <option value="" disable="true">
               Seleccionar...
             </option>
@@ -265,9 +288,7 @@ export const FormNewValla = () => {
           <input
             className="form-control"
             id="file"
-            maxLength="200"
             name="file"
-            required=""
             type="file"
             onChange={(e) => {
               setFiles(e.target.files);
