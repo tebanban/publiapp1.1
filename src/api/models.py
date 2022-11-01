@@ -82,7 +82,7 @@ class Valla(db.Model):
             "modified_on": self.modified_on,
             "comment": self.comment,
             "status": self.status,
-            "pictur_url":self.picture_url,
+            "picture_url":self.picture_url,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
             "user_id": self.user_id,
@@ -152,8 +152,8 @@ class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     order_price = db.Column(db.Integer, unique=False)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
-    start_rent_on = db.Column(db.DateTime,  nullable=True)
-    end_rent_on = db.Column(db.DateTime,  nullable=True)
+    check_in = db.Column(db.DateTime,  nullable=True)
+    check_out = db.Column(db.DateTime,  nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)  #FK
     vallas= db.relationship('Valla', backref='order', lazy=True)   # relationship
