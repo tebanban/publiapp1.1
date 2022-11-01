@@ -22,7 +22,7 @@ export const MapVallas = () => {
     // Important! Always set the container height explicitly
     <div style={{ height: "45vh", width: "100%" }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyDJnPKLfISt9NmxKZurc-T1WksYetoIRhI" }}
+        bootstrapURLKeys={{ key: "process.env.GOOGLE_API_KEY" }}
         defaultCenter={location.center}
         defaultZoom={location.zoom}
       >
