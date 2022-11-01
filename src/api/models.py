@@ -152,8 +152,8 @@ class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     order_price = db.Column(db.Integer, unique=False)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
-    start_rent_on = db.Column(db.DateTime,  nullable=True)
-    end_rent_on = db.Column(db.DateTime,  nullable=True)
+    check_in = db.Column(db.DateTime,  nullable=True)
+    check_out = db.Column(db.DateTime,  nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)  #FK
     vallas= db.relationship('Valla', backref='order', lazy=True)   # relationship

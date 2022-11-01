@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { OverlayTrigger, Card } from "react-bootstrap";
 import { Form, Button, Stack, Popover, Container, Col, Row } from "react-bootstrap";
+import { MapVallas } from "../component/map_vallas";
 
 export const DetailValla = () => {
   const { store, actions } = useContext(Context);
@@ -72,13 +73,14 @@ export const DetailValla = () => {
         <Col className="pictureBox">
           <h1>{singleValla.code}</h1>
           <div className="rounded my-3">
-            <Card.Img src={singleValla.picture_url} style={{ width: "32rem", height: "22rem" }} />
+            <Card.Img src={singleValla.picture_url} style={{ width: "80%", height: "22rem" }} />
           </div>
           <div className="rounded mb-0">
-            <iframe
+            {/* <iframe
               src="https://www.google.com/maps/d/embed?mid=13aMR2lXL4XA-igQkTlgOtssB09I&ehbc=2E312F"
               style={{ width: "32rem", height: "22rem" }}
-            ></iframe>
+            ></iframe> */}
+            <MapVallas />
           </div>
         </Col>
         <Col>
