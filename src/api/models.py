@@ -50,6 +50,8 @@ class Valla(db.Model):
     comment = db.Column(db.String (200), unique=False, nullable=True) 
     status = db.Column(db.String(20), nullable=False)
     picture_url = db.Column(db.String(250), nullable=True)
+    lat = db.Column(db.Float, nullable= True)
+    lgn = db.Column(db.Float, nullable= True)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
@@ -83,6 +85,8 @@ class Valla(db.Model):
             "comment": self.comment,
             "status": self.status,
             "picture_url":self.picture_url,
+            "lat":self.lat,
+            "lgn" : self.lgn,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
             "user_id": self.user_id,
@@ -165,6 +169,20 @@ class Order(db.Model):
     def serialize(self):
         return {
             "order_id": self.id,
+        }
+class Typology(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), unique=False, nullable=False)
+    modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
+    
+    
+    def __repr__(self):
+        return ' %r' % self.id
+    
+    def serialize(self):
+        return {
+            "typology_id": self.id,
         }
 
 class Payment(db.Model):
