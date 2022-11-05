@@ -4,9 +4,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint, flash
 from api.models import db, User, Valla, Client, Owner, Order, Payment
 from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import cloudinary.uploader
 
@@ -19,6 +18,7 @@ api = Blueprint('api', __name__)
 def get_token():
     email = request.json.get("email", None)
     passwd = request.json.get("password", None)
+    expires = timedelta(minutes=60)                           ##Could use a env variable
 
     user = User.query.filter_by(email=email).one_or_none()
   
@@ -27,7 +27,7 @@ def get_token():
     elif not check_password_hash( user.password, passwd) :       
         return jsonify({"msg": "Tebanban: Incorrect  password" }), 401
 
-    access_token = create_access_token(identity=email)
+    access_token = create_access_token(identity=email, expires_delta=expires)
     return jsonify( access_token=access_token ) 
     #################################################################### GET CURRENT_USER 
 @api.route('/private', methods=['GET'])
@@ -185,7 +185,7 @@ def update_valla_file(id):
         
         if "picture_url" in request.files:
             # upload file to cloudinary
-            result = cloudinary.uploader.upload(request.files['picture_url'])
+            result = cloudinary.uploader.upload(request.files['picture_url'] , folder = "Publiapp")
             # update the user with the given cloudinary image URL
             valla.picture_url = result['secure_url']
             
