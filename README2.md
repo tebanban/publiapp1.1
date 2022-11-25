@@ -20,10 +20,6 @@ pipenv run upgrade
 
 pipenv run start
 
-# To modify URL at .env
-
-mysql url: mysql://puadmin:**\***@mysql.nuevo.publiexcr.com/sisvallas2021
-
 # To install Mysql module:
 
 pip install mysqlclient ( or use next command)
@@ -38,7 +34,7 @@ flask db stamp head
 
 psql
 \c database
-drop table alembic_version;    # this won´t erase the data
+drop table alembic_version; # this won´t erase the data
 
 # dreamhost
 
