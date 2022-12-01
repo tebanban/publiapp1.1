@@ -34,6 +34,7 @@ export const DetailValla = () => {
   const [inputDataValla, setInputDataValla] = useState();
   const handleInputChange = (e) => {
     setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
+    console.log(inputDataValla.lat, inputDataValla.lng, inputDataValla.comment);
   };
   const vallaPhoto = singleValla.picture_url;
   const submitSingleValla = (e) => {
@@ -53,6 +54,8 @@ export const DetailValla = () => {
       inputDataValla.view,
       inputDataValla.route,
       inputDataValla.comment,
+      inputDataValla.lat,
+      inputDataValla.lng,
       inputDataValla.user_id,
       inputDataValla.client_id,
       inputDataValla.owner_id
@@ -223,6 +226,34 @@ export const DetailValla = () => {
                   onChange={handleInputChange}
                 />
               </div>
+            </Form.Group>
+            <Form.Group className="form-group my-1 ">
+              <Form.Label htmlFor="lat" className=" control-label col-md-2">
+                Lat/Lng
+              </Form.Label>
+              <Stack direction="horizontal" gap={2} className="col-md-10">
+                <input
+                  defaultValue={singleValla.lat}
+                  className="form-control"
+                  id="lat"
+                  maxLength="20"
+                  name="lat"
+                  required=""
+                  type="float"
+                  onChange={handleInputChange}
+                />
+                <div className="vr" />
+                <input
+                  defaultValue={singleValla.lng}
+                  className="form-control "
+                  id="lng"
+                  maxLength="20"
+                  name="lng"
+                  required=""
+                  type="float"
+                  onChange={handleInputChange}
+                />
+              </Stack>
             </Form.Group>
             <Form.Group className="form-group my-2">
               <Form.Label htmlFor="comment" className="col-md-2 control-label">

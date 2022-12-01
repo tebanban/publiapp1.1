@@ -47,11 +47,11 @@ class Valla(db.Model):
     view = db.Column(db.String(150), unique=False, nullable=True)
     route = db.Column(db.String(150), unique=False, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    lat = db.Column(db.Float, nullable= True)
+    lng = db.Column(db.Float, nullable= True)
     comment = db.Column(db.String (200), unique=False, nullable=True) 
     status = db.Column(db.String(20), nullable=False)
     picture_url = db.Column(db.String(250), nullable=True)
-    lat = db.Column(db.Float, nullable= True)
-    lgn = db.Column(db.Float, nullable= True)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
@@ -86,7 +86,7 @@ class Valla(db.Model):
             "status": self.status,
             "picture_url":self.picture_url,
             "lat":self.lat,
-            "lgn" : self.lgn,
+            "lng" : self.lng,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
             "user_id": self.user_id,

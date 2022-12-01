@@ -10,6 +10,8 @@ const Marker = () => (
 );
 
 export const MapVallas = () => {
+  const lat= ""
+  const lng= ""
   const location = {
     center: {
       lat: 9.982454420194236,

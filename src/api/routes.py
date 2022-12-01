@@ -155,6 +155,10 @@ def get_single_valla(id):
             valla.view = request.json.get('view', None)
         if "route" in request.json:
             valla.route = request.json.get('route', None)
+        if "lat" in request.json:
+            valla.comment = request.json.get('lat', None)
+        if "lng" in request.json:
+            valla.comment = request.json.get('lng', None)
         if "comment" in request.json:
             valla.comment = request.json.get('comment', None)
         if "owner_id" in request.json:
@@ -231,6 +235,8 @@ def create_new_valla():
             valla.view = request.json.get('view', None)
             valla.route = request.json.get('route', None)
             valla.comment = request.json.get('comment', None)
+            valla.lat = request.json.get('lat', None)
+            valla.lng = request.json.get('lng', None)
             valla.owner_id = request.json.get('owner_id', None)
             valla.client_id = request.json.get('client_id', None)
         
