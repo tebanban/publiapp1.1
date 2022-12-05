@@ -20,9 +20,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         price_high: "",
         view: "",
         route: "",
-        comment: "",
         lat: "",
         lng: "",
+        comment: "",
         user_id: "",
         client_id: "",
         owner_id: "",
@@ -225,7 +225,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((response) => response.json())
           .then((data) => {
-            console.log("Response From Flux", data), setStore({ updatedValla: data });
+            console.log("Response From Flux:", data), setStore({ updatedValla: data });
           })
           .catch((error) => console.log("Error when updating single valla", error));
       },

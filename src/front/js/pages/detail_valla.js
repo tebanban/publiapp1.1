@@ -16,10 +16,6 @@ export const DetailValla = () => {
   console.log(vallaPhoto);
   const [files, setFiles] = useState();
 
-  if (files) {
-    console.log(files[0]);
-  }
-
   useEffect(() => {
     /////////////////////////////////////// send valla id to the flux when loading
     actions.getSingleValla(id);
@@ -52,14 +48,16 @@ export const DetailValla = () => {
       inputDataValla.price_high,
       inputDataValla.view,
       inputDataValla.route,
-      inputDataValla.comment,
       inputDataValla.lat,
       inputDataValla.lng,
+      inputDataValla.comment,
       inputDataValla.user_id,
       inputDataValla.client_id,
       inputDataValla.owner_id
     );
-    actions.updateVallaFile(id, files);
+    if (files) {
+      actions.updateVallaFile(id, files);
+    }
   };
   const popover = (
     <Popover id="popover-basic">
@@ -344,13 +342,13 @@ export const DetailValla = () => {
       </Row>
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
-        <Button variant="primary" onClick={submitSingleValla}>
+        <Button variant="primary" onClick={submitSingleValla} type="submit">
           Actualizar
         </Button>
         <Link to="/app">
           <button className="btn btn-secondary  mx-2">Cancelar</button>
         </Link>
-        <OverlayTrigger trigger="click" placement="top" overlay={popover}>
+        <OverlayTrigger trigger="click" placement="top" overlay={popover} type="submit">
           <Button variant="danger">Eliminar Valla</Button>
         </OverlayTrigger>
       </Stack>

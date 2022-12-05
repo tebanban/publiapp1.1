@@ -234,9 +234,9 @@ def create_new_valla():
             valla.price_high = request.json.get('price_high', None)
             valla.view = request.json.get('view', None)
             valla.route = request.json.get('route', None)
-            valla.comment = request.json.get('comment', None)
             valla.lat = request.json.get('lat', None)
             valla.lng = request.json.get('lng', None)
+            valla.comment = request.json.get('comment', None)
             valla.owner_id = request.json.get('owner_id', None)
             valla.client_id = request.json.get('client_id', None)
         

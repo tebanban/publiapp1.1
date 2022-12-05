@@ -31,6 +31,8 @@ export const FormNewValla = () => {
       inputDataValla.price_high,
       inputDataValla.view,
       inputDataValla.route,
+      inputDataValla.lat,
+      inputDataValla.lng,
       inputDataValla.comment,
       inputDataValla.user_id,
       inputDataValla.client_id,
@@ -45,15 +47,7 @@ export const FormNewValla = () => {
           Código<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <input
-            className="form-control"
-            id="code"
-            maxLength="6"
-            name="code"
-            required
-            type="text"
-            onChange={handleInputChange}
-          />
+          <input className="form-control" id="code" maxLength="6" name="code" required type="text" onChange={handleInputChange} />
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
@@ -90,12 +84,7 @@ export const FormNewValla = () => {
           Tipo<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <select
-            className="form-control"
-            id="typology"
-            name="typology"
-            onChange={handleInputChange}
-          >
+          <select className="form-control" id="typology" name="typology" onChange={handleInputChange}>
             <option disable="true">Seleccionar...</option>
             <option value="unipolar2">Unipolar 2 caras</option>
             <option value="unipolar1">Unipolar 1 cara</option>
@@ -204,6 +193,38 @@ export const FormNewValla = () => {
         </div>
       </Form.Group>
       <Form.Group className="form-group my-2">
+        <label htmlFor="lat" className="col-md-3 control-label">
+          Lat <span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-9">
+          <input
+            className="form-control"
+            id="lat"
+            maxLength="20"
+            name="lat"
+            required=""
+            type="float"
+            onChange={handleInputChange}
+          />
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
+        <label htmlFor="lng" className="col-md-3 control-label">
+          Lng <span className="text-danger "> *</span>
+        </label>
+        <div className="col-md-9">
+          <input
+            className="form-control"
+            id="lng"
+            maxLength="20"
+            name="lng"
+            required=""
+            type="float"
+            onChange={handleInputChange}
+          />
+        </div>
+      </Form.Group>
+      <Form.Group className="form-group my-2">
         <label htmlFor="comment" className="col-md-3 control-label">
           Comentario
         </label>
@@ -241,12 +262,7 @@ export const FormNewValla = () => {
           Cliente<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <select
-            className="form-control"
-            id="client_id"
-            name="client_id"
-            onChange={handleInputChange}
-          >
+          <select className="form-control" id="client_id" name="client_id" onChange={handleInputChange}>
             <option value="" disable="true">
               Seleccionar...
             </option>
@@ -263,12 +279,7 @@ export const FormNewValla = () => {
           Propietario<span className="text-danger "> *</span>
         </label>
         <div className="col-md-9">
-          <select
-            className="form-control"
-            id="owner_id"
-            name="owner_id"
-            onChange={handleInputChange}
-          >
+          <select className="form-control" id="owner_id" name="owner_id" onChange={handleInputChange}>
             <option value="" disable="true">
               Seleccionar...
             </option>
@@ -298,7 +309,7 @@ export const FormNewValla = () => {
       </Form.Group>
 
       <Stack direction="horizontal" gap={2} className="mx-auto justify-content-center">
-        <Button variant="primary" onClick={submitNewValla}>
+        <Button variant="primary" onClick={submitNewValla} type="submit">
           Submit
         </Button>
         <Link to="/app">
