@@ -34,7 +34,6 @@ export const DetailValla = () => {
   const [inputDataValla, setInputDataValla] = useState();
   const handleInputChange = (e) => {
     setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
-    console.log(inputDataValla.lat, inputDataValla.lng, inputDataValla.comment);
   };
   const vallaPhoto = singleValla.picture_url;
   const submitSingleValla = (e) => {

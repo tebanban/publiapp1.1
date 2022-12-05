@@ -156,9 +156,9 @@ def get_single_valla(id):
         if "route" in request.json:
             valla.route = request.json.get('route', None)
         if "lat" in request.json:
-            valla.comment = request.json.get('lat', None)
+            valla.lat = request.json.get('lat', None)
         if "lng" in request.json:
-            valla.comment = request.json.get('lng', None)
+            valla.lng = request.json.get('lng', None)
         if "comment" in request.json:
             valla.comment = request.json.get('comment', None)
         if "owner_id" in request.json:
@@ -175,7 +175,7 @@ def get_single_valla(id):
     else:
         raise APIException('Tebanban: error ...')
 
-#################################################################### UPDATE single Valla File
+#################################################################### UPDATE  Valla File
 @api.route("/vallaFile/<int:id>", methods=["PUT"])  
 @jwt_required()
 def update_valla_file(id):
