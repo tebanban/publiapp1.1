@@ -119,8 +119,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/private", options)
           .then((resp) => resp.json())
           .then((data) => {
-            setStore({ current_user: data.name, current_user_data: data }),
-              console.log("The current user email is: " + data.email);
+            setStore({ current_user: data.name, current_user_data: data }), console.log("The current user is: " + data.email);
           })
           .catch((error) => console.log("Error loading current_user from backend", error));
       },
@@ -175,26 +174,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       /////////////////////////////////////////////////////////////////  Update  valla
-      updateValla: (
-        id,
-        code,
-        name,
-        status,
-        typology,
-        layout,
-        size,
-        light,
-        price_low,
-        price_high,
-        view,
-        route,
-        lat,
-        lng,
-        comment,
-        user_id,
-        client_id,
-        owner_id
-      ) => {
+      updateValla: (id, inputDataValla) => {
         const store = getStore();
         const options = {
           method: "PUT",
@@ -202,32 +182,15 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
             Authorization: "Bearer " + store.token,
           },
-          body: JSON.stringify({
-            code: code,
-            name: name,
-            status: status,
-            typology: typology,
-            layout: layout,
-            size: size,
-            light: light,
-            price_low: price_low,
-            price_high: price_high,
-            view: view,
-            route: route,
-            lat: lat,
-            lng: lng,
-            comment: comment,
-            user_id: user_id,
-            client_id: client_id,
-            owner_id: owner_id,
-          }),
+          body: JSON.stringify(inputDataValla),
         };
+        console.log("Update valla Body", options.body);
         fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((response) => response.json())
           .then((data) => {
-            console.log("Response From Flux:", data), setStore({ updatedValla: data });
+            console.log("Success updating valla data:", data), setStore({ updatedValla: data });
           })
-          .catch((error) => console.log("Error when updating single valla", error));
+          .catch((error) => console.log("Error when updating valla data", error));
       },
 
       ///////////////////////////////////////////////////////////////////////// UPDATE  valla File
@@ -236,6 +199,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("the files: ", files);
         const body = new FormData();
         body.append("picture_url", files[0]);
+        console.log("the body: ", body);
         const options = {
           body,
           method: "PUT",
@@ -246,31 +210,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/vallaFile/" + id, options)
           .then((response) => response.json())
           .then((data) => {
-            console.log("Success", data);
+            console.log("Success updating valla file", data);
           })
-          .catch((error) => console.log("Error when updating single valla file", error));
+          .catch((error) => console.log("Error when updating valla file", error));
       },
 
       //////////////////////////////////////////////////////////////////////// POST new valla
-      postNewValla: (
-        code,
-        name,
-        status,
-        typology,
-        layout,
-        size,
-        light,
-        price_low,
-        price_high,
-        view,
-        route,
-        lat,
-        lng,
-        comment,
-        user_id,
-        client_id,
-        owner_id
-      ) => {
+      postNewValla: (inputDataValla) => {
         const store = getStore();
         const options = {
           method: "POST",
@@ -278,32 +224,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
             Authorization: "Bearer " + store.token,
           },
-          body: JSON.stringify({
-            code: code,
-            name: name,
-            status: status,
-            typology: typology,
-            layout: layout,
-            size: size,
-            light: light,
-            price_low: price_low,
-            price_high: price_high,
-            view: view,
-            route: route,
-            comment: comment,
-            lat: lat,
-            lng: lng,
-            user_id: user_id,
-            client_id: client_id,
-            owner_id: owner_id,
-          }),
+          body: JSON.stringify(inputDataValla),
         };
         fetch(process.env.BACKEND_URL + "/api/valla", options)
           .then((response) => response.json())
           .then((data) => {
-            console.log(data), setStore({ newValla: data });
+            console.log("Success adding new valla", data), setStore({ newValla: data });
           })
-          .catch((error) => console.log("Error when registering new valla", error));
+          .catch((error) => console.log("Error registering new valla", error));
       },
 
       ///////////////////////////////////////////////////////////////////////////////GET ALL owners table

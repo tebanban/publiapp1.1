@@ -9,11 +9,10 @@ export const DetailValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams(); //////////////////////////// get  valla id from the URL
   const id = params.id; ////////////////////////////////// store valla id as a variable
-  console.log("this is the id: " + id);
+  // console.log("this is the id: " + id);
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
-  console.log(vallaPhoto);
   const [files, setFiles] = useState();
 
   useEffect(() => {
@@ -22,7 +21,7 @@ export const DetailValla = () => {
   }, []);
 
   const singleValla = store.singleValla;
-  console.log(singleValla);
+  // console.log(singleValla);
 
   const deleteSingleValla = () => {
     actions.deleteSingleValla(id);
@@ -35,26 +34,8 @@ export const DetailValla = () => {
   const submitSingleValla = (e) => {
     e.preventDefault();
 
-    actions.updateValla(
-      id,
-      inputDataValla.code,
-      inputDataValla.name,
-      inputDataValla.status,
-      inputDataValla.typology,
-      inputDataValla.layout,
-      inputDataValla.size,
-      inputDataValla.light,
-      inputDataValla.price_low,
-      inputDataValla.price_high,
-      inputDataValla.view,
-      inputDataValla.route,
-      inputDataValla.lat,
-      inputDataValla.lng,
-      inputDataValla.comment,
-      inputDataValla.user_id,
-      inputDataValla.client_id,
-      inputDataValla.owner_id
-    );
+    actions.updateValla(id, inputDataValla);
+
     if (files) {
       actions.updateVallaFile(id, files);
     }

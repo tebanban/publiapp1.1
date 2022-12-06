@@ -18,26 +18,10 @@ export const FormNewValla = () => {
 
   const submitNewValla = (e) => {
     e.preventDefault();
-    console.log(inputDataValla.name);
-    actions.postNewValla(
-      inputDataValla.code,
-      inputDataValla.name,
-      inputDataValla.status,
-      inputDataValla.typology,
-      inputDataValla.layout,
-      inputDataValla.size,
-      inputDataValla.light,
-      inputDataValla.price_low,
-      inputDataValla.price_high,
-      inputDataValla.view,
-      inputDataValla.route,
-      inputDataValla.lat,
-      inputDataValla.lng,
-      inputDataValla.comment,
-      inputDataValla.user_id,
-      inputDataValla.client_id,
-      inputDataValla.owner_id
-    );
+    actions.postNewValla(inputDataValla);
+    if (files) {
+      actions.postVallaFile(files);
+    }
   };
 
   return (
@@ -128,12 +112,13 @@ export const FormNewValla = () => {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group my-2">
-        <label htmlFor="price_low" className="col-md-3 control-label">
-          Precio menor <span className="text-danger "> *</span>
-        </label>
-        <div className="col-md-9">
+      <Form.Group className="form-group my-1 ">
+        <Form.Label htmlFor="price_low" className=" control-label col-md-2">
+          Precio
+        </Form.Label>
+        <Stack direction="horizontal" gap={2} className="col-md-10">
           <input
+            defaultValue=""
             className="form-control"
             id="price_low"
             maxLength="20"
@@ -142,15 +127,10 @@ export const FormNewValla = () => {
             type="float"
             onChange={handleInputChange}
           />
-        </div>
-      </Form.Group>
-      <Form.Group className="form-group my-2">
-        <label htmlFor="price_high" className="col-md-3 control-label">
-          Precio mayor <span className="text-danger "> *</span>
-        </label>
-        <div className="col-md-9">
+          <div className="vr" />
           <input
-            className="form-control"
+            defaultValue=""
+            className="form-control "
             id="price_high"
             maxLength="20"
             name="price_high"
@@ -158,7 +138,7 @@ export const FormNewValla = () => {
             type="float"
             onChange={handleInputChange}
           />
-        </div>
+        </Stack>
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label htmlFor="route" className="col-md-3 control-label">
@@ -192,12 +172,13 @@ export const FormNewValla = () => {
           />
         </div>
       </Form.Group>
-      <Form.Group className="form-group my-2">
-        <label htmlFor="lat" className="col-md-3 control-label">
-          Lat <span className="text-danger "> *</span>
-        </label>
-        <div className="col-md-9">
+      <Form.Group className="form-group my-1 ">
+        <Form.Label htmlFor="lat" className=" control-label col-md-2">
+          Lat/Lng
+        </Form.Label>
+        <Stack direction="horizontal" gap={2} className="col-md-10">
           <input
+            defaultValue=""
             className="form-control"
             id="lat"
             maxLength="20"
@@ -206,15 +187,10 @@ export const FormNewValla = () => {
             type="float"
             onChange={handleInputChange}
           />
-        </div>
-      </Form.Group>
-      <Form.Group className="form-group my-2">
-        <label htmlFor="lng" className="col-md-3 control-label">
-          Lng <span className="text-danger "> *</span>
-        </label>
-        <div className="col-md-9">
+          <div className="vr" />
           <input
-            className="form-control"
+            defaultValue=""
+            className="form-control "
             id="lng"
             maxLength="20"
             name="lng"
@@ -222,7 +198,7 @@ export const FormNewValla = () => {
             type="float"
             onChange={handleInputChange}
           />
-        </div>
+        </Stack>
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label htmlFor="comment" className="col-md-3 control-label">
