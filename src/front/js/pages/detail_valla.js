@@ -32,9 +32,9 @@ export const DetailValla = () => {
   };
   const vallaPhoto = singleValla.picture_url;
   const submitSingleValla = (e) => {
-    e.preventDefault();
-
-    actions.updateValla(id, inputDataValla);
+    if (inputDataValla) {
+      actions.updateValla(id, inputDataValla);
+    }
 
     if (files) {
       actions.updateVallaFile(id, files);
@@ -54,7 +54,7 @@ export const DetailValla = () => {
         <Col className="pictureBox">
           <h1>{singleValla.code}</h1>
           <div className="rounded my-3">
-            <Card.Img src={singleValla.picture_url} style={{ width: "80%", height: "22rem" }} />
+            <Card.Img src={vallaPhoto} style={{ width: "80%", height: "22rem" }} />
           </div>
           <div className="rounded mb-0">
             <MapVallas />
