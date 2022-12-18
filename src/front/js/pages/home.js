@@ -5,13 +5,10 @@ import "../../styles/home.scss";
 import { Login } from "../component/login"
 
 export const Home = () => {
-  const { store, actions } = useContext(Context);
+  const { store } = useContext(Context);
   const dataValla = store.allVallas;
   const dataOwner = store.allOwners;
 
-
-  // console.log(process.env.VARIABLE_NAME);
-  console.log(store.allVallas, store.allOwners);
 
   return (
     <div className="text-center mt-5">

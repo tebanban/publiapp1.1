@@ -54,7 +54,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log("Register data from the backend: ", data);
           })
-          // .then(() => window.location.reload()) // this reloads the home page to show the current user
+          .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when register", error));
       },
 
@@ -131,7 +131,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (store.current_user && store.current_user != null && store.current_user != undefined) {
           setStore({ isAuth: status });
         }
-        console.log("her goes isAuth function", status);
+        console.log("isAuth function", status); // need to complete this function
       },
 
       //////////////////////////////////////////////////////////////////////// GET All vallas
@@ -272,6 +272,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => resp.json())
           .then((data) => setStore({ message: data.message }))
           .catch((error) => console.log("Error loading message from backend", error));
+      },
+      getStore2: () => {
+        const store = getStore();
       },
     },
   };

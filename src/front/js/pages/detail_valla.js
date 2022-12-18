@@ -3,7 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { OverlayTrigger, Card } from "react-bootstrap";
 import { Form, Button, Stack, Popover, Container, Col, Row } from "react-bootstrap";
-import { MapVallas } from "../component/map_vallas";
+import { GoogleMapVallas } from "../component/googlemap_vallas";
+
+console.log("pre-load");
 
 export const DetailValla = () => {
   const { store, actions } = useContext(Context);
@@ -15,22 +17,25 @@ export const DetailValla = () => {
   const dataUsers = store.allUsers;
   const [files, setFiles] = useState();
 
+  console.log("loaded");
+
   useEffect(() => {
-    /////////////////////////////////////// send valla id to the flux when loading
+    /////////////////////////////////////// sends valla id as a parameter to the flux
     actions.getSingleValla(id);
-  }, []);
+  }, [inputDataValla]);
 
   const singleValla = store.singleValla;
-  // console.log(singleValla);
 
   const deleteSingleValla = () => {
     actions.deleteSingleValla(id);
   };
   const [inputDataValla, setInputDataValla] = useState();
+
   const handleInputChange = (e) => {
     setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
   };
   const vallaPhoto = singleValla.picture_url;
+
   const submitSingleValla = (e) => {
     if (inputDataValla) {
       actions.updateValla(id, inputDataValla);
@@ -40,6 +45,7 @@ export const DetailValla = () => {
       actions.updateVallaFile(id, files);
     }
   };
+
   const popover = (
     <Popover id="popover-basic">
       <Button className="btn btn-danger mx-2" onClick={deleteSingleValla}>
@@ -56,8 +62,9 @@ export const DetailValla = () => {
           <div className="rounded my-3">
             <Card.Img src={vallaPhoto} style={{ width: "80%", height: "22rem" }} />
           </div>
+
           <div className="rounded mb-0">
-            <MapVallas />
+            <GoogleMapVallas lat={singleValla.lat} lng={singleValla.lng} />
           </div>
         </Col>
         <Col>
