@@ -273,9 +273,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => setStore({ message: data.message }))
           .catch((error) => console.log("Error loading message from backend", error));
       },
-      getStore2: () => {
-        const store = getStore();
-      },
     },
   };
 };

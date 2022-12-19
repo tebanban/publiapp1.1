@@ -16,10 +16,10 @@ export const GoogleMapVallas = (props) => {
   const [longitud, setLongitud] = useState(-84.1014);
   console.log("props", props);
 
-  const getCoordinates = () => {
-    setLatitud(lat);
-    setLongitud(lng);
-    console.log("getCoordinates", lat, lng);
+  const getCoordinates = (props) => {
+    setLatitud(props.lat);
+    setLongitud(props.lng);
+    console.log("getCoordinates", props.lat, props.lng);
   };
 
   const location = {
@@ -33,18 +33,18 @@ export const GoogleMapVallas = (props) => {
 
   // useEffect(() => {
   //   getCoordinates();
-  // }, [getCoordinates]);
+  // } );
 
   return (
     // Important! Always set the container height explicitly
     <div style={{ height: "40vh", width: "100%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.GOOGLE_API_KEY }}
-        defaultCenter={{ latitud, longitud }}
-        center={location.center}
+        defaultCenter={{ lat: 9.9338, lng: -84.1014 }}
+        center={props}
         defaultZoom={location.zoom}
       >
-        <Marker lat={location.center.lat} lng={location.center.lng} text="My Marker" />
+        <Marker lat={props.lat} lng={props.lng} text="My Marker" />
       </GoogleMapReact>
     </div>
   );

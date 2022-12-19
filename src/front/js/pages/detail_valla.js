@@ -64,7 +64,7 @@ export const DetailValla = () => {
           </div>
 
           <div className="rounded mb-0">
-            <GoogleMapVallas lat={singleValla.lat} lng={singleValla.lng} />
+            <GoogleMapVallas lat={singleValla?.lat} lng={singleValla?.lng} />
           </div>
         </Col>
         <Col>
