@@ -11,7 +11,7 @@ export const DetailValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams(); //////////////////////////// get  valla id from the URL
   const id = params.id; ////////////////////////////////// store valla id as a variable
-  // console.log("this is the id: " + id);
+
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
@@ -37,6 +37,7 @@ export const DetailValla = () => {
   const vallaPhoto = singleValla.picture_url;
 
   const submitSingleValla = (e) => {
+    e.preventDefault();
     if (inputDataValla) {
       actions.updateValla(id, inputDataValla);
     }
@@ -44,6 +45,8 @@ export const DetailValla = () => {
     if (files) {
       actions.updateVallaFile(id, files);
     }
+    // window.location.reload()
+    actions.getSingleValla(id)
   };
 
   const popover = (
