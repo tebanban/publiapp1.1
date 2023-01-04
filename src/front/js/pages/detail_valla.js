@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { OverlayTrigger, Card } from "react-bootstrap";
+import { Modal, Card } from "react-bootstrap";
 import { Form, Button, Stack, Popover, Container, Col, Row } from "react-bootstrap";
 import { GoogleMapVallas } from "../component/googlemap_vallas";
 
@@ -15,6 +15,10 @@ export const DetailValla = () => {
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [files, setFiles] = useState();
 
   console.log("loaded");
@@ -46,7 +50,7 @@ export const DetailValla = () => {
       actions.updateVallaFile(id, files);
     }
     // window.location.reload()
-    actions.getSingleValla(id)
+    actions.getSingleValla(id);
   };
 
   const popover = (
@@ -339,9 +343,20 @@ export const DetailValla = () => {
         <Link to="/app">
           <button className="btn btn-secondary  mx-2">Cancelar</button>
         </Link>
-        <OverlayTrigger trigger="click" placement="top" overlay={popover} type="submit">
-          <Button variant="danger">Eliminar Valla</Button>
-        </OverlayTrigger>
+        <Button variant="danger" onClick={handleShow}>
+          Eliminar
+        </Button>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>¿Desea eliminar esta valla? </Modal.Title>
+          </Modal.Header>
+
+          <Modal.Footer>
+            <Button variant="danger" onClick={deleteSingleValla}>
+              Eliminar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Stack>
     </Container>
   );
