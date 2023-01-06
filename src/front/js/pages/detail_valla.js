@@ -352,6 +352,9 @@ export const DetailValla = () => {
           </Modal.Header>
 
           <Modal.Footer>
+             <Button variant="btn btn-secondary" onClick={handleClose}>
+               Cancelar
+             </Button>
             <Button variant="danger" onClick={deleteSingleValla}>
               Eliminar
             </Button>
