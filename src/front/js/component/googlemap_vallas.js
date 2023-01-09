@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import "../../styles/map.scss";
 import GoogleMapReact from "google-map-react";
-import { Link, useParams } from "react-router-dom";
+
 import mark from "../../img/marker_green.webp";
-import { Context } from "../store/appContext";
 
 const Marker = () => (
   <div>
@@ -16,12 +15,6 @@ export const GoogleMapVallas = (props) => {
   const [longitud, setLongitud] = useState(-84.1014);
   console.log("props", props);
 
-  const getCoordinates = (props) => {
-    setLatitud(props.lat);
-    setLongitud(props.lng);
-    console.log("getCoordinates", props.lat, props.lng);
-  };
-
   const location = {
     center: {
       lat: latitud,
@@ -29,11 +22,6 @@ export const GoogleMapVallas = (props) => {
     },
     zoom: 15,
   };
-  console.log("location is: ", location);
-
-  // useEffect(() => {
-  //   getCoordinates();
-  // } );
 
   return (
     // Important! Always set the container height explicitly

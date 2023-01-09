@@ -204,7 +204,7 @@ def update_valla_file(id):
 def delete_single_valla(id):
         valla= Valla.query.get(id)
         response_body = {
-        "message": "La valla se eliminó correctamente"}
+        "message": " se eliminó correctamente"}
 
         if valla is None:
             raise APIException("Valla not found", status_code=404)

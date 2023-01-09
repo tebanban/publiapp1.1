@@ -34,7 +34,7 @@ export const FormNewValla = () => {
 
   return (
     <Form className="form" method="post" noValidate validated={validated} onSubmit={submitNewValla}>
-      <Form.Group as={Col} md="4" className="form-group my-2" controlId="validationCode">
+      <Form.Group as={Col} md="9" className="form-group my-2" controlId="validationCode">
         <label htmlFor="code" className="col-md-3 control-label">
           Código<span className="text-danger "> *</span>
         </label>
@@ -42,7 +42,7 @@ export const FormNewValla = () => {
           <input className="form-control" id="code" maxLength="6" name="code" required type="text" onChange={handleInputChange} />
         </div>
       </Form.Group>
-      <Form.Group as={Col} md="4" className="" controlId="validationName">
+      <Form.Group as={Col} md="9" className="" controlId="validationName">
         <Form.Label>Nombre</Form.Label>
         <Form.Control
           required

@@ -18,7 +18,11 @@ export const DetailValla = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () =>{
+    setShow(true);
+    actions.deleteVallaMessage();
+
+  } 
   const [files, setFiles] = useState();
 
   console.log("loaded");
@@ -340,21 +344,40 @@ export const DetailValla = () => {
           Eliminar
         </Button>
         <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>¿Desea eliminar esta valla? </Modal.Title>
-          </Modal.Header>
-          <div>{store.deleteVallaMessage}</div>
-          <Modal.Footer>
-            <Link to="/app">
-              <button className="btn btn-secondary  mx-2" onClick={handleClose}>
-                Cancelar
-              </button>
-            </Link>
+          {store.deleteVallaMessage ? (
+            <>
+              <Modal.Header>
+                <Modal.Title>
+                  La valla {singleValla.code}
+                  {store.deleteVallaMessage}{" "}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Footer>
+                <Link to="/app">
+                  <button className="btn btn-primary  mx-2" onClick={handleClose}>
+                    Regresar
+                  </button>
+                </Link>
+              </Modal.Footer>
+            </>
+          ) : (
+            <>
+              <Modal.Header closeButton>
+                <Modal.Title>¿Desea eliminar esta valla? </Modal.Title>
+              </Modal.Header>
+              <Modal.Footer>
+                <Link to="/app">
+                  <button className="btn btn-secondary  mx-2" onClick={handleClose}>
+                    Cancelar
+                  </button>
+                </Link>
 
-            <Button variant="danger" onClick={deleteSingleValla}>
-              Eliminar
-            </Button>
-          </Modal.Footer>
+                <Button variant="danger" onClick={deleteSingleValla}>
+                  Eliminar
+                </Button>
+              </Modal.Footer>
+            </>
+          )}
         </Modal>
       </Stack>
     </Container>

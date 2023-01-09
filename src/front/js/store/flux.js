@@ -268,6 +268,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // Use getActions to call a function within a fuction
 
+      resetDeleteVallaMessage: () => {
+        setStore({ deleteVallaMessage: null });
+      },
+
       getMessage: () => {
         // fetching data from the backend
         fetch(process.env.BACKEND_URL + "/api/hello")
