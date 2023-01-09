@@ -198,18 +198,21 @@ def update_valla_file(id):
         return jsonify(valla.serialize()), 200
       
 
-#####################################################################   Delete single Valla 
+#####################################################################   Delete Valla 
 @api.route("/valla/<int:id>", methods= ["DELETE"])
 @jwt_required()
 def delete_single_valla(id):
         valla= Valla.query.get(id)
+        response_body = {
+        "message": "La valla se eliminó correctamente"}
 
         if valla is None:
             raise APIException("Valla not found", status_code=404)
+
         
         db.session.delete(valla)
         db.session.commit()
-        return jsonify(valla.serialize()), 200
+        return jsonify( response_body), 200
 
 
 

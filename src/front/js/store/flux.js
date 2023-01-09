@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
+      deleteVallaMessage: null,
       token: null || sessionStorage.getItem("token"),
       current_user: null,
       current_user_data: [],
@@ -159,7 +160,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error getting single valla", error));
       },
 
-      ///////////////////////////////////////////////////////////////////////DELETE Single valla
+      ///////////////////////////////////////////////////////////////////////DELETE  valla
       deleteSingleValla: (id) => {
         const store = getStore();
         const options = {
@@ -170,6 +171,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((res) => res.json())
+          .then((data) => setStore({ deleteVallaMessage: data.message }))
           .catch((error) => console.log("Error deleting single valla", error));
       },
 

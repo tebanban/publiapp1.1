@@ -33,6 +33,7 @@ export const DetailValla = () => {
   const deleteSingleValla = () => {
     actions.deleteSingleValla(id);
   };
+
   const [inputDataValla, setInputDataValla] = useState();
 
   const handleInputChange = (e) => {
@@ -52,14 +53,6 @@ export const DetailValla = () => {
     // window.location.reload()
     actions.getSingleValla(id);
   };
-
-  const popover = (
-    <Popover id="popover-basic">
-      <Button className="btn btn-danger mx-2" onClick={deleteSingleValla}>
-        Confirmar eliminación de Valla
-      </Button>
-    </Popover>
-  );
 
   return (
     <Container className="py-4">
@@ -87,7 +80,7 @@ export const DetailValla = () => {
                   id="name"
                   maxLength="150"
                   name="name"
-                  required=""
+                  required
                   type="text"
                   onChange={handleInputChange}
                 />
@@ -350,11 +343,14 @@ export const DetailValla = () => {
           <Modal.Header closeButton>
             <Modal.Title>¿Desea eliminar esta valla? </Modal.Title>
           </Modal.Header>
-
+          <div>{store.deleteVallaMessage}</div>
           <Modal.Footer>
-             <Button variant="btn btn-secondary" onClick={handleClose}>
-               Cancelar
-             </Button>
+            <Link to="/app">
+              <button className="btn btn-secondary  mx-2" onClick={handleClose}>
+                Cancelar
+              </button>
+            </Link>
+
             <Button variant="danger" onClick={deleteSingleValla}>
               Eliminar
             </Button>

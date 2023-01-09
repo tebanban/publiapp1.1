@@ -18,6 +18,7 @@ export const Home = () => {
       <Login />
       <div className="alert alert-info">
         {store.message || "Loading message from the backend..."}
+        
       </div>
       <div>
         <div>Cantidad de vallas: {dataValla.length || "Fetch not working"}</div>

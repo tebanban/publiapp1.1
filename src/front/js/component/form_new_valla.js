@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Form, Button, Stack } from "react-bootstrap";
+import { Form, Button, Stack, Col } from "react-bootstrap";
 
 export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
+
+  const [validated, setValidated] = useState(false);
 
   const [inputDataValla, setInputDataValla] = useState();
   const [files, setFiles] = useState();
@@ -22,11 +24,17 @@ export const FormNewValla = () => {
     if (files) {
       actions.postVallaFile(files);
     }
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
   };
 
   return (
-    <Form className="form" method="post">
-      <Form.Group className="form-group my-2">
+    <Form className="form" method="post" noValidate validated={validated} onSubmit={submitNewValla}>
+      <Form.Group as={Col} md="4" className="form-group my-2" controlId="validationCode">
         <label htmlFor="code" className="col-md-3 control-label">
           Código<span className="text-danger "> *</span>
         </label>
@@ -34,21 +42,18 @@ export const FormNewValla = () => {
           <input className="form-control" id="code" maxLength="6" name="code" required type="text" onChange={handleInputChange} />
         </div>
       </Form.Group>
-      <Form.Group className="form-group my-2">
-        <label htmlFor="name" className="col-md-3 control-label">
-          Nombre<span className="text-danger "> *</span>
-        </label>
-        <div className="col-md-9">
-          <input
-            className="form-control"
-            id="name"
-            maxLength="150"
-            name="name"
-            required=""
-            type="text"
-            onChange={handleInputChange}
-          />
-        </div>
+      <Form.Group as={Col} md="4" className="" controlId="validationName">
+        <Form.Label>Nombre</Form.Label>
+        <Form.Control
+          required
+          id="name"
+          type="text"
+          placeholder="Nombre"
+          defaultValue=""
+          maxLength="150"
+          onChange={handleInputChange}
+        />
+        <Form.Control.Feedback>ok!</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="form-group my-2">
         <label htmlFor="typology" className="col-md-3 control-label">
@@ -285,7 +290,7 @@ export const FormNewValla = () => {
       </Form.Group>
 
       <Stack direction="horizontal" gap={2} className="mx-auto justify-content-center">
-        <Button variant="primary" onClick={submitNewValla} type="submit">
+        <Button variant="primary" type="submit">
           Submit
         </Button>
         <Link to="/app">
