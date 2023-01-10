@@ -16,13 +16,13 @@ export const DetailValla = () => {
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
   const [show, setShow] = useState(false);
+ 
 
   const handleClose = () => setShow(false);
-  const handleShow = () =>{
+  const handleShow = () => {
     setShow(true);
     actions.deleteVallaMessage();
-
-  } 
+  };
   const [files, setFiles] = useState();
 
   console.log("loaded");

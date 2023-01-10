@@ -133,6 +133,9 @@ export const Table_valla = () => {
         <Modal.Body>
           <FormNewValla />
         </Modal.Body>
+        <Modal.Footer >
+        <Button variant="secondary" onClick={handleClose}>Cancelar</Button>
+        </Modal.Footer>
       </Modal>
 
       <button className="btn btn-primary" onClick={handleShow}>
