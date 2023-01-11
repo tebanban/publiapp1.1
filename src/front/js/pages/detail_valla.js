@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal, Card } from "react-bootstrap";
-import { Form, Button, Stack, Popover, Container, Col, Row } from "react-bootstrap";
+import { Form, Button, Stack, Container, Col, Row } from "react-bootstrap";
 import { GoogleMapVallas } from "../component/googlemap_vallas";
 
 console.log("pre-load");
@@ -16,12 +16,11 @@ export const DetailValla = () => {
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
   const [show, setShow] = useState(false);
- 
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
-    actions.deleteVallaMessage();
+    actions.resetDeleteVallaMessage();
   };
   const [files, setFiles] = useState();
 

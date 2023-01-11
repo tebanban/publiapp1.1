@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
@@ -28,6 +28,13 @@ export const Table_valla = () => {
     }
   });
 
+  useEffect(() => {
+    actions.getClients();
+    actions.getUsers();
+    actions.getOwners();
+    actions.getVallas();
+  }, []);
+
   return (
     <div>
       <div className="mx-2">
@@ -45,11 +52,7 @@ export const Table_valla = () => {
           </Col>
           <Col md={4}>
             <Form.Group>
-              <select
-                onChange={(e) => setQuery(e.target.value)}
-                id="inputState"
-                className="form-control"
-              >
+              <select onChange={(e) => setQuery(e.target.value)} id="inputState" className="form-control">
                 <option defaultValue>Filtrar por estado...</option>
                 <option>Arrendada</option>
                 <option>Disponible</option>
@@ -110,14 +113,10 @@ export const Table_valla = () => {
                   <td className="col-1">{item.typology}</td>
                   <td className="col-1">{item.status}</td>
                   <td className="col-1">
-                    {dataClients.map((element, index) =>
-                      element.id == item.client_id ? element.name : ""
-                    )}
+                    {dataClients.map((element, index) => (element.id == item.client_id ? element.name : ""))}
                   </td>
                   <td className="col-1">
-                    {dataOwners.map((element, index) =>
-                      element.id == item.owner_id ? element.name : ""
-                    )}
+                    {dataOwners.map((element, index) => (element.id == item.owner_id ? element.name : ""))}
                   </td>
                 </tr>
               );
@@ -133,8 +132,10 @@ export const Table_valla = () => {
         <Modal.Body>
           <FormNewValla />
         </Modal.Body>
-        <Modal.Footer >
-        <Button variant="secondary" onClick={handleClose}>Cancelar</Button>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
         </Modal.Footer>
       </Modal>
 

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Stack } from "react-bootstrap";
 
@@ -17,6 +16,7 @@ export const FormNewValla = () => {
   };
 
   const [validated, setValidated] = useState(false);
+
   const submitNewValla = (e) => {
     e.preventDefault();
     actions.postNewValla(inputDataValla);
@@ -45,7 +45,7 @@ export const FormNewValla = () => {
             id="name"
             maxLength="150"
             name="name"
-            required
+            required="required"
             type="text"
             onChange={handleInputChange}
           />
@@ -289,7 +289,6 @@ export const FormNewValla = () => {
         <Button variant="primary" type="submit">
           Registrar nueva valla
         </Button>
-        
       </Stack>
     </Form>
   );
