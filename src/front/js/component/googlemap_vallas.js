@@ -11,14 +11,10 @@ const Marker = () => (
 );
 
 export const GoogleMapVallas = (props) => {
-  const [latitud, setLatitud] = useState(9.9338);
-  const [longitud, setLongitud] = useState(-84.1014);
-  console.log("props", props);
-
   const location = {
     center: {
-      lat: latitud,
-      lng: longitud,
+      lat: props.lat,
+      lng: props.lng,
     },
     zoom: 15,
   };

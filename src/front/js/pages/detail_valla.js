@@ -59,24 +59,53 @@ export const DetailValla = () => {
 
   return (
     <Container className="py-4">
-      <Row>
-        <Col className="pictureBox">
+      <Row className="detail-title">
+        <Col className="detail-code">
           <h1>{singleValla.code}</h1>
-          <div className="rounded my-3">
-            <Card.Img src={vallaPhoto} style={{ width: "80%", height: "22rem" }} />
-          </div>
-
-          <div className="rounded mb-0">
+          <h5>{singleValla.route}</h5>
+        </Col>
+        <Col xs={6} className="detail-name">
+          <h1>{singleValla.name}</h1>
+        </Col>
+        <Col className="detail-status">
+          <h5>Estatus: {singleValla.status}</h5>
+          <h5>{singleValla.order_id}</h5>
+        </Col>
+      </Row>
+      <Row className="detail-pictures">
+        <Col>
+          <div>
             <GoogleMapVallas lat={singleValla?.lat} lng={singleValla?.lng} />
           </div>
         </Col>
         <Col>
-          <Form className="form">
-            <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="name" className="col-md-2 control-label">
-                Nombre
+          <div>
+            <Card.Img src={vallaPhoto} style={{ width: "auto", height: "22rem" }} />
+          </div>
+        </Col>
+      </Row>
+      <Row className="detail-info">
+        <Col>
+          <h5>Ruta: {singleValla.route}</h5>
+        </Col>
+        <Col>
+          <h5>Tamaño: {singleValla.size}</h5>
+        </Col>
+        <Col>
+          <h5>Tipo: {singleValla.typology}</h5>
+        </Col>
+        <Col>
+          <h5>Formato: {singleValla.layout}</h5>
+        </Col>
+      </Row>
+      <Row>
+        <Col md className="px-3">
+          <Form>
+            <Form.Group className="form-group">
+              <Form.Label htmlFor="name" className="control-label">
+                Nombre:
               </Form.Label>
-              <div className="col-md-10">
+              <div>
                 <input
                   defaultValue={singleValla.name}
                   className="form-control"
@@ -90,10 +119,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="status" className="col-md-2 control-label">
-                Estatus
+              <Form.Label htmlFor="status" className=" control-label">
+                Estatus:
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="status" name="status" onChange={handleInputChange}>
                   <option value={singleValla.status}>{singleValla.status}</option>
                   <option value="disponible">Disponible</option>
@@ -104,10 +133,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="typology" className="col-md-2 control-label">
-                Tipo
+              <Form.Label htmlFor="typology" className=" control-label">
+                Tipo:
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="typology" name="typology" onChange={handleInputChange}>
                   <option value={singleValla.typology}>{singleValla.typology}</option>
                   <option value="unipolar2">Unipolar 2 caras</option>
@@ -116,10 +145,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="layout" className="col-md-2 control-label">
-                Horiz/Vert
+              <Form.Label htmlFor="layout" className=" control-label">
+                Horiz/Vert:
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="layout" name="layout" onChange={handleInputChange}>
                   <option value={singleValla.layout}>{singleValla.layout}</option>
                   <option value="horizontal">Horizontal</option>
@@ -128,10 +157,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="size" className="col-md-2 control-label">
-                Dimensiones
+              <Form.Label htmlFor="size" className=" control-label">
+                Dimensiones:
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="size" name="size" onChange={handleInputChange}>
                   <option value={singleValla.size}>{singleValla.size}</option>
                   <option value="8.50 x 11.00 m">8.50 x 11.00 m</option>
@@ -140,10 +169,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="light" className="col-md-2 control-label">
-                Ilumninación
+              <Form.Label htmlFor="light" className=" control-label">
+                Ilumninación:
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="light" name="light" onChange={handleInputChange}>
                   <option value={singleValla.light}>{singleValla.light}</option>
                   <option value="Yes">Si</option>
@@ -153,10 +182,10 @@ export const DetailValla = () => {
             </Form.Group>
 
             <Form.Group className="form-group my-1 ">
-              <Form.Label htmlFor="price_low" className=" control-label col-md-2">
-                Precio
+              <Form.Label htmlFor="price_low" className=" control-label ">
+                Precio:
               </Form.Label>
-              <Stack direction="horizontal" gap={2} className="col-md-10">
+              <Stack direction="horizontal" gap={2} className="">
                 <input
                   defaultValue={singleValla.price_low}
                   className="form-control"
@@ -182,10 +211,10 @@ export const DetailValla = () => {
             </Form.Group>
 
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="route" className="col-md-2 control-label">
-                Ruta
+              <Form.Label htmlFor="route" className=" control-label">
+                Ruta:
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <input
                   defaultValue={singleValla.route}
                   className="form-control"
@@ -199,10 +228,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="view" className="col-md-2 control-label">
-                Sentido
+              <Form.Label htmlFor="view" className=" control-label">
+                Sentido:
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <input
                   defaultValue={singleValla.view}
                   className="form-control"
@@ -216,10 +245,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-1 ">
-              <Form.Label htmlFor="lat" className=" control-label col-md-2">
-                Lat/Lng
+              <Form.Label htmlFor="lat" className=" control-label ">
+                Lat/Lng:
               </Form.Label>
-              <Stack direction="horizontal" gap={2} className="col-md-10">
+              <Stack direction="horizontal" gap={2} className="">
                 <input
                   defaultValue={singleValla.lat}
                   className="form-control"
@@ -244,10 +273,10 @@ export const DetailValla = () => {
               </Stack>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <Form.Label htmlFor="comment" className="col-md-2 control-label">
+              <Form.Label htmlFor="comment" className=" control-label">
                 Comentario
               </Form.Label>
-              <div className="col-md-10">
+              <div className="">
                 <input
                   defaultValue={singleValla.comment}
                   className="form-control"
@@ -262,10 +291,10 @@ export const DetailValla = () => {
             </Form.Group>
 
             <Form.Group className="form-group my-2">
-              <label htmlFor="user_id" className="col-md-2 control-label">
+              <label htmlFor="user_id" className=" control-label">
                 Usuario
               </label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="user_id" name="user_id" onChange={handleInputChange}>
                   <option defaultValue="">
                     {dataUsers.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
@@ -279,10 +308,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <label htmlFor="client_id" className="col-md-2 control-label">
+              <label htmlFor="client_id" className=" control-label">
                 Cliente
               </label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="client_id" name="client_id" onChange={handleInputChange}>
                   <option defaultValue="">
                     {dataClients.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
@@ -296,10 +325,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <label htmlFor="owner_id" className="col-md-2 control-label">
+              <label htmlFor="owner_id" className=" control-label">
                 Propietario
               </label>
-              <div className="col-md-10">
+              <div className="">
                 <select className="form-control" id="owner_id" name="owner_id" onChange={handleInputChange}>
                   <option defaultValue="">
                     {dataOwners.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
@@ -313,10 +342,10 @@ export const DetailValla = () => {
               </div>
             </Form.Group>
             <Form.Group className="form-group my-2">
-              <label htmlFor="file" className="col-md-2 control-label">
+              <label htmlFor="file" className=" control-label">
                 Fotografía
               </label>
-              <div className="col-md-10">
+              <div className="">
                 <input
                   className="form-control"
                   id="file"
@@ -330,6 +359,7 @@ export const DetailValla = () => {
             </Form.Group>
           </Form>
         </Col>
+        {/* Column at the right    */}
       </Row>
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
