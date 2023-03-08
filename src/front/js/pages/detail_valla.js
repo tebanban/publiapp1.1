@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Modal, Card } from "react-bootstrap";
+import { Modal, Image } from "react-bootstrap";
 import { Form, Button, Stack, Container, Col, Row } from "react-bootstrap";
 import { GoogleMapVallas } from "../component/googlemap_vallas";
 
@@ -59,43 +59,48 @@ export const DetailValla = () => {
 
   return (
     <Container className="py-4">
-      <Row className="detail-title">
-        <Col className="detail-code">
+      <Row className="detail-title ">
+        <Col className="detail-code p-3">
           <h1>{singleValla.code}</h1>
           <h5>{singleValla.route}</h5>
         </Col>
-        <Col xs={6} className="detail-name">
+        <Col xs={8} className="detail-name p-3">
           <h1>{singleValla.name}</h1>
         </Col>
-        <Col className="detail-status">
+        <Col className="detail-status p-3">
           <h5>Estatus: {singleValla.status}</h5>
           <h5>{singleValla.order_id}</h5>
         </Col>
       </Row>
-      <Row className="detail-pictures">
-        <Col>
+      <Row className="detail-pictures pb-5">
+        <Col lg={6} className="p-0">
           <div>
             <GoogleMapVallas lat={singleValla?.lat} lng={singleValla?.lng} />
           </div>
         </Col>
-        <Col>
+        <Col className="p-0">
           <div>
-            <Card.Img src={vallaPhoto} style={{ width: "auto", height: "22rem" }} />
+            <Image src={vallaPhoto} style={{ height: "50vh", width: "100%" }} />
           </div>
         </Col>
       </Row>
-      <Row className="detail-info">
+      <Row className="detail-blueline py-3">eeeeee</Row>
+      <Row className="detail-info py-3">
         <Col>
-          <h5>Ruta: {singleValla.route}</h5>
+          <h5>Ruta:</h5>
+          <p>{singleValla.route}</p>
         </Col>
         <Col>
-          <h5>Tamaño: {singleValla.size}</h5>
+          <h5>Tamaño:</h5>
+          <p>{singleValla.size}</p>
         </Col>
         <Col>
-          <h5>Tipo: {singleValla.typology}</h5>
+          <h5>Tipo:</h5>
+          <p>{singleValla.typology}</p>
         </Col>
         <Col>
-          <h5>Formato: {singleValla.layout}</h5>
+          <h5>Formato:</h5>
+          <p>{singleValla.layout}</p>
         </Col>
       </Row>
       <Row>

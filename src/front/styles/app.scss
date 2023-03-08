@@ -1,3 +1,14 @@
+:root,
+:root.light {
+  --dark-color: #1f2937;
+  --light_color: #3882f6;
+  --whitefont: #f9faf8;
+  --corp_blue: #0047bb;
+  --corp_red: #f63440;
+  --text_gray: #79828e;
+  --background_gray: #f8f9fa;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -79,33 +90,38 @@ body {
 }
 
 .detail-title {
-  padding: 0.7rem;
+ 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 800;
-  border: 0.4rem solid gray;
 }
 
-.detail-title h1 {
+.detail-title .detail-code h1 {
+  color: var(--corp_blue);
   font-weight: 800;
 }
 
-.detail-status {
-  background-color: beige;
+.detail-title .detail-name h1 {
+  color: var(--corp_red);
+  font-weight: 800;
+}
+
+.detail-title .detail-status {
+  background-color: var(--background_gray);
   text-align: center;
 }
 
-.detail-pictures{
-  padding: 0.7rem;
-  border: 0.4rem solid gray;
+.detail-pictures {
   align-items: center;
   text-align: center;
-
+  padding: 0;
 }
 
-.detail-info{
-  padding: 0.7rem;
-  border: 0.4rem solid gray;
+.detail-title .detail-info {
+  padding: 1rem;
   align-items: center;
-  text-align: center;
-
+  text-align: left;
+}
+.detail-blueline {
+  background-color: var(--corp_blue);
+  min-height: 3rem;
 }

@@ -11,12 +11,13 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False) 
     password = db.Column(db.String(120), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
-    role = db.Column(db.String(12), unique=False, nullable=False)
-    modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
+    created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True) 
+    modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True) 
     vallas= db.relationship('Valla', backref='user', lazy=True)    # relationship
     owners= db.relationship('Owner', backref='user', lazy=True)    # relationship
     clients= db.relationship('Client', backref='user', lazy=True)    # relationship
     orders= db.relationship('Order', backref='user', lazy=True)    # relationship
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=True) #FK
 
     def __repr__(self):
         return '%s' % self.name   # This will be printed at the shell
@@ -32,7 +33,19 @@ class User(db.Model):
             "modified_on": self.modified_on
             # do not serialize the password, its a security breach
         }
-   
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=False, nullable=True)
+    users= db.relationship('User', backref='role', lazy=True)   # relationship
+
+    def __repr__(self):
+        return '%r' % self.name    # <'Role %r'> % self.name
+    
+    def serialize(self):
+        return {
+            "role_id": self.id,
+            "role_name": self.name,
+        }   
 
 class Valla(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -46,7 +59,10 @@ class Valla(db.Model):
     price_high = db.Column(db.Float, unique=False, nullable=True)
     view = db.Column(db.String(150), unique=False, nullable=True)
     route = db.Column(db.String(150), unique=False, nullable=True)
-    modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    province = db.Column(db.String(100), unique= False, nullable= True)
+    address = db.Column(db.String(100), unique= False, nullable= True)
+    created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     lat = db.Column(db.Float, nullable= True)
     lng = db.Column(db.Float, nullable= True)
     comment = db.Column(db.String (200), unique=False, nullable=True) 
@@ -81,6 +97,9 @@ class Valla(db.Model):
             "price_high": self.price_high,
             "view": self.view,
             "route":self.route,
+            "province": self.province,
+            "address" : self.address,
+            "created_on" : self.created_on,
             "modified_on": self.modified_on,
             "comment": self.comment,
             "status": self.status,
@@ -103,7 +122,8 @@ class Owner(db.Model):
     company = db.Column(db.String(120), unique=True, nullable=True)
     phone = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
-    modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
     vallas= db.relationship('Valla', backref='owner', lazy=True)    # relationship
@@ -119,6 +139,7 @@ class Owner(db.Model):
             "company": self.company,
             "phone": self.phone,
             "email": self.email, 
+            "created_on" : self.created_on,
             "modified_on": self.modified_on,
             "user_id": self.user_id
         }
@@ -130,7 +151,8 @@ class Client(db.Model):
     company = db.Column(db.String(80), unique=True, nullable=True)
     phone = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
-    modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
     vallas= db.relationship('Valla', backref='client', lazy=True)    # relationship
@@ -147,6 +169,7 @@ class Client(db.Model):
             "company": self.company,
             "phone": self.phone,
             "email": self.email, 
+            "created_on" : self.created_on,
             "modified_on": self.modified_on,
             "user_id": self.user_id
   
@@ -155,7 +178,8 @@ class Client(db.Model):
 class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     order_price = db.Column(db.Integer, unique=False)
-    modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
+    created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
+    modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     check_in = db.Column(db.DateTime,  nullable=True)
     check_out = db.Column(db.DateTime,  nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
@@ -173,7 +197,7 @@ class Order(db.Model):
 class Typology(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), unique=False, nullable=False)
-    modified_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
+    created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
     
     
