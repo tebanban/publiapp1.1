@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import { Modal, Image } from "react-bootstrap";
 import { Form, Button, Stack, Container, Col, Row } from "react-bootstrap";
 import { GoogleMapVallas } from "../component/googlemap_vallas";
+import { FormUpdateValla } from "../component/form_udpate_valla";
 
 console.log("pre-load");
 
@@ -58,7 +59,7 @@ export const DetailValla = () => {
   };
 
   return (
-    <Container className="py-4">
+    <Container className="detail-container py-4">
       <Row className="detail-title ">
         <Col className="detail-code p-3">
           <h1>{singleValla.code}</h1>
@@ -72,19 +73,30 @@ export const DetailValla = () => {
           <h5>{singleValla.order_id}</h5>
         </Col>
       </Row>
-      <Row className="detail-pictures pb-5">
+      <Row className="detail-middle-section pb-5">
         <Col lg={6} className="p-0">
           <div>
             <GoogleMapVallas lat={singleValla?.lat} lng={singleValla?.lng} />
           </div>
         </Col>
-        <Col className="p-0">
+        <Col className="detail-img p-0">
           <div>
             <Image src={vallaPhoto} style={{ height: "50vh", width: "100%" }} />
           </div>
         </Col>
       </Row>
-      <Row className="detail-blueline py-3">eeeeee</Row>
+      <Row className="detail-blueline py-3">
+        <Col>
+          <h5>Pauta mensual e iluminación</h5>
+        </Col>
+        <Col>
+          <h5>Impresión de lona</h5>
+        </Col>
+        <Col>
+          <h5>Tráfico mensual</h5>
+        </Col>
+      </Row>
+
       <Row className="detail-info py-3">
         <Col>
           <h5>Ruta:</h5>
@@ -375,9 +387,23 @@ export const DetailValla = () => {
           <button className="btn btn-secondary  mx-2">Cancelar</button>
         </Link>
         <Button variant="danger" onClick={handleShow}>
-          Eliminar
+          Editar
         </Button>
-        <Modal show={show} onHide={handleClose}>
+        <Modal size="lg" show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Editar Valla</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <FormUpdateValla />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancelar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* <Modal show={show} onHide={handleClose}>
           {store.deleteVallaMessage ? (
             <>
               <Modal.Header>
@@ -412,7 +438,7 @@ export const DetailValla = () => {
               </Modal.Footer>
             </>
           )}
-        </Modal>
+        </Modal> */}
       </Stack>
     </Container>
   );

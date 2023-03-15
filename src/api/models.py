@@ -177,7 +177,10 @@ class Client(db.Model):
 
 class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    order_price = db.Column(db.Integer, unique=False)
+    base_price = db.Column(db.Integer, unique=False)
+    discount = db.Column(db.Integer, unique=False)
+    net_price = db.Column(db.Integer, unique=False)
+    commision = db.Column(db.Integer, unique=False)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     check_in = db.Column(db.DateTime,  nullable=True)

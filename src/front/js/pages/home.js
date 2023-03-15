@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import crMap from "../../img/crmap.png";
-import "../../styles/home.scss";
-import { Login } from "../component/login"
+import { Login } from "../component/login";
+
 
 export const Home = () => {
   const { store } = useContext(Context);
