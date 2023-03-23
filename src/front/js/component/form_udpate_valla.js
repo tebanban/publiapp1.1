@@ -1,115 +1,119 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { Form, Button,  Col, InputGroup, Row } from "react-bootstrap";
+import { Form, Button, Col, Select, Row } from "react-bootstrap";
 import { Formik } from "formik";
-import { object, string, number, bool,  date, InferType } from "yup";
+import { object, string, number, bool, date, InferType } from "yup";
 
 const schema = object().shape({
-  firstName: string().required(),
-  lastName: string().required(),
-  username: string().required(),
-  city: string().required(),
-  state: string().required(),
-  zip: string().required(),
+  name: string().required().min(5),
+  address: string().required(),
+  province: string().required(),
+  route: string().required(),
+  view: string().required(),
   terms: bool().required().oneOf([true], "Terms must be accepted"),
 });
 
 export const FormUpdateValla = () => {
+  const { store, actions } = useContext(Context);
+  const singleValla = store.singleValla;
+
   return (
     <Formik
       validationSchema={schema}
       onSubmit={console.log}
       initialValues={{
-        firstName: "Mark",
-        lastName: "Otto",
-        username: "",
-        city: "",
-        state: "",
-        zip: "",
+        name: singleValla.name,
+        province: singleValla.province,
+        address: singleValla.address,
+        typology: singleValla.typology,
+        layout: singleValla.layout,
+        size: singleValla.size,
+        light: singleValla.light,
+        price_low: singleValla.price_low,
+        price_high: singleValla.price_high,
+        route: singleValla.route,
+        view: singleValla.view,
+        lat: singleValla.lat,
+        lng: singleValla.lng,
+        comment: singleValla.comment,
         terms: false,
       }}
     >
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Row className="mb-3">
-            <Form.Group as={Col} md="4" controlId="validationFormik01">
-              <Form.Label>First name</Form.Label>
+            <Form.Group as={Col} md="6" controlId="">
+              <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
-                name="firstName"
-                value={values.firstName}
+                name="name"
+                value={values.name}
                 onChange={handleChange}
-                isValid={touched.firstName && !errors.firstName}
+                isValid={touched.name && !errors.name}
+                isInvalid={!!errors.name}
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationFormik02">
-              <Form.Label>Last name</Form.Label>
-              <Form.Control
-                type="text"
-                name="lastName"
-                value={values.lastName}
-                onChange={handleChange}
-                isValid={touched.lastName && !errors.lastName}
-              />
 
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationFormikUsername">
-              <Form.Label>Username</Form.Label>
-              <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                <Form.Control
-                  type="text"
-                  placeholder="Username"
-                  aria-describedby="inputGroupPrepend"
-                  name="username"
-                  value={values.username}
-                  onChange={handleChange}
-                  isInvalid={!!errors.username}
-                />
-                <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
-              </InputGroup>
+            <Form.Group as={Col} md="6">
+              <Form.Label>Dirección</Form.Label>
+              <Form.Control
+                type="text"
+                name="address"
+                value={values.address}
+                onChange={handleChange}
+                isValid={touched.address && !errors.address}
+                isInvalid={!!errors.address}
+              />
+              <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
             </Form.Group>
           </Row>
           <Row className="mb-3">
-            <Form.Group as={Col} md="6" controlId="validationFormik03">
-              <Form.Label>City</Form.Label>
+            <Form.Group as={Col} md="4">
+              <Form.Label>Provincia</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="City"
-                name="city"
-                value={values.city}
+                as="select"
+                name="province"
+                value={values.province}
                 onChange={handleChange}
-                isInvalid={!!errors.city}
-              />
-
-              <Form.Control.Feedback type="invalid">{errors.city}</Form.Control.Feedback>
+                isValid={touched.province && !errors.province}
+                isInvalid={!!errors.province}
+              >
+                <option value="Alajuela">Alajuela</option>
+                <option value="Cartago">Cartago</option>
+                <option value="Guanacaste">Guanacaste</option>
+                <option value="Heredia">Heredia</option>
+                <option value="Limón">Limón</option>
+                <option value="Puntarenas">Puntarenas</option>
+                <option value="San José">San José</option>
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">{errors.province}</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="3" controlId="validationFormik04">
-              <Form.Label>State</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="State"
-                name="state"
-                value={values.state}
-                onChange={handleChange}
-                isInvalid={!!errors.state}
-              />
-              <Form.Control.Feedback type="invalid">{errors.state}</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="3" controlId="validationFormik05">
-              <Form.Label>Zip</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Zip"
-                name="zip"
-                value={values.zip}
-                onChange={handleChange}
-                isInvalid={!!errors.zip}
-              />
 
-              <Form.Control.Feedback type="invalid">{errors.zip}</Form.Control.Feedback>
+            <Form.Group as={Col} md="4">
+              <Form.Label>Ruta</Form.Label>
+              <Form.Control
+                type="text"
+                name="route"
+                value={values.route}
+                onChange={handleChange}
+                isValid={touched.route && !errors.route}
+                isInvalid={!!errors.route}
+              />
+              <Form.Control.Feedback type="invalid">{errors.route}</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group as={Col} md="4">
+              <Form.Label>Vista</Form.Label>
+              <Form.Control
+                type="text"
+                name="view"
+                value={values.view}
+                onChange={handleChange}
+                isValid={touched.view && !errors.view}
+                isInvalid={!!errors.view}
+              />
+              <Form.Control.Feedback type="invalid">{errors.view}</Form.Control.Feedback>
             </Form.Group>
           </Row>
           <Form.Group className="mb-3">
