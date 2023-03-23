@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { Form, Button, Col, Select, Row } from "react-bootstrap";
+import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { object, string, number, bool, date, InferType } from "yup";
 
@@ -10,6 +10,10 @@ const schema = object().shape({
   province: string().required(),
   route: string().required(),
   view: string().required(),
+  lat: number().max(180),
+  lng: number().max(90),
+  price_low: number(),
+  price_high: number(),
   terms: bool().required().oneOf([true], "Terms must be accepted"),
 });
 
@@ -148,7 +152,6 @@ export const FormUpdateValla = () => {
             <Form.Group as={Col} md="4">
               <Form.Label>Tamaño</Form.Label>
               <Form.Control as="select" name="size" value={values.size} onChange={handleChange}>
-                <option value="">Seleccione tamaño: </option>
                 <option value="7.20 x 9.00 metros">7.20 x 9.00 metros</option>
                 <option value="8.50 x 11.00 metros">8.50 x 11.00 metros</option>
                 <option value="12.70 x 5.00 metros">12.70 x 5.00 metros</option>
@@ -160,7 +163,6 @@ export const FormUpdateValla = () => {
             <Form.Group as={Col} md="4">
               <Form.Label>Tipo</Form.Label>
               <Form.Control as="select" name="typology" value={values.typology} onChange={handleChange}>
-                <option value="">Seleccione tipo: </option>
                 <option value="Unipolar">Unipolar</option>
                 <option value="Landmark">Landmark</option>
               </Form.Control>
@@ -170,7 +172,6 @@ export const FormUpdateValla = () => {
             <Form.Group as={Col} md="2">
               <Form.Label>Horz/Vert</Form.Label>
               <Form.Control as="select" name="layout" value={values.layout} onChange={handleChange}>
-                <option value="">Seleccione: </option>
                 <option value="Horizontal">Horizontal</option>
                 <option value="Vertical">Vertical</option>
               </Form.Control>
@@ -179,43 +180,44 @@ export const FormUpdateValla = () => {
 
             <Form.Group as={Col} md="2">
               <Form.Label>light</Form.Label>
-              <Form.Control
-                type="text"
-                name="route"
-                value={values.light}
-                onChange={handleChange}
-                isValid={touched.light && !errors.light}
-                isInvalid={!!errors.light}
-              />
-              <Form.Control.Feedback type="invalid">{errors.light}</Form.Control.Feedback>
+              <Form.Control as="select" name="light" value={values.light} onChange={handleChange}>
+                <option value="yes">Sí</option>
+                <option value="no">No</option>
+              </Form.Control>
             </Form.Group>
           </Row>
 
           <Row className="mb-3">
             <Form.Group as={Col} md="2">
               <Form.Label>Precio menor</Form.Label>
-              <Form.Control
-                type="text"
-                name="price_low"
-                value={values.price_low}
-                onChange={handleChange}
-                isValid={touched.lat && !errors.price_low}
-                isInvalid={!!errors.price_low}
-              />
-              <Form.Control.Feedback type="invalid">{errors.price_low}</Form.Control.Feedback>
+              <InputGroup hasValidation>
+                <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  name="price_low"
+                  value={values.price_low}
+                  onChange={handleChange}
+                  isValid={touched.lat && !errors.price_low}
+                  isInvalid={!!errors.price_low}
+                />
+                <Form.Control.Feedback type="invalid">{errors.price_low}</Form.Control.Feedback>
+              </InputGroup>
             </Form.Group>
 
             <Form.Group as={Col} md="2">
               <Form.Label>Precio mayor</Form.Label>
-              <Form.Control
-                type="text"
-                name="price_high"
-                value={values.price_high}
-                onChange={handleChange}
-                isValid={touched.price_high && !errors.price_high}
-                isInvalid={!!errors.price_high}
-              />
-              <Form.Control.Feedback type="invalid">{errors.price_high}</Form.Control.Feedback>
+              <InputGroup hasValidation>
+                <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  name="price_high"
+                  value={values.price_high}
+                  onChange={handleChange}
+                  isValid={touched.price_high && !errors.price_high}
+                  isInvalid={!!errors.price_high}
+                />
+                <Form.Control.Feedback type="invalid">{errors.price_high}</Form.Control.Feedback>
+              </InputGroup>
             </Form.Group>
 
             <Form.Group as={Col} md="8">
@@ -223,6 +225,22 @@ export const FormUpdateValla = () => {
               <Form.Control type="text" name="route" value={values.comment} onChange={handleChange} />
             </Form.Group>
           </Row>
+          <Form.Group className="form-group my-2">
+            <label htmlFor="file" className=" control-label">
+              Fotografía
+            </label>
+            <div className="">
+              <input
+                className="form-control"
+                id="file"
+                name="file"
+                type="file"
+                onChange={(e) => {
+                  setFiles(e.target.files);
+                }}
+              />
+            </div>
+          </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Check
