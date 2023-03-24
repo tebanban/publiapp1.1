@@ -25,7 +25,6 @@ export const DetailValla = () => {
   };
   const [files, setFiles] = useState();
 
-  console.log("loaded");
 
   useEffect(() => {
     /////////////////////////////////////// sends valla id as a parameter to the flux
@@ -49,6 +48,7 @@ export const DetailValla = () => {
     e.preventDefault();
     if (inputDataValla) {
       actions.updateValla(id, inputDataValla);
+      console.log(inputDataValla)
     }
 
     if (files) {

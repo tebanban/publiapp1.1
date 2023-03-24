@@ -1,30 +1,50 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
-import { Formik } from "formik";
+import { Formik, Field, ErrorMessage } from "formik";
 import { object, string, number, bool, date, InferType } from "yup";
+import * as Yup from "yup";
 
-const schema = object().shape({
-  name: string().required().min(5),
-  address: string().required(),
-  province: string().required(),
-  route: string().required(),
-  view: string().required(),
-  lat: number().max(180),
-  lng: number().max(90),
-  price_low: number(),
-  price_high: number(),
-  terms: bool().required().oneOf([true], "Terms must be accepted"),
+const schema = Yup.object().shape({
+  name: Yup.string().required().min(5, "Nombre muy corto"),
+  address: Yup.string().required(),
+  province: Yup.string().required(),
+  route: Yup.string().required(),
+  view: Yup.string().required(),
+  lat: Yup.number().max(180),
+  lng: Yup.number().max(90),
+  price_low: Yup.number(),
+  price_high: Yup.number(),
+  terms: Yup.bool().required().oneOf([true], "Debe aceptar los cambios"),
 });
 
 export const FormUpdateValla = () => {
   const { store, actions } = useContext(Context);
   const singleValla = store.singleValla;
+  const [files, setFiles] = useState();
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    if (!values.terms) {
+      alert("You must accept the terms and conditions to submit the form.");
+      setSubmitting(false);
+    } else {
+      // Perform custom logic (e.g. API calls)
+      if (values) {
+        actions.updateValla(values);
+        console.log(values);
+      }
+
+      if (files) {
+        actions.updateVallaFile(files);
+      }
+      // window.location.reload()
+    }
+  };
 
   return (
     <Formik
       validationSchema={schema}
-      onSubmit={console.log}
+      onSubmit={handleSubmit}
       initialValues={{
         name: singleValla.name,
         province: singleValla.province,
@@ -48,15 +68,8 @@ export const FormUpdateValla = () => {
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="">
               <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={values.name}
-                onChange={handleChange}
-                isValid={touched.name && !errors.name}
-                isInvalid={!!errors.name}
-              />
-              <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+              <Field className="form-control" name="name" />
+              <ErrorMessage name="name" className="invalid-feedback" />
             </Form.Group>
 
             <Form.Group as={Col} md="4">
@@ -66,6 +79,7 @@ export const FormUpdateValla = () => {
                 name="address"
                 value={values.address}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 isValid={touched.address && !errors.address}
                 isInvalid={!!errors.address}
               />
@@ -222,7 +236,7 @@ export const FormUpdateValla = () => {
 
             <Form.Group as={Col} md="8">
               <Form.Label>Comentario</Form.Label>
-              <Form.Control type="text" name="route" value={values.comment} onChange={handleChange} />
+              <Form.Control type="text" name="comment" value={values.comment} onChange={handleChange} />
             </Form.Group>
           </Row>
           <Form.Group className="form-group my-2">
@@ -246,7 +260,7 @@ export const FormUpdateValla = () => {
             <Form.Check
               required
               name="terms"
-              label="Agree to terms and conditions"
+              label="Acepto los cambios"
               onChange={handleChange}
               isInvalid={!!errors.terms}
               feedback={errors.terms}
