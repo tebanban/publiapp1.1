@@ -23,7 +23,7 @@ export const FormUpdateValla = () => {
   const singleValla = store.singleValla;
   const [files, setFiles] = useState();
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values, touched, { setSubmitting }) => {
     if (!values.terms) {
       alert("You must accept the terms and conditions to submit the form.");
       setSubmitting(false);
@@ -31,7 +31,9 @@ export const FormUpdateValla = () => {
       // Perform custom logic (e.g. API calls)
       if (values) {
         actions.updateValla(values);
-        console.log(values);
+        console.log(touched.name);
+        console.log(typeof(values))
+        ;
       }
 
       if (files) {
@@ -69,7 +71,8 @@ export const FormUpdateValla = () => {
             <Form.Group as={Col} md="4" controlId="">
               <Form.Label>Nombre</Form.Label>
               <Field className="form-control" name="name" />
-              <ErrorMessage name="name" className="invalid-feedback" />
+              <ErrorMessage name="name" style={{ color : "red" }} />
+              
             </Form.Group>
 
             <Form.Group as={Col} md="4">
@@ -81,7 +84,7 @@ export const FormUpdateValla = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 isValid={touched.address && !errors.address}
-                isInvalid={!!errors.address}
+                isInvalid={touched.address && errors.address}
               />
               <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
             </Form.Group>
@@ -94,7 +97,7 @@ export const FormUpdateValla = () => {
                 value={values.province}
                 onChange={handleChange}
                 isValid={touched.province && !errors.province}
-                isInvalid={!!errors.province}
+                isInvalid={touched.province && errors.province}
               >
                 <option value="">Seleccione provincia: </option>
                 <option value="Alajuela">Alajuela</option>
@@ -116,6 +119,7 @@ export const FormUpdateValla = () => {
                 name="lat"
                 value={values.lat}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 isValid={touched.lat && !errors.lat}
                 isInvalid={!!errors.lat}
               />
