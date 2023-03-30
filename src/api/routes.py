@@ -171,13 +171,18 @@ def get_single_valla(id):
             valla.client_id = request.json.get('client_id', None)
         if "user_id" in request.json:
             valla.user_id = request.json.get('user_id', None) 
-        
-            
-       
+          
         db.session.commit()
-        return jsonify(valla.serialize()), 200
+
+        response = jsonify({'message': 'Datos actualizados exitosamente', 'data': valla.serialize()})
+        response.status_code = 200
+        return response
+
+
+
+        
     else:
-        raise APIException('Tebanban: error ...')
+        raise APIException('Error: Método no permitido')
 
 #################################################################### UPDATE  Valla File
 @api.route("/vallaFile/<int:id>", methods=["PUT"])  

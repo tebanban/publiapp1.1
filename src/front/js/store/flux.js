@@ -189,8 +189,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("Update valla Body", options.body);
         fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((response) => response.json())
-          .then((data) => {
-            console.log("Success updating valla data:", data), setStore({ updatedValla: data });
+          .then((data, message) => {
+            console.log("flux=", data, "flux message=" , message), setStore({ updatedValla: data });
           })
           .catch((error) => console.log("Error when updating valla data", error));
       },

@@ -16,6 +16,7 @@ export const DetailValla = () => {
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
+  
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -23,40 +24,41 @@ export const DetailValla = () => {
     setShow(true);
     actions.resetDeleteVallaMessage();
   };
-  const [files, setFiles] = useState();
+  // const [files, setFiles] = useState();
 
 
   useEffect(() => {
     /////////////////////////////////////// sends valla id as a parameter to the flux
     actions.getSingleValla(id);
-  }, [inputDataValla]);
+  }, []);
 
   const singleValla = store.singleValla;
+  const vallaPhoto = singleValla.picture_url;
 
   const deleteSingleValla = () => {
     actions.deleteSingleValla(id);
   };
 
-  const [inputDataValla, setInputDataValla] = useState();
+  // const [inputDataValla, setInputDataValla] = useState();
 
-  const handleInputChange = (e) => {
-    setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
-  };
-  const vallaPhoto = singleValla.picture_url;
+  // const handleInputChange = (e) => {
+  //   setInputDataValla({ ...inputDataValla, [e.target.name]: e.target.value });
+  // };
+  
 
-  const submitSingleValla = (e) => {
-    e.preventDefault();
-    if (inputDataValla) {
-      actions.updateValla(id, inputDataValla);
-      console.log(inputDataValla)
-    }
+  // const submitSingleValla = (e) => {
+  //   e.preventDefault();
+  //   if (inputDataValla) {
+  //     actions.updateValla(id, inputDataValla);
+  //     console.log(inputDataValla)
+  //   }
 
-    if (files) {
-      actions.updateVallaFile(id, files);
-    }
-    // window.location.reload()
-    actions.getSingleValla(id);
-  };
+  //   if (files) {
+  //     actions.updateVallaFile(id, files);
+  //   }
+  //   // window.location.reload()
+  //   actions.getSingleValla(id);
+  // };
 
   return (
     <Container className="detail-container py-4">
@@ -117,7 +119,7 @@ export const DetailValla = () => {
       </Row>
       <Row>
         <Col md className="px-3">
-          <Form>
+          {/* <Form>
             <Form.Group className="form-group">
               <Form.Label htmlFor="name" className="control-label">
                 Nombre:
@@ -374,13 +376,13 @@ export const DetailValla = () => {
                 />
               </div>
             </Form.Group>
-          </Form>
+          </Form> */}
         </Col>
         {/* Column at the right    */}
       </Row>
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
-        <Button variant="primary" onClick={submitSingleValla} type="submit">
+        <Button variant="primary"  type="submit">
           Actualizar
         </Button>
         <Link to="/app">
