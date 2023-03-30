@@ -8,6 +8,7 @@ export const FormUpdateValla = () => {
   const [files, setFiles] = useState();
   const [formValues, setFormValues] = useState();
   const [validated, setValidated] = useState(false);
+  const updatedVallaMessage = store.updatedVallaMessage;
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -25,13 +26,13 @@ export const FormUpdateValla = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      console.log(validated);
     }
-
     setValidated(true);
-
+    
     submitSingleValla();
-    event.preventDefault();
+    setTimeout(() => {
+      updatedVallaMessage ? alert(updatedVallaMessage) : alert("error");
+    }, 4000);
   };
 
   const submitSingleValla = () => {

@@ -32,7 +32,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       allClients: [],
       allUsers: [],
       newValla: "",
-      updatedValla: "",
+      updatedVallaMessage: "",
     },
 
     actions: {
@@ -190,7 +190,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
           .then((response) => response.json())
           .then((data, message) => {
-            console.log("flux=", data, "flux message=" , message), setStore({ updatedValla: data });
+            console.log(data), setStore({ updatedVallaMessage: data.message });
           })
           .catch((error) => console.log("Error when updating valla data", error));
       },
