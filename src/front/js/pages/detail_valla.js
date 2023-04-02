@@ -382,11 +382,9 @@ export const DetailValla = () => {
       </Row>
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
-        <Button variant="primary"  type="submit">
-          Actualizar
-        </Button>
+        
         <Link to="/app">
-          <button className="btn btn-secondary  mx-2">Cancelar</button>
+          <button className="btn btn-primary  mx-2">Retornar</button>
         </Link>
         <Button variant="danger" onClick={handleShow}>
           Editar
@@ -400,7 +398,7 @@ export const DetailValla = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Cancelar
+              Volver
             </Button>
           </Modal.Footer>
         </Modal>
