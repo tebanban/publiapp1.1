@@ -39,7 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       /////////////////////////////////////////////////////////////////  REGISTER USER
 
       register: (name, email, password, role) => {
-        fetch(process.env.BACKEND_URL + "/api/register", {
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             Authorization: "Bearer " + store.token,
           },
         };
-        fetch(process.env.BACKEND_URL + "/api/user/" + id, options)
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/user/" + id, options)
           .then((res) => res.json())
           .catch((error) => console.log("Flux:Error deleting user", error));
       },
@@ -76,7 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       /////////////////////////////////////////////////////////////////  LOG IN
 
       login: (email, password) => {
-        fetch(process.env.BACKEND_URL + "/api/token", {
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/token", { 
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -117,7 +117,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             Authorization: "Bearer " + store.token,
           },
         };
-        fetch(process.env.BACKEND_URL + "/api/private", options)
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/private", options)
           .then((resp) => resp.json())
           .then((data) => {
             setStore({ current_user: data.name, current_user_data: data }), console.log("The current user is: " + data.email);
@@ -137,7 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //////////////////////////////////////////////////////////////////////// GET All vallas
       getVallas: () => {
-        fetch(process.env.BACKEND_URL + "/api/valla")
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
             setStore({ allVallas: data }), console.log(data);
@@ -152,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             Authorization: "Bearer " + store.token,
           },
         };
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla/" + id, options)
           .then((res) => res.json())
           .then((data) => {
             setStore({ singleValla: data }), console.log(data);
@@ -169,7 +169,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             Authorization: "Bearer " + store.token,
           },
         };
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla/" + id, options)
           .then((res) => res.json())
           .then((data) => setStore({ deleteVallaMessage: data.message }))
           .catch((error) => console.log("Error deleting single valla", error));
@@ -187,7 +187,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify(inputDataValla),
         };
         console.log("Update valla Body", options.body);
-        fetch(process.env.BACKEND_URL + "/api/valla/" + id, options)
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla/" + id, options)
           .then((response) => response.json())
           .then((data, message) => {
             console.log(data), setStore({ updatedVallaMessage: data.message });
@@ -209,7 +209,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             Authorization: "Bearer " + store.token,
           },
         };
-        fetch(process.env.BACKEND_URL + "/api/vallaFile/" + id, options)
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/vallaFile/" + id, options)
           .then((response) => response.json())
           .then((data) => {
             console.log("Success updating valla file", data);
@@ -228,7 +228,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
           body: JSON.stringify(inputDataValla),
         };
-        fetch(process.env.BACKEND_URL + "/api/valla", options)
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla", options)
           .then((response) => response.json())
           .then((data) => {
             console.log("Success adding new valla", data), setStore({ newValla: data });
@@ -238,7 +238,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       ///////////////////////////////////////////////////////////////////////////////GET ALL owners table
       getOwners: () => {
-        fetch(process.env.BACKEND_URL + "/api/owner")
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner")
           .then((res) => res.json())
           .then((data) => {
             setStore({ allOwners: data }), console.log(data);
@@ -248,7 +248,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getClients: () => {
         ////////////////////////////////////////////////////////////////////////////// GET ALL  clients table
-        fetch(process.env.BACKEND_URL + "/api/client")
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/client")
           .then((res) => res.json())
           .then((data) => {
             setStore({ allClients: data }), console.log(data);
@@ -258,7 +258,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getUsers: () => {
         ////////////////////////////////////////////////////////////////////////////////////GET ALL users
-        fetch(process.env.BACKEND_URL + "/api/user")
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/user")
           .then((res) => res.json())
           .then((data) => {
             setStore({ allUsers: data }), console.log(data);
@@ -274,7 +274,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getMessage: () => {
         // fetching data from the backend
-        fetch(process.env.BACKEND_URL + "/api/hello")
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/hello")
           .then((resp) => resp.json())
           .then((data) => setStore({ message: data.message }))
           .catch((error) => console.log("Error loading message from backend", error));

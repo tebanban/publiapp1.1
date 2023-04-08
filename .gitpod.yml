@@ -6,7 +6,7 @@ ports:
       onOpen: open-browser
       visibility: public
     - port: 3001
-      onOpen: open-preview
+      onOpen: open-browser
       visibility: public
     - port: 5432
       onOpen: ignore
@@ -21,7 +21,7 @@ tasks:
         pipenv run upgrade &&
         python docs/assets/greeting.py back
     - command: >
-        ((sed -i /BACKEND_URL/d .env && echo "" >> .env && echo "BACKEND_URL=https://3001-${GITPOD_WORKSPACE_URL:8}" >> .env) || true) && 
+        ((sed -i /VITE_BACKEND_URL/d .env && echo "" >> .env && echo "VITE_BACKEND_URL=https://3001-${GITPOD_WORKSPACE_URL:8}" >> .env) || true) && 
         npm install &&
         python docs/assets/greeting.py front
       openMode: split-right

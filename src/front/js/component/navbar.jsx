@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import logoNav from "../../img/logo-nav.png";
 import { Nav, Modal, Button } from "react-bootstrap/";
-import { UserProfile } from "../component/user_profile";
+import { UserProfile } from "./user_profile";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);

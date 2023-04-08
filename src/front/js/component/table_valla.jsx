@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 import { Col, Row, Form, Table, Modal, Button } from "react-bootstrap";
-import { FormNewValla } from "../component/form_new_valla";
+import { FormNewValla } from "./form_new_valla";
 
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
