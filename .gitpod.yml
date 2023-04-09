@@ -25,6 +25,15 @@ tasks:
       python docs/assets/greeting.py front
     openMode: split-right
 
+ 
+
+  # - name: start
+  #   command: |
+  #     pipenv run start 
+  #   openMode: split-left
+
+  
+
 vscode:
   extensions:
     - esbenp.prettier-vscode
