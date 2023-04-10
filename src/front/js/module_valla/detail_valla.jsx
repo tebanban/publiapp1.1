@@ -3,8 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal, Image } from "react-bootstrap";
 import { Form, Button, Stack, Container, Col, Row } from "react-bootstrap";
-import { GoogleMapVallas } from "../component/googlemap_vallas";
-import { FormUpdateValla } from "../component/form_udpate_valla";
+import { GoogleMapVallas } from "../module_valla/googlemap_vallas";
+import { FormUpdateValla } from "../module_valla/form_udpate_valla";
 
 console.log("pre-load");
 

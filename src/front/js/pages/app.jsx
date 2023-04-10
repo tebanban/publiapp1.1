@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../styles/app.scss";
-import { Table_valla } from "../component/table_valla";
+import { Table_valla } from "../module_valla/table_valla";
 import { Table_owner } from "../component/table_owner";
 
 export const App = () => {
