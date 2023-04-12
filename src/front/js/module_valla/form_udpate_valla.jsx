@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
+import { Form, Button, Col, InputGroup, Row, Modal } from "react-bootstrap";
 
 export const FormUpdateValla = () => {
   const { store, actions } = useContext(Context);
@@ -8,6 +8,9 @@ export const FormUpdateValla = () => {
   const [files, setFiles] = useState();
   const [formValues, setFormValues] = useState();
   const [validated, setValidated] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalBody, setModalBody] = useState('');
   const updatedVallaMessage = store.updatedVallaMessage;
 
   const handleChange = (e) => {
@@ -21,19 +24,48 @@ export const FormUpdateValla = () => {
     terms: "Debe aceptar los términos",
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
+  
+    if (!form.checkValidity()) {
       event.stopPropagation();
-    }
-    setValidated(true);
+    } else {
+      try {
+        // Call an API or perform some other action with the form data here
+        submitSingleValla();
 
-    submitSingleValla();
-    setTimeout(() => {
-      updatedVallaMessage ? alert(updatedVallaMessage) : alert("error");
-    }, 4000);
+        // Show a success message using a modal dialog
+        setModalTitle('Success!');
+        setModalBody('Your form has been submitted successfully.');
+        setShowModal(true);
+      } catch (error) {
+        // Show an error message using a modal dialog
+        setModalTitle('Error');
+        setModalBody(error.message);
+        setShowModal(true);
+      }
+    }
+  
+    setValidated(true);
   };
+
+  const handleCloseModal = () => setShowModal(false);
+  
+
+  // const handleSubmit = (event) => {
+  //   const form = event.currentTarget;
+  //   if (form.checkValidity() === false) {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //   }
+  //   setValidated(true);
+
+  //   submitSingleValla();
+  //   setTimeout(() => {
+  //     updatedVallaMessage ? alert(updatedVallaMessage) : alert("error");
+  //   }, 4000);
+  // };
 
   const submitSingleValla = () => {
     const id = singleValla.id;
@@ -48,6 +80,7 @@ export const FormUpdateValla = () => {
   };
 
   return (
+    <>
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Form.Group as={Col} md="4" controlId="">
@@ -277,5 +310,17 @@ export const FormUpdateValla = () => {
       </Form.Group>
       <Button type="submit">Submit form</Button>
     </Form>
+    <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{modalTitle}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalBody}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseModal}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
+  </>
   );
 };

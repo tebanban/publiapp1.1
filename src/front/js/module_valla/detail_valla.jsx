@@ -398,7 +398,7 @@ export const DetailValla = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Volver
+              Cancelar
             </Button>
           </Modal.Footer>
         </Modal>
