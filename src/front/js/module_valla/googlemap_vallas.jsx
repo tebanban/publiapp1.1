@@ -25,7 +25,7 @@ export const GoogleMapVallas = (props) => {
       <GoogleMapReact
         bootstrapURLKeys={{ key: import.meta.env.VITE_GOOGLE_API_KEY }}
         defaultCenter={{ lat: 9.9338, lng: -84.1014 }}
-        center={props}
+        center={location.center}
         defaultZoom={location.zoom}
       >
         <Marker lat={props.lat} lng={props.lng} text="My Marker" />
