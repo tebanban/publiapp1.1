@@ -34,7 +34,7 @@ function LoginForm() {
             ></input>
           </Form.Group>
           <Button variant="primary" onClick={login}>
-            Enviar
+            Iniciar Sesión
           </Button>
         </Form>
       )}

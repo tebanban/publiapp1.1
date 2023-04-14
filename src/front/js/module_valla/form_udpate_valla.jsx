@@ -9,8 +9,8 @@ export const FormUpdateValla = () => {
   const [formValues, setFormValues] = useState();
   const [validated, setValidated] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalBody, setModalBody] = useState('');
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalBody, setModalBody] = useState("");
   const updatedVallaMessage = store.updatedVallaMessage;
 
   const handleChange = (e) => {
@@ -24,48 +24,37 @@ export const FormUpdateValla = () => {
     terms: "Debe aceptar los términos",
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = (event) => {
     const form = event.currentTarget;
-  
+
     if (!form.checkValidity()) {
       event.stopPropagation();
+      event.preventDefault();
     } else {
       try {
         // Call an API or perform some other action with the form data here
+        event.preventDefault();
         submitSingleValla();
 
         // Show a success message using a modal dialog
-        setModalTitle('Success!');
-        setModalBody('Your form has been submitted successfully.');
+        setModalTitle("Success!");
+        setModalBody(updatedVallaMessage || "Cambios aplicados");
         setShowModal(true);
       } catch (error) {
         // Show an error message using a modal dialog
-        setModalTitle('Error');
+        setModalTitle("Error");
         setModalBody(error.message);
         setShowModal(true);
       }
     }
-  
+
     setValidated(true);
+    setTimeout(() => {
+      form.submit();
+    }, 2000);
   };
 
   const handleCloseModal = () => setShowModal(false);
-  
-
-  // const handleSubmit = (event) => {
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
-  //   setValidated(true);
-
-  //   submitSingleValla();
-  //   setTimeout(() => {
-  //     updatedVallaMessage ? alert(updatedVallaMessage) : alert("error");
-  //   }, 4000);
-  // };
 
   const submitSingleValla = () => {
     const id = singleValla.id;
@@ -81,236 +70,236 @@ export const FormUpdateValla = () => {
 
   return (
     <>
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Row className="mb-3">
-        <Form.Group as={Col} md="4" controlId="">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            name="name"
-            defaultValue={singleValla.name}
-            onChange={handleChange}
-            min="5"
-          />
-          <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-        </Form.Group>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="4" controlId="">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              name="name"
+              defaultValue={singleValla.name}
+              onChange={handleChange}
+              min="5"
+            />
+            <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+          </Form.Group>
 
-        <Form.Group as={Col} md="4">
-          <Form.Label>Dirección</Form.Label>
-          <Form.Control
-            type="text"
-            name="address"
-            defaultValue={singleValla.address}
-            onChange={handleChange}
-          />
-          <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
-        </Form.Group>
+          <Form.Group as={Col} md="4">
+            <Form.Label>Dirección</Form.Label>
+            <Form.Control
+              type="text"
+              name="address"
+              defaultValue={singleValla.address}
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
+          </Form.Group>
 
-        <Form.Group as={Col} md="4">
-          <Form.Label>Provincia</Form.Label>
-          <Form.Control
-            as="select"
-            name="province"
-            defaultValue={singleValla.province}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Seleccione provincia: </option>
-            <option value="Alajuela">Alajuela</option>
-            <option value="Cartago">Cartago</option>
-            <option value="Guanacaste">Guanacaste</option>
-            <option value="Heredia">Heredia</option>
-            <option value="Limón">Limón</option>
-            <option value="Puntarenas">Puntarenas</option>
-            <option value="San José">San José</option>
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">{errors.province}</Form.Control.Feedback>
-        </Form.Group>
-      </Row>
-      <Row className="mb-3">
-        <Form.Group as={Col} md="2">
-          <Form.Label>Latitud</Form.Label>
-          <Form.Control
-            type="number"
-            name="lat"
-            defaultValue={singleValla.lat}
-            onChange={handleChange}
-            min="-90.00000"
-            max="90.00000"
-            step="0.00001"
-          />
-          <Form.Control.Feedback type="invalid">{errors.lat}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group as={Col} md="2">
-          <Form.Label>Longitud</Form.Label>
-          <Form.Control
-            type="number"
-            name="lng"
-            defaultValue={singleValla.lng}
-            onChange={handleChange}
-            min="-180.00000"
-            max="180.00000"
-            step="0.00001"
-          />
-          <Form.Control.Feedback type="invalid">{errors.lng}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group as={Col} md="4">
-          <Form.Label>Ruta</Form.Label>
-          <Form.Control
-            type="text"
-            name="route"
-            defaultValue={singleValla.route}
-            onChange={handleChange}
-          />
-          <Form.Control.Feedback type="invalid">{errors.route}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group as={Col} md="4">
-          <Form.Label>Vista</Form.Label>
-          <Form.Control
-            type="text"
-            name="view"
-            defaultValue={singleValla.view}
-            onChange={handleChange}
-          />
-          <Form.Control.Feedback type="invalid">{errors.view}</Form.Control.Feedback>
-        </Form.Group>
-      </Row>
-
-      <Row className="mb-3">
-        <Form.Group as={Col} md="4">
-          <Form.Label>Tamaño</Form.Label>
-          <Form.Control
-            as="select"
-            name="size"
-            defaultValue={singleValla.size}
-            onChange={handleChange}
-          >
-            <option value="7.20 x 9.00 metros">7.20 x 9.00 metros</option>
-            <option value="8.50 x 11.00 metros">8.50 x 11.00 metros</option>
-            <option value="12.70 x 5.00 metros">12.70 x 5.00 metros</option>
-          </Form.Control>
-
-          <Form.Control.Feedback type="invalid">{errors.size}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group as={Col} md="4">
-          <Form.Label>Tipo</Form.Label>
-          <Form.Control
-            as="select"
-            name="typology"
-            defaultValue={singleValla.typology}
-            onChange={handleChange}
-          >
-            <option value="Unipolar">Unipolar</option>
-            <option value="Landmark">Landmark</option>
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">{errors.typology}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group as={Col} md="2">
-          <Form.Label>Horz/Vert</Form.Label>
-          <Form.Control
-            as="select"
-            name="layout"
-            defaultValue={singleValla.layout}
-            onChange={handleChange}
-          >
-            <option value="Horizontal">Horizontal</option>
-            <option value="Vertical">Vertical</option>
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">{errors.layout}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group as={Col} md="2">
-          <Form.Label>Iluminación</Form.Label>
-          <Form.Control
-            as="select"
-            name="light"
-            defaultValue={singleValla.light}
-            onChange={handleChange}
-          >
-            <option value="yes">Sí</option>
-            <option value="no">No</option>
-          </Form.Control>
-        </Form.Group>
-      </Row>
-
-      <Row className="mb-3">
-        <Form.Group as={Col} md="2">
-          <Form.Label>Precio menor</Form.Label>
-          <InputGroup hasValidation>
-            <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+          <Form.Group as={Col} md="4">
+            <Form.Label>Provincia</Form.Label>
+            <Form.Control
+              as="select"
+              name="province"
+              defaultValue={singleValla.province}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccione provincia: </option>
+              <option value="Alajuela">Alajuela</option>
+              <option value="Cartago">Cartago</option>
+              <option value="Guanacaste">Guanacaste</option>
+              <option value="Heredia">Heredia</option>
+              <option value="Limón">Limón</option>
+              <option value="Puntarenas">Puntarenas</option>
+              <option value="San José">San José</option>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">{errors.province}</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="2">
+            <Form.Label>Latitud</Form.Label>
             <Form.Control
               type="number"
-              name="price_low"
-              defaultValue={singleValla.price_low}
+              name="lat"
+              defaultValue={singleValla.lat}
               onChange={handleChange}
-              max="20000.00"
-              step="0.01"
+              min="-90.00000"
+              max="90.00000"
+              step="0.00001"
             />
-            <Form.Control.Feedback type="invalid">{errors.price_low}</Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
+            <Form.Control.Feedback type="invalid">{errors.lat}</Form.Control.Feedback>
+          </Form.Group>
 
-        <Form.Group as={Col} md="2">
-          <Form.Label>Precio mayor</Form.Label>
-          <InputGroup hasValidation>
-            <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+          <Form.Group as={Col} md="2">
+            <Form.Label>Longitud</Form.Label>
             <Form.Control
               type="number"
-              name="price_high"
-              defaultValue={singleValla.price_high}
+              name="lng"
+              defaultValue={singleValla.lng}
               onChange={handleChange}
-              max="20000.00"
-              step="0.01"
+              min="-180.00000"
+              max="180.00000"
+              step="0.00001"
             />
-            <Form.Control.Feedback type="invalid">{errors.price_high}</Form.Control.Feedback>
-          </InputGroup>
+            <Form.Control.Feedback type="invalid">{errors.lng}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
+            <Form.Label>Ruta</Form.Label>
+            <Form.Control
+              type="text"
+              name="route"
+              defaultValue={singleValla.route}
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">{errors.route}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
+            <Form.Label>Vista</Form.Label>
+            <Form.Control
+              type="text"
+              name="view"
+              defaultValue={singleValla.view}
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">{errors.view}</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+
+        <Row className="mb-3">
+          <Form.Group as={Col} md="4">
+            <Form.Label>Tamaño</Form.Label>
+            <Form.Control
+              as="select"
+              name="size"
+              defaultValue={singleValla.size}
+              onChange={handleChange}
+            >
+              <option value="7.20 x 9.00 metros">7.20 x 9.00 metros</option>
+              <option value="8.50 x 11.00 metros">8.50 x 11.00 metros</option>
+              <option value="12.70 x 5.00 metros">12.70 x 5.00 metros</option>
+            </Form.Control>
+
+            <Form.Control.Feedback type="invalid">{errors.size}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
+            <Form.Label>Tipo</Form.Label>
+            <Form.Control
+              as="select"
+              name="typology"
+              defaultValue={singleValla.typology}
+              onChange={handleChange}
+            >
+              <option value="Unipolar">Unipolar</option>
+              <option value="Landmark">Landmark</option>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">{errors.typology}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} md="2">
+            <Form.Label>Horz/Vert</Form.Label>
+            <Form.Control
+              as="select"
+              name="layout"
+              defaultValue={singleValla.layout}
+              onChange={handleChange}
+            >
+              <option value="Horizontal">Horizontal</option>
+              <option value="Vertical">Vertical</option>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">{errors.layout}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} md="2">
+            <Form.Label>Iluminación</Form.Label>
+            <Form.Control
+              as="select"
+              name="light"
+              defaultValue={singleValla.light}
+              onChange={handleChange}
+            >
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+            </Form.Control>
+          </Form.Group>
+        </Row>
+
+        <Row className="mb-3">
+          <Form.Group as={Col} md="2">
+            <Form.Label>Precio menor</Form.Label>
+            <InputGroup hasValidation>
+              <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+              <Form.Control
+                type="number"
+                name="price_low"
+                defaultValue={singleValla.price_low}
+                onChange={handleChange}
+                max="20000.00"
+                step="0.01"
+              />
+              <Form.Control.Feedback type="invalid">{errors.price_low}</Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          <Form.Group as={Col} md="2">
+            <Form.Label>Precio mayor</Form.Label>
+            <InputGroup hasValidation>
+              <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+              <Form.Control
+                type="number"
+                name="price_high"
+                defaultValue={singleValla.price_high}
+                onChange={handleChange}
+                max="20000.00"
+                step="0.01"
+              />
+              <Form.Control.Feedback type="invalid">{errors.price_high}</Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          <Form.Group as={Col} md="8">
+            <Form.Label>Comentario</Form.Label>
+            <Form.Control
+              type="text"
+              name="comment"
+              defaultValue={singleValla.comment}
+              onChange={handleChange}
+            />
+          </Form.Group>
+        </Row>
+        <Form.Group className="form-group my-2">
+          <label htmlFor="file" className=" control-label">
+            Fotografía
+          </label>
+          <div className="">
+            <input
+              className="form-control"
+              id="file"
+              name="file"
+              type="file"
+              onChange={(e) => {
+                setFiles(e.target.files);
+              }}
+            />
+          </div>
         </Form.Group>
 
-        <Form.Group as={Col} md="8">
-          <Form.Label>Comentario</Form.Label>
-          <Form.Control
-            type="text"
-            name="comment"
-            defaultValue={singleValla.comment}
-            onChange={handleChange}
+        <Form.Group className="mb-3">
+          <Form.Check
+            required
+            name="terms"
+            label="Acepto los cambios"
+            feedback={errors.terms}
+            feedbackType="invalid"
           />
         </Form.Group>
-      </Row>
-      <Form.Group className="form-group my-2">
-        <label htmlFor="file" className=" control-label">
-          Fotografía
-        </label>
-        <div className="">
-          <input
-            className="form-control"
-            id="file"
-            name="file"
-            type="file"
-            onChange={(e) => {
-              setFiles(e.target.files);
-            }}
-          />
-        </div>
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Check
-          required
-          name="terms"
-          label="Acepto los cambios"
-          feedback={errors.terms}
-          feedbackType="invalid"
-        />
-      </Form.Group>
-      <Button type="submit">Submit form</Button>
-    </Form>
-    <Modal show={showModal} onHide={handleCloseModal}>
+        <Button type="submit">Submit form</Button>
+      </Form>
+      <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
@@ -321,6 +310,6 @@ export const FormUpdateValla = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-  </>
+    </>
   );
 };
