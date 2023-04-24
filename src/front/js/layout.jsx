@@ -11,7 +11,7 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
-import { DetailValla } from "./pages/detail_valla";
+import { DetailValla } from "./module_valla/detail_valla";
 import { Context } from "./store/appContext";
 
 //create your first component
