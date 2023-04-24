@@ -31,27 +31,15 @@ export const FormUpdateValla = () => {
       event.stopPropagation();
       event.preventDefault();
     } else {
-      try {
-        // Call an API or perform some other action with the form data here
-        event.preventDefault();
-        submitSingleValla();
+      // Call an API or perform some other action with the form data here
+      event.preventDefault();
+      submitSingleValla();
 
-        // Show a success message using a modal dialog
-        setModalTitle("Success!");
-        setModalBody(updatedVallaMessage || "Cambios aplicados");
-        setShowModal(true);
-      } catch (error) {
-        // Show an error message using a modal dialog
-        setModalTitle("Error");
-        setModalBody(error.message);
-        setShowModal(true);
-      }
+      // Resume default
+      form.submit();
     }
 
     setValidated(true);
-    setTimeout(() => {
-      form.submit();
-    }, 2000);
   };
 
   const handleCloseModal = () => setShowModal(false);
@@ -61,10 +49,17 @@ export const FormUpdateValla = () => {
     if (formValues) {
       actions.updateValla(id, formValues);
       console.log(formValues);
+      // Show a success message using a modal dialog
+      setModalTitle("Éxito!");
+      setModalBody(updatedVallaMessage || "Cambios aplicados");
+      setShowModal(true);
     }
 
     if (files) {
       actions.updateVallaFile(id, files);
+      setModalTitle("Éxito!");
+      setModalBody(updatedVallaMessage || "Archivo actualizado");
+      setShowModal(true);
     }
   };
 
