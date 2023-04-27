@@ -50,22 +50,24 @@ class Role(db.Model):
 class Valla(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
-    name = db.Column(db.String(150), unique=False, nullable=False)
-    typology = db.Column(db.String(20), unique=False, nullable= True)
+    name = db.Column(db.String(150),  nullable=False)
+    typology = db.Column(db.String(20), nullable= True)
     layout = db.Column(db.String(20), unique=False, nullable= True)
     size = db.Column(db.String(20), default='7.20 x 9.00 m', unique=False, nullable= True)
     light = db.Column(db.String(10), default= 'Sí', nullable=True) 
-    price_low = db.Column(db.Float, unique=False, nullable=True)  
-    price_high = db.Column(db.Float, unique=False, nullable=True)
-    view = db.Column(db.String(150), unique=False, nullable=True)
-    route = db.Column(db.String(150), unique=False, nullable=True)
-    province = db.Column(db.String(100), unique= False, nullable= True)
-    address = db.Column(db.String(100), unique= False, nullable= True)
+    price_low = db.Column(db.Float,  nullable=True)  
+    price_high = db.Column(db.Float,  nullable=True)
+    price_canvas = db.Column(db.Float,  nullable=True)
+    traffic = db.Column(db.Integer,  nullable=True)
+    view = db.Column(db.String(150),  nullable=True)
+    route = db.Column(db.String(150), nullable=True)
+    province = db.Column(db.String(100),  nullable= True)
+    address = db.Column(db.String(100),  nullable= True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     lat = db.Column(db.Float, nullable= True)
     lng = db.Column(db.Float, nullable= True)
-    comment = db.Column(db.String (200), unique=False, nullable=True) 
+    comment = db.Column(db.String (200),  nullable=True) 
     status = db.Column(db.String(20), nullable=False)
     picture_url = db.Column(db.String(250), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
@@ -95,6 +97,8 @@ class Valla(db.Model):
             "light": self.light,
             "price_low": self.price_low,
             "price_high": self.price_high,
+            "price_canvas" : self.price_canvas,
+            "traffic" : self.traffic,
             "view": self.view,
             "route":self.route,
             "province": self.province,
@@ -118,7 +122,7 @@ class Valla(db.Model):
 class Owner(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
-    name = db.Column(db.String(150), unique=False, nullable=False)
+    name = db.Column(db.String(150), nullable=False)
     company = db.Column(db.String(120), unique=True, nullable=True)
     phone = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
@@ -177,10 +181,10 @@ class Client(db.Model):
 
 class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    base_price = db.Column(db.Integer, unique=False)
-    discount = db.Column(db.Integer, unique=False)
-    net_price = db.Column(db.Integer, unique=False)
-    commision = db.Column(db.Integer, unique=False)
+    base_price = db.Column(db.Integer, nullable=True)
+    discount = db.Column(db.Integer, nullable=True)
+    net_price = db.Column(db.Integer, nullable=True)
+    commision = db.Column(db.Integer, nullable=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     check_in = db.Column(db.DateTime,  nullable=True)
@@ -214,8 +218,8 @@ class Typology(db.Model):
 
 class Payment(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    due_on = db.Column(db.DateTime, unique=False, nullable=True)
-    payment_on = db.Column(db.DateTime, unique=False, nullable=True)
+    due_on = db.Column(db.DateTime, nullable=True)
+    payment_on = db.Column(db.DateTime,  nullable=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)  #FK
     
     def __repr__(self):

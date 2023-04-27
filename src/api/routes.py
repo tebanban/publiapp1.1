@@ -151,6 +151,10 @@ def get_single_valla(id):
             valla.price_low = request.json.get('price_low', None)
         if "price_high" in request.json:
             valla.price_high = request.json.get('price_high', None)
+        if "price_canvas" in request.json:
+            valla.price_canvas = request.json.get('price_canvas', None)
+        if "traffic" in request.json:
+            valla.traffic = request.json.get('traffic', None)
         if "view" in request.json:
             valla.view = request.json.get('view', None)
         if "route" in request.json:
@@ -244,6 +248,8 @@ def create_new_valla():
             valla.light = request.json.get('light', None)
             valla.price_low = request.json.get('price_low', None)
             valla.price_high = request.json.get('price_high', None)
+            valla.price_canvas = request.json.get('price_canvas', None)
+            valla.traffic = request.json.get('traffic', None)
             valla.view = request.json.get('view', None)
             valla.route = request.json.get('province', None)
             valla.province = request.json.get('route', None)
