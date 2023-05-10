@@ -6,7 +6,7 @@ export default () => {
     plugins: [react()],
 
     server: {
-      port: 3000,
+      port: 3002,
     },
   });
 };

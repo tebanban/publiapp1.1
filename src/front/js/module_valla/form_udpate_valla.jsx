@@ -69,37 +69,19 @@ export const FormUpdateValla = () => {
         <Row className="mb-3">
           <Form.Group as={Col} md="4" controlId="">
             <Form.Label>Nombre</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              name="name"
-              defaultValue={singleValla.name}
-              onChange={handleChange}
-              min="5"
-            />
+            <Form.Control required type="text" name="name" defaultValue={singleValla.name} onChange={handleChange} min="5" />
             <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
             <Form.Label>Dirección</Form.Label>
-            <Form.Control
-              type="text"
-              name="address"
-              defaultValue={singleValla.address}
-              onChange={handleChange}
-            />
+            <Form.Control type="text" name="address" defaultValue={singleValla.address} onChange={handleChange} />
             <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
             <Form.Label>Provincia</Form.Label>
-            <Form.Control
-              as="select"
-              name="province"
-              defaultValue={singleValla.province}
-              onChange={handleChange}
-              required
-            >
+            <Form.Control as="select" name="province" defaultValue={singleValla.province} onChange={handleChange} required>
               <option value="">Seleccione provincia: </option>
               <option value="Alajuela">Alajuela</option>
               <option value="Cartago">Cartago</option>
@@ -143,23 +125,13 @@ export const FormUpdateValla = () => {
 
           <Form.Group as={Col} md="4">
             <Form.Label>Ruta</Form.Label>
-            <Form.Control
-              type="text"
-              name="route"
-              defaultValue={singleValla.route}
-              onChange={handleChange}
-            />
+            <Form.Control type="text" name="route" defaultValue={singleValla.route} onChange={handleChange} />
             <Form.Control.Feedback type="invalid">{errors.route}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
             <Form.Label>Vista</Form.Label>
-            <Form.Control
-              type="text"
-              name="view"
-              defaultValue={singleValla.view}
-              onChange={handleChange}
-            />
+            <Form.Control type="text" name="view" defaultValue={singleValla.view} onChange={handleChange} />
             <Form.Control.Feedback type="invalid">{errors.view}</Form.Control.Feedback>
           </Form.Group>
         </Row>
@@ -167,12 +139,7 @@ export const FormUpdateValla = () => {
         <Row className="mb-3">
           <Form.Group as={Col} md="4">
             <Form.Label>Tamaño</Form.Label>
-            <Form.Control
-              as="select"
-              name="size"
-              defaultValue={singleValla.size}
-              onChange={handleChange}
-            >
+            <Form.Control as="select" name="size" defaultValue={singleValla.size} onChange={handleChange}>
               <option value="7.20 x 9.00 metros">7.20 x 9.00 metros</option>
               <option value="8.50 x 11.00 metros">8.50 x 11.00 metros</option>
               <option value="12.70 x 5.00 metros">12.70 x 5.00 metros</option>
@@ -183,12 +150,7 @@ export const FormUpdateValla = () => {
 
           <Form.Group as={Col} md="4">
             <Form.Label>Tipo</Form.Label>
-            <Form.Control
-              as="select"
-              name="typology"
-              defaultValue={singleValla.typology}
-              onChange={handleChange}
-            >
+            <Form.Control as="select" name="typology" defaultValue={singleValla.typology} onChange={handleChange}>
               <option value="Unipolar">Unipolar</option>
               <option value="Landmark">Landmark</option>
             </Form.Control>
@@ -197,12 +159,7 @@ export const FormUpdateValla = () => {
 
           <Form.Group as={Col} md="2">
             <Form.Label>Horz/Vert</Form.Label>
-            <Form.Control
-              as="select"
-              name="layout"
-              defaultValue={singleValla.layout}
-              onChange={handleChange}
-            >
+            <Form.Control as="select" name="layout" defaultValue={singleValla.layout} onChange={handleChange}>
               <option value="Horizontal">Horizontal</option>
               <option value="Vertical">Vertical</option>
             </Form.Control>
@@ -211,12 +168,7 @@ export const FormUpdateValla = () => {
 
           <Form.Group as={Col} md="2">
             <Form.Label>Iluminación</Form.Label>
-            <Form.Control
-              as="select"
-              name="light"
-              defaultValue={singleValla.light}
-              onChange={handleChange}
-            >
+            <Form.Control as="select" name="light" defaultValue={singleValla.light} onChange={handleChange}>
               <option value="yes">Sí</option>
               <option value="no">No</option>
             </Form.Control>
@@ -256,14 +208,31 @@ export const FormUpdateValla = () => {
             </InputGroup>
           </Form.Group>
 
-          <Form.Group as={Col} md="8">
+          <Form.Group as={Col} md="2">
+            <Form.Label>Lona</Form.Label>
+            <InputGroup hasValidation>
+              <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+              <Form.Control
+                type="number"
+                name="price_canvas"
+                defaultValue={singleValla.price_canvas}
+                onChange={handleChange}
+                max="20000.00"
+                step="0.01"
+              />
+              <Form.Control.Feedback type="invalid">{errors.price_canvas}</Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          <Form.Group as={Col} md="2">
+            <Form.Label>Tráfico</Form.Label>
+            <Form.Control type="number" name="traffic" defaultValue={singleValla.traffic} onChange={handleChange} step="1" />
+            <Form.Control.Feedback type="invalid">{errors.traffic}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
             <Form.Label>Comentario</Form.Label>
-            <Form.Control
-              type="text"
-              name="comment"
-              defaultValue={singleValla.comment}
-              onChange={handleChange}
-            />
+            <Form.Control as="textarea" type="text" name="comment" defaultValue={singleValla.comment} onChange={handleChange} />
           </Form.Group>
         </Row>
         <Form.Group className="form-group my-2">
@@ -284,13 +253,7 @@ export const FormUpdateValla = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Check
-            required
-            name="terms"
-            label="Acepto los cambios"
-            feedback={errors.terms}
-            feedbackType="invalid"
-          />
+          <Form.Check required name="terms" label="Acepto los cambios" feedback={errors.terms} feedbackType="invalid" />
         </Form.Group>
         <Button type="submit">Submit form</Button>
       </Form>
