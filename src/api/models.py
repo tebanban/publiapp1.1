@@ -59,7 +59,7 @@ class Valla(db.Model):
     price_high = db.Column(db.Float,  nullable=True)
     price_canvas = db.Column(db.Float,  nullable=True)
     traffic = db.Column(db.Integer,  nullable=True)
-    view = db.Column(db.String(150),  nullable=True)
+    way = db.Column(db.String(150),  nullable=True)
     route = db.Column(db.String(150), nullable=True)
     province = db.Column(db.String(100),  nullable= True)
     address = db.Column(db.String(100),  nullable= True)
@@ -99,7 +99,7 @@ class Valla(db.Model):
             "price_high": self.price_high,
             "price_canvas" : self.price_canvas,
             "traffic" : self.traffic,
-            "view": self.view,
+            "way": self.way,
             "route":self.route,
             "province": self.province,
             "address" : self.address,

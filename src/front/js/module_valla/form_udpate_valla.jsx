@@ -130,9 +130,9 @@ export const FormUpdateValla = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="4">
-            <Form.Label>Vista</Form.Label>
-            <Form.Control type="text" name="view" defaultValue={singleValla.view} onChange={handleChange} />
-            <Form.Control.Feedback type="invalid">{errors.view}</Form.Control.Feedback>
+            <Form.Label>Sentido</Form.Label>
+            <Form.Control type="text" name="way" defaultValue={singleValla.way} onChange={handleChange} />
+            <Form.Control.Feedback type="invalid">{errors.way}</Form.Control.Feedback>
           </Form.Group>
         </Row>
 
@@ -140,9 +140,9 @@ export const FormUpdateValla = () => {
           <Form.Group as={Col} md="4">
             <Form.Label>Tamaño</Form.Label>
             <Form.Control as="select" name="size" defaultValue={singleValla.size} onChange={handleChange}>
-              <option value="7.20 x 9.00 metros">7.20 x 9.00 metros</option>
-              <option value="8.50 x 11.00 metros">8.50 x 11.00 metros</option>
-              <option value="12.70 x 5.00 metros">12.70 x 5.00 metros</option>
+              <option value="7.20 x 9.00 metros">Vertical 7.20 x 9.00 metros</option>
+              <option value="8.50 x 11.00 metros">Vertical 8.50 x 11.00 metros</option>
+              <option value="12.70 x 5.00 metros">Horizontal 12.70 x 5.00 metros</option>
             </Form.Control>
 
             <Form.Control.Feedback type="invalid">{errors.size}</Form.Control.Feedback>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal, Image } from "react-bootstrap";
+import logo from "../../img/logo-publiex.png";
 import { Form, Button, Stack, Container, Col, Row } from "react-bootstrap";
 import { GoogleMapVallas } from "../module_valla/googlemap_vallas";
 import { FormUpdateValla } from "../module_valla/form_udpate_valla";
@@ -16,7 +17,7 @@ export const DetailValla = () => {
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
-  
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,7 +26,6 @@ export const DetailValla = () => {
     actions.resetDeleteVallaMessage();
   };
   // const [files, setFiles] = useState();
-
 
   useEffect(() => {
     /////////////////////////////////////// sends valla id as a parameter to the flux
@@ -38,8 +38,6 @@ export const DetailValla = () => {
   const deleteSingleValla = () => {
     actions.deleteSingleValla(id);
   };
-
-  
 
   return (
     <Container className="detail-container py-4">
@@ -70,32 +68,31 @@ export const DetailValla = () => {
       </Row>
       <Row className="detail-blueline py-3">
         <Col>
-          <h5>Pauta mensual e iluminación</h5>
+          <h5>Precio mensual: ${singleValla.price_high}</h5>
         </Col>
         <Col>
-          <h5>Impresión de lona</h5>
+          <h5>Impresión de lona: ${singleValla.price_canvas}</h5>
         </Col>
         <Col>
-          <h5>Tráfico mensual</h5>
+          <h5>Tráfico vehicular diario: {singleValla.traffic} mil* </h5>
         </Col>
       </Row>
 
       <Row className="detail-info py-3">
         <Col>
-          <h5>Ruta:</h5>
-          <p>{singleValla.route}</p>
+          <h5>Ubicación:</h5>
+          <p>{singleValla.address}</p>
         </Col>
         <Col>
-          <h5>Tamaño:</h5>
+          <h5>Sentido:</h5>
+          <p>{singleValla.way}</p>
+        </Col>
+        <Col>
+          <h5>Medidas:</h5>
           <p>{singleValla.size}</p>
         </Col>
         <Col>
-          <h5>Tipo:</h5>
-          <p>{singleValla.typology}</p>
-        </Col>
-        <Col>
-          <h5>Formato:</h5>
-          <p>{singleValla.layout}</p>
+          <img className="navbar-brand px-2 mb-0 h1" src={logo} alt="Logo" style={{ width: "270px" }} />
         </Col>
       </Row>
       <Row>
@@ -175,7 +172,6 @@ export const DetailValla = () => {
       </Row>
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
-        
         <Link to="/app">
           <button className="btn btn-primary  mx-2">Retornar</button>
         </Link>
