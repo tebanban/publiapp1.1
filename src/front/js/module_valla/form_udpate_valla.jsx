@@ -140,9 +140,16 @@ export const FormUpdateValla = () => {
           <Form.Group as={Col} md="4">
             <Form.Label>Tamaño</Form.Label>
             <Form.Control as="select" name="size" defaultValue={singleValla.size} onChange={handleChange}>
-              <option value="7.20 x 9.00 metros">Vertical 7.20 x 9.00 metros</option>
-              <option value="8.50 x 11.00 metros">Vertical 8.50 x 11.00 metros</option>
-              <option value="12.70 x 5.00 metros">Horizontal 12.70 x 5.00 metros</option>
+              <option value="Vertical 7.20 x 9.00 metros">Vertical 7.20 x 9.00 metros</option>
+              <option value="Vertical 8.50 x 11.00 metros">Vertical 8.50 x 11.00 metros</option>
+              <option value="Vertical 5.40 x 7.20 metros">Vertical 5.40 x 7.20 metros</option>
+              <option value="Horizontal 12.60 x 5.00 metros">Horizontal 12.60 x 5.00 metros</option>
+              <option value="Horizontal 14.40 x 5.00 metros">Horizontal 14.40 x 5.00 metros</option>
+              <option value="Horizontal 14.40 x 6.00 metros">Horizontal 14.40 x 6.00 metros</option>
+              <option value="Horizontal 7.20 x 5.40 metros">Horizontal 7.20 x 5.40 metros</option>
+              <option value="Landmark 33.30 x 8.50 metros">Landmark 33.30 x 8.50 metros</option>
+              <option value="Landmark 71.10 x 4.90 metros">Landmark 71.10 x 4.90 metros</option>
+              <option value="Landmark 34.80 x 8.90 metros">Landmark 34.80 x 8.90 metros</option>
             </Form.Control>
 
             <Form.Control.Feedback type="invalid">{errors.size}</Form.Control.Feedback>
@@ -153,20 +160,12 @@ export const FormUpdateValla = () => {
             <Form.Control as="select" name="typology" defaultValue={singleValla.typology} onChange={handleChange}>
               <option value="Unipolar">Unipolar</option>
               <option value="Landmark">Landmark</option>
+              <option value="Columnas alma llena">Columnas alma llena</option>
             </Form.Control>
             <Form.Control.Feedback type="invalid">{errors.typology}</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} md="2">
-            <Form.Label>Horz/Vert</Form.Label>
-            <Form.Control as="select" name="layout" defaultValue={singleValla.layout} onChange={handleChange}>
-              <option value="Horizontal">Horizontal</option>
-              <option value="Vertical">Vertical</option>
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">{errors.layout}</Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group as={Col} md="2">
+          <Form.Group as={Col} md="4">
             <Form.Label>Iluminación</Form.Label>
             <Form.Control as="select" name="light" defaultValue={singleValla.light} onChange={handleChange}>
               <option value="yes">Sí</option>

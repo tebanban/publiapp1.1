@@ -236,7 +236,7 @@ def delete_single_valla(id):
 def create_new_valla():
     
         valla = Valla()
-        if not request.json['code'] or not request.json['name'] or not request.json['status'] or not request.json['typology']:
+        if not request.json['code'] or not request.json['name'] :
             return jsonify('Please enter all the fields'), 200 
         else:
             valla.code = request.json.get('code') 
