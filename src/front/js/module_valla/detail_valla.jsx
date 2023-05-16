@@ -50,7 +50,7 @@ export const DetailValla = () => {
           <h1>{singleValla.name}</h1>
         </Col>
         <Col className="detail-status p-3">
-          <h5>Estatus: {singleValla.status}</h5>
+          <h6>Estatus: {singleValla.status}</h6>
           <h5>{singleValla.order_id}</h5>
         </Col>
       </Row>
@@ -95,81 +95,7 @@ export const DetailValla = () => {
           <img className="navbar-brand px-2 mb-0 h1" src={logo} alt="Logo" style={{ width: "270px" }} />
         </Col>
       </Row>
-      <Row>
-        <Col md className="px-3">
-          {/* 
-
-            <Form.Group className="form-group my-2">
-              <label htmlFor="user_id" className=" control-label">
-                Usuario
-              </label>
-              <div className="">
-                <select className="form-control" id="user_id" name="user_id" onChange={handleInputChange}>
-                  <option defaultValue="">
-                    {dataUsers.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
-                  </option>
-                  {dataUsers.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </Form.Group>
-            <Form.Group className="form-group my-2">
-              <label htmlFor="client_id" className=" control-label">
-                Cliente
-              </label>
-              <div className="">
-                <select className="form-control" id="client_id" name="client_id" onChange={handleInputChange}>
-                  <option defaultValue="">
-                    {dataClients.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
-                  </option>
-                  {dataClients.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </Form.Group>
-            <Form.Group className="form-group my-2">
-              <label htmlFor="owner_id" className=" control-label">
-                Propietario
-              </label>
-              <div className="">
-                <select className="form-control" id="owner_id" name="owner_id" onChange={handleInputChange}>
-                  <option defaultValue="">
-                    {dataOwners.map((item, index) => (item.id == singleValla.client_id ? item.name : ""))}
-                  </option>
-                  {dataOwners.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </Form.Group>
-            <Form.Group className="form-group my-2">
-              <label htmlFor="file" className=" control-label">
-                Fotografía
-              </label>
-              <div className="">
-                <input
-                  className="form-control"
-                  id="file"
-                  name="file"
-                  type="file"
-                  onChange={(e) => {
-                    setFiles(e.target.files);
-                  }}
-                />
-              </div>
-            </Form.Group>
-          </Form> */}
-        </Col>
-        {/* Column at the right    */}
-      </Row>
+      
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
         <Link to="/app">
@@ -192,42 +118,7 @@ export const DetailValla = () => {
           </Modal.Footer>
         </Modal>
 
-        {/* <Modal show={show} onHide={handleClose}>
-          {store.deleteVallaMessage ? (
-            <>
-              <Modal.Header>
-                <Modal.Title>
-                  La valla {singleValla.code}
-                  {store.deleteVallaMessage}{" "}
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Footer>
-                <Link to="/app">
-                  <button className="btn btn-primary  mx-2" onClick={handleClose}>
-                    Regresar
-                  </button>
-                </Link>
-              </Modal.Footer>
-            </>
-          ) : (
-            <>
-              <Modal.Header closeButton>
-                <Modal.Title>¿Desea eliminar esta valla? </Modal.Title>
-              </Modal.Header>
-              <Modal.Footer>
-                <Link to="/app">
-                  <button className="btn btn-secondary  mx-2" onClick={handleClose}>
-                    Cancelar
-                  </button>
-                </Link>
-
-                <Button variant="danger" onClick={deleteSingleValla}>
-                  Eliminar
-                </Button>
-              </Modal.Footer>
-            </>
-          )}
-        </Modal> */}
+        
       </Stack>
     </Container>
   );

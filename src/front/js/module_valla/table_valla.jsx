@@ -84,9 +84,9 @@ export const Table_valla = () => {
             <tr className="listheader  d-flex">
               <th className="col-1">Código</th>
               <th className="col-2">Nombre</th>
-              <th className="col-2">Ruta</th>
-              <th className="col-2">Sentido</th>
-              <th className="col-1">Horiz/Vert</th>
+              <th className="col-1">Provincia</th>
+              <th className="col-1">Sentido</th>
+              <th className="col-3">Medidas</th>
               <th className="col-1">Tipo</th>
               <th className="col-1">Status</th>
               <th className="col-1">Cliente</th>
@@ -107,9 +107,9 @@ export const Table_valla = () => {
                     </Link>
                   </td>
                   <td className="col-2">{item.name}</td>
-                  <td className="col-2">{item.route}</td>
-                  <td className="col-2">{item.view}</td>
-                  <td className="col-1">{item.layout}</td>
+                  <td className="col-1">{item.province}</td>
+                  <td className="col-1">{item.way}</td>
+                  <td className="col-3">{item.size}</td>
                   <td className="col-1">{item.typology}</td>
                   <td className="col-1">{item.status}</td>
                   <td className="col-1">

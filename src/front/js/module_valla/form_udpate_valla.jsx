@@ -21,7 +21,8 @@ export const FormUpdateValla = () => {
   const errors = {
     name: "Error en el nombre",
     address: "Error en dirección",
-    terms: "Debe aceptar los términos",
+    status: "Seleccionar estatus",
+    terms: "Aceptar los términos",
   };
 
   const handleSubmit = (event) => {
@@ -74,14 +75,21 @@ export const FormUpdateValla = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="4">
-            <Form.Label>Dirección</Form.Label>
-            <Form.Control type="text" name="address" defaultValue={singleValla.address} onChange={handleChange} />
-            <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
+            <Form.Label>Estatus</Form.Label>
+            <Form.Control required as="select" name="status" defaultValue={singleValla.status} onChange={handleChange}>
+              <option value="">Seleccionar...</option>
+              <option value="Arrendada">Arrendada</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Reservada">Reservada</option>
+              <option value="Deshabilitada">Deshabilitada</option>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">{errors.status}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
             <Form.Label>Provincia</Form.Label>
             <Form.Control as="select" name="province" defaultValue={singleValla.province} onChange={handleChange} required>
+              <option value="">Seleccionar...</option>
               <option value="">Seleccione provincia: </option>
               <option value="Alajuela">Alajuela</option>
               <option value="Cartago">Cartago</option>
@@ -124,9 +132,9 @@ export const FormUpdateValla = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="4">
-            <Form.Label>Ruta</Form.Label>
-            <Form.Control type="text" name="route" defaultValue={singleValla.route} onChange={handleChange} />
-            <Form.Control.Feedback type="invalid">{errors.route}</Form.Control.Feedback>
+            <Form.Label>Dirección</Form.Label>
+            <Form.Control type="text" name="address" defaultValue={singleValla.address} onChange={handleChange} />
+            <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
@@ -140,27 +148,30 @@ export const FormUpdateValla = () => {
           <Form.Group as={Col} md="4">
             <Form.Label>Tamaño</Form.Label>
             <Form.Control as="select" name="size" defaultValue={singleValla.size} onChange={handleChange}>
-              <option value="Vertical 7.20 x 9.00 metros">Vertical 7.20 x 9.00 metros</option>
-              <option value="Vertical 8.50 x 11.00 metros">Vertical 8.50 x 11.00 metros</option>
-              <option value="Vertical 5.40 x 7.20 metros">Vertical 5.40 x 7.20 metros</option>
-              <option value="Horizontal 12.60 x 5.00 metros">Horizontal 12.60 x 5.00 metros</option>
-              <option value="Horizontal 14.40 x 5.00 metros">Horizontal 14.40 x 5.00 metros</option>
-              <option value="Horizontal 14.40 x 6.00 metros">Horizontal 14.40 x 6.00 metros</option>
-              <option value="Horizontal 7.20 x 5.40 metros">Horizontal 7.20 x 5.40 metros</option>
-              <option value="Landmark 33.30 x 8.50 metros">Landmark 33.30 x 8.50 metros</option>
-              <option value="Landmark 71.10 x 4.90 metros">Landmark 71.10 x 4.90 metros</option>
-              <option value="Landmark 34.80 x 8.90 metros">Landmark 34.80 x 8.90 metros</option>
+              <option value="">Seleccionar...</option>
+              <option value="Vertical 7.20 x 9.00 mts (65 mts2)">Vertical 7.20 x 9.00 mts</option>
+              <option value="Vertical 8.50 x 11.00 mts (94 mts2)">Vertical 8.50 x 11.00 mts</option>
+              <option value="Vertical 5.40 x 7.20 mts (39 mts2)">Vertical 5.40 x 7.20 mts</option>
+              <option value="Horizontal 12.60 x 5.00 mts (63 mts2)">Horizontal 12.60 x 5.00 mts</option>
+              <option value="Horizontal 14.40 x 5.00 mts (72 mts2)">Horizontal 14.40 x 5.00 mts</option>
+              <option value="Horizontal 14.40 x 6.00 mts (87 mts2)">Horizontal 14.40 x 6.00 mts</option>
+              <option value="Horizontal 7.20 x 5.40 mts (39 mts2)">Horizontal 7.20 x 5.40 mts</option>
+              <option value="Landmark 33.30 x 8.50 mts (283 mts2)">Landmark 33.30 x 8.50 mts</option>
+              <option value="Landmark 71.10 x 4.90 mts (349 mts2)">Landmark 71.10 x 4.90 mts</option>
+              <option value="Landmark 34.80 x 8.90 mts (310 mts2)">Landmark 34.80 x 8.90 mts</option>
+              <option value="Otro">Otro</option>
             </Form.Control>
-
             <Form.Control.Feedback type="invalid">{errors.size}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
             <Form.Label>Tipo</Form.Label>
             <Form.Control as="select" name="typology" defaultValue={singleValla.typology} onChange={handleChange}>
-              <option value="Unipolar">Unipolar</option>
+              <option value="">Seleccionar...</option>
+              <option value="Unipolar">Unipolar 2 caras</option>
               <option value="Landmark">Landmark</option>
-              <option value="Columnas alma llena">Columnas alma llena</option>
+              <option value="3 Columnas">3 columnas</option>
+              <option value="Otro">Otro</option>
             </Form.Control>
             <Form.Control.Feedback type="invalid">{errors.typology}</Form.Control.Feedback>
           </Form.Group>
@@ -168,6 +179,7 @@ export const FormUpdateValla = () => {
           <Form.Group as={Col} md="4">
             <Form.Label>Iluminación</Form.Label>
             <Form.Control as="select" name="light" defaultValue={singleValla.light} onChange={handleChange}>
+              <option value="">Seleccionar...</option>
               <option value="yes">Sí</option>
               <option value="no">No</option>
             </Form.Control>
@@ -176,7 +188,7 @@ export const FormUpdateValla = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md="2">
-            <Form.Label>Precio menor</Form.Label>
+            <Form.Label>Precio sin comisión</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
               <Form.Control
@@ -192,7 +204,7 @@ export const FormUpdateValla = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="2">
-            <Form.Label>Precio mayor</Form.Label>
+            <Form.Label>Precio con comisión</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
               <Form.Control
