@@ -96,7 +96,7 @@ export const FormNewValla = () => {
 
           <Form.Group as={Col} md="3">
             <Form.Label>Provincia</Form.Label>
-            <Form.Control required as="select" name="province" defaultValue="" onChange={handleChange} required>
+            <Form.Control required as="select" name="province" defaultValue="" onChange={handleChange} >
               <option value="">Seleccionar...</option>
               <option value="Alajuela">Alajuela</option>
               <option value="Cartago">Cartago</option>
@@ -196,7 +196,7 @@ export const FormNewValla = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md="2">
-            <Form.Label>Precio sin comisión</Form.Label>
+            <Form.Label>Precio S.C.</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
               <Form.Control
@@ -212,7 +212,7 @@ export const FormNewValla = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="2">
-            <Form.Label>Precio con comisión</Form.Label>
+            <Form.Label>Precio C.C.</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
               <Form.Control

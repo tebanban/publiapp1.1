@@ -51,9 +51,6 @@ class Valla(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
     name = db.Column(db.String(150),  nullable=False)
-    typology = db.Column(db.String(30), nullable= True)
-    layout = db.Column(db.String(20), unique=False, nullable= True)
-    size = db.Column(db.String(80), default='7.20 x 9.00 m', unique=False, nullable= True)
     light = db.Column(db.String(10), default= 'Sí', nullable=True) 
     price_low = db.Column(db.Float,  nullable=True)  
     price_high = db.Column(db.Float,  nullable=True)
@@ -70,6 +67,7 @@ class Valla(db.Model):
     comment = db.Column(db.String (250),  nullable=True) 
     status = db.Column(db.String(20), nullable=True)
     picture_url = db.Column(db.String(250), nullable=True)
+    typology_id = db.Column(db.Integer, db.ForeignKey('typology_id'), nullable=True) #FK
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
@@ -91,9 +89,6 @@ class Valla(db.Model):
             "id": self.id,
             "code": self.code,
             "name": self.name,
-            "typology": self.typology,
-            "layout": self.layout,
-            "size": self.size,
             "light": self.light,
             "price_low": self.price_low,
             "price_high": self.price_high,
@@ -110,6 +105,7 @@ class Valla(db.Model):
             "picture_url":self.picture_url,
             "lat":self.lat,
             "lng" : self.lng,
+            "typology_id": self.typology_id,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
             "user_id": self.user_id,
@@ -229,3 +225,17 @@ class Payment(db.Model):
         return {
             "payment_id": self.id,
         }        
+
+class Typology(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    size = db.Column(db.String(150), unique=False, nullable=False)
+    area = db.Column(db.String(50), unique=False, nullable=True)
+
+    def __repr__(self):
+        return '<Typology %r>' % self.id
+    
+    def serialize(self):
+        return {
+            "typology_id": self.id,
+        } 
+    

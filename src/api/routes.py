@@ -139,12 +139,6 @@ def get_single_valla(id):
             valla.name = request.json.get('name', None)  
         if "status" in request.json:
             valla.status = request.json.get('status', None)  
-        if "typology" in request.json:    
-            valla.typology = request.json.get('typology', None)
-        if "layout" in request.json:
-            valla.layout = request.json.get('layout', None)
-        if "size" in request.json: 
-            valla.size = request.json.get('size', None) 
         if "light" in request.json:
             valla.light = request.json.get('light', None)
         if "price_low" in request.json:
@@ -169,6 +163,8 @@ def get_single_valla(id):
             valla.lng = request.json.get('lng', None)
         if "comment" in request.json:
             valla.comment = request.json.get('comment', None)
+        if "typology" in request.json:    
+            valla.typology = request.json.get('typology', None)
         if "owner_id" in request.json:
             valla.owner_id = request.json.get('owner_id', None) 
         if "client_id" in request.json:
@@ -242,9 +238,6 @@ def create_new_valla():
             valla.code = request.json.get('code') 
             valla.name = request.json.get('name')  
             valla.status = request.json.get('status')  
-            valla.typology = request.json.get('typology')
-            valla.layout = request.json.get('layout', None) 
-            valla.size = request.json.get('size', None) 
             valla.light = request.json.get('light', None)
             valla.price_low = request.json.get('price_low', None)
             valla.price_high = request.json.get('price_high', None)
@@ -257,6 +250,7 @@ def create_new_valla():
             valla.lat = request.json.get('lat', None)
             valla.lng = request.json.get('lng', None)
             valla.comment = request.json.get('comment', None)
+            valla.typology_id = request.json.get('typology_id')
             valla.owner_id = request.json.get('owner_id', None)
             valla.client_id = request.json.get('client_id', None)
         

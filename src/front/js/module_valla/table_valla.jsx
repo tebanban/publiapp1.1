@@ -19,11 +19,13 @@ export const Table_valla = () => {
 
   //Filter by status
   const allVallas = store.allVallas.filter((index) => {
-    if (query === "") {
+    if (query === "" ) {
       return index;
     } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
       return index;
     } else if (index.status.toLowerCase().includes(query.toLowerCase())) {
+      return index;
+    } else if (index.province.toLowerCase().includes(query.toLowerCase())) {
       return index;
     }
   });
@@ -38,7 +40,7 @@ export const Table_valla = () => {
   return (
     <div>
       <div className="mx-2">
-        {/* ...............................................................Filters at the top.... */}
+        {/* ...............................................................Filters top row... */}
 
         <Row className="mb-1">
           <Col md={4}>
@@ -52,27 +54,28 @@ export const Table_valla = () => {
           </Col>
           <Col md={4}>
             <Form.Group>
-              <select onChange={(e) => setQuery(e.target.value)} id="inputState" className="form-control">
-                <option defaultValue>Filtrar por estado...</option>
-                <option>Arrendada</option>
-                <option>Disponible</option>
-                <option>Reservada</option>
-                <option>Deshabilitada</option>
-              </select>
+              <Form.Control as="select" name="province" defaultValue="" onChange={(e) => setQuery(e.target.value)}>
+                <option value="">Filtro por provincia...</option>
+                <option value="Alajuela">Alajuela</option>
+                <option value="Cartago">Cartago</option>
+                <option value="Guanacaste">Guanacaste</option>
+                <option value="Heredia">Heredia</option>
+                <option value="Limón">Limón</option>
+                <option value="Puntarenas">Puntarenas</option>
+                <option value="San José">San José</option>
+              </Form.Control>
             </Form.Group>
           </Col>
           <Col md={4}>
             <Form.Group>
-              <select id="inputState" className="form-control">
-                <option defaultValue>Filtrar por provincia...</option>
-                <option>San José</option>
-                <option>Alajuela</option>
-                <option>Heredia</option>
-                <option>Cartago</option>
-                <option>Puntarenas</option>
-                <option>Guanacaste</option>
-                <option>Limón</option>
-              </select>
+              <Form.Control as="select" name="typology" defaultValue="" onChange={(e) => setQuery(e.target.value)}>
+                <option value="">Filtrar por estatus...</option>
+                <option value="Arrendada">Arrendada</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Reservada">Reservada</option>
+                <option value="Deshabilitada">Deshabilitada</option>
+                <option value="Otro">Otro</option>
+              </Form.Control>
             </Form.Group>
           </Col>
         </Row>

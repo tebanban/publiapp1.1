@@ -90,7 +90,6 @@ export const FormUpdateValla = () => {
             <Form.Label>Provincia</Form.Label>
             <Form.Control as="select" name="province" defaultValue={singleValla.province} onChange={handleChange} required>
               <option value="">Seleccionar...</option>
-              <option value="">Seleccione provincia: </option>
               <option value="Alajuela">Alajuela</option>
               <option value="Cartago">Cartago</option>
               <option value="Guanacaste">Guanacaste</option>
@@ -188,7 +187,7 @@ export const FormUpdateValla = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md="2">
-            <Form.Label>Precio sin comisión</Form.Label>
+            <Form.Label>Precio S.C.</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
               <Form.Control
@@ -204,7 +203,7 @@ export const FormUpdateValla = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="2">
-            <Form.Label>Precio con comisión</Form.Label>
+            <Form.Label>Precio C.C.</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
               <Form.Control
