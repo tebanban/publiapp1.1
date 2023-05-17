@@ -67,14 +67,13 @@ class Valla(db.Model):
     comment = db.Column(db.String (250),  nullable=True) 
     status = db.Column(db.String(20), nullable=True)
     picture_url = db.Column(db.String(250), nullable=True)
-    typology_id = db.Column(db.Integer, db.ForeignKey('typology_id'), nullable=True) #FK
+    format_id = db.Column(db.Integer, db.ForeignKey('format.id'), nullable=True) #FK
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=True) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=True) #FK
     
       
-    
     def __repr__(self):
         return '<Valla %r>' % self.code
 
@@ -105,7 +104,7 @@ class Valla(db.Model):
             "picture_url":self.picture_url,
             "lat":self.lat,
             "lng" : self.lng,
-            "typology_id": self.typology_id,
+            "format_id": self.format_id,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
             "user_id": self.user_id,
@@ -197,11 +196,14 @@ class Order(db.Model):
         return {
             "order_id": self.id,
         }
-class Typology(db.Model):
+        
+
+class Format(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), unique=False, nullable=False)
+    size = db.Column(db.String(200), unique=False, nullable=False)
+    area = db.Column(db.String(200), unique=False, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  #FK
     
     
     def __repr__(self):
@@ -209,8 +211,10 @@ class Typology(db.Model):
     
     def serialize(self):
         return {
-            "typology_id": self.id,
+            "format_id": self.id,
         }
+
+
 
 class Payment(db.Model):
     id=db.Column(db.Integer, primary_key=True)
@@ -226,16 +230,5 @@ class Payment(db.Model):
             "payment_id": self.id,
         }        
 
-class Typology(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
-    size = db.Column(db.String(150), unique=False, nullable=False)
-    area = db.Column(db.String(50), unique=False, nullable=True)
 
-    def __repr__(self):
-        return '<Typology %r>' % self.id
-    
-    def serialize(self):
-        return {
-            "typology_id": self.id,
-        } 
     

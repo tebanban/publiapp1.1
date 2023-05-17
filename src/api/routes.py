@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, flash
-from api.models import db, User, Valla, Client, Owner, Order, Payment
+from api.models import db, User, Valla, Client, Owner, Order, Payment, Format
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from datetime import datetime, timedelta
@@ -106,8 +106,8 @@ def delete_single_user(id):
         return jsonify("The user was deleted", user.serialize()), 200
 
 
-################################################################# Get all vallas
-
+################################################################# VALLAS
+#Get all vallas
 @api.route("/valla/", methods=["GET"])   
 def get_vallas():
 
@@ -115,7 +115,7 @@ def get_vallas():
     all_vallas = list(map(lambda x: x.serialize(), all_vallas)) 
     return jsonify(all_vallas), 200
 
-#######################################################################  GET single valla
+#GET single valla
 
 @api.route("/valla/<int:id>", methods=["GET", "PUT"])  
 @jwt_required()
@@ -124,8 +124,8 @@ def get_single_valla(id):
     if request.method == 'GET':                                           
         single_valla = Valla.query.get(id)
         return jsonify(single_valla.serialize()), 200
-    
-    #################################################################### UPDATE single Valla
+
+#UPDATE single Valla
     if request.method == 'PUT':   
     
         valla = Valla.query.get(id)
@@ -163,8 +163,8 @@ def get_single_valla(id):
             valla.lng = request.json.get('lng', None)
         if "comment" in request.json:
             valla.comment = request.json.get('comment', None)
-        if "typology" in request.json:    
-            valla.typology = request.json.get('typology', None)
+        if "format" in request.json:    
+            valla.format = request.json.get('format', None)
         if "owner_id" in request.json:
             valla.owner_id = request.json.get('owner_id', None) 
         if "client_id" in request.json:
@@ -173,41 +173,32 @@ def get_single_valla(id):
             valla.user_id = request.json.get('user_id', None) 
           
         db.session.commit()
-
         response = jsonify({'message': 'Datos actualizados exitosamente', 'data': valla.serialize()})
         response.status_code = 200
         return response
-
-
-
-        
     else:
         raise APIException('Error: Método no permitido')
 
-#################################################################### UPDATE  Valla File
+#UPDATE  Valla File
 @api.route("/vallaFile/<int:id>", methods=["PUT"])  
 @jwt_required()
 def update_valla_file(id):
 
-    
         valla = Valla.query.get(id)
 
         if valla is None:
             raise APIException("valla not found", status_code=404)
         
-        
         if "picture_url" in request.files:
             # upload file to cloudinary
             result = cloudinary.uploader.upload(request.files['picture_url'] , folder = "Publiapp")
             # update the user with the given cloudinary image URL
-            valla.picture_url = result['secure_url']
-            
+            valla.picture_url = result['secure_url']  
        
         db.session.commit()
         return jsonify(valla.serialize()), 200
       
-
-#####################################################################   Delete Valla 
+########################################################################Delete Valla 
 @api.route("/valla/<int:id>", methods= ["DELETE"])
 @jwt_required()
 def delete_single_valla(id):
@@ -218,11 +209,9 @@ def delete_single_valla(id):
         if valla is None:
             raise APIException("Valla not found", status_code=404)
 
-        
         db.session.delete(valla)
         db.session.commit()
         return jsonify( response_body), 200
-
 
 
 #####################################################################   POST New valla  
@@ -250,7 +239,7 @@ def create_new_valla():
             valla.lat = request.json.get('lat', None)
             valla.lng = request.json.get('lng', None)
             valla.comment = request.json.get('comment', None)
-            valla.typology_id = request.json.get('typology_id')
+            valla.format_id = request.json.get('format_id')
             valla.owner_id = request.json.get('owner_id', None)
             valla.client_id = request.json.get('client_id', None)
         
@@ -259,17 +248,33 @@ def create_new_valla():
             return jsonify(valla.serialize()), 200
 
     
-############################################################### Get all owners 
-
-@api.route("/owner/", methods=["GET"])   
+############################################################### OWNERS 
+# Get all owners:
+@api.route("/owner/", methods=["GET", "POST"])   
 def get_owners():
 
-    all_owners = Owner.query.all()
-    all_owners = list(map(lambda x: x.serialize(), all_owners)) 
-    return jsonify(all_owners), 200
+    if request.method == 'GET':
+        all_owners = Owner.query.all()
+        all_owners = list(map(lambda x: x.serialize(), all_owners)) 
+        return jsonify(all_owners), 200
+
+def create_new_format():
+    if request.method == 'POST':
+        format = Format()
+        if not request.json['code'] or not request.json['name'] :
+            return jsonify('Please enter all the fields'), 200 
+        else:
+            format.code = request.json.get('code') 
+            format.name = request.json.get('name')  
+            format.status = request.json.get('status')  
+            format.light = request.json.get('light', None)
+          
+            db.session.add(format)   
+            db.session.commit()
+            return jsonify(format.serialize()), 200
+
 
 # Handle single owner:
-
 @api.route("/owner/<int:id>", methods=["GET", "PUT"])  
 def get_single_owner(id):
 
@@ -279,19 +284,17 @@ def get_single_owner(id):
     
     if request.method == 'PUT':   
         owner = Owner.query.get(id)
-
         owner.name = request.json['name']  
         owner.code = request.json['code'] 
         owner.phone = request.json['owner_phone']
         owner.email = request.json['owner_email'] 
         owner.company = request.json['owner_company']
-        
         db.session.commit()
         return jsonify(owner.serialize()), 200
 
         
-############################################################### Get all clients
-
+############################################################### CLIENTS
+# Get all clients
 @api.route("/client/", methods=["GET"])   
 def get_all_clients():
 
@@ -300,7 +303,6 @@ def get_all_clients():
     return jsonify(all_clients), 200
 
 # Handle single client:
-
 @api.route("/client/<int:id>", methods=["GET", "PUT"])  
 def get_single_client(id):
 
@@ -309,8 +311,7 @@ def get_single_client(id):
         return jsonify(single_client.serialize()), 200
     
     if request.method == 'PUT':   
-        client = Client.query.get(id)
-        
+        client = Client.query.get(id)  
         client.name = request.json['name']  
         client.code = request.json['code'] 
         client.phone = request.json['phone']
@@ -318,6 +319,32 @@ def get_single_client(id):
         client.company = request.json['company']
         db.session.commit()
         return jsonify(client.serialize()), 200
+
+################################################################### FORMAT: 
+# Get all formats
+@api.route("/format/", methods=["GET"])   
+def get_all_formats():
+
+    all_formats = Format.query.all()
+    all_formats = list(map(lambda x: x.serialize(), all_formats)) 
+    return jsonify(all_formats), 200
+
+# Handle single format:
+@api.route("/format/<int:id>", methods=["GET", "PUT"])  
+
+def get_format(id):
+
+    if request.method == "GET":
+        single_format = Format.query.get(id)  
+        return jsonify(single_format.serialize()), 200
+
+    if request.method == "PUT":
+        format= User.query.get(id)
+        format.size= request.json.get("size", None)
+        format.area= request.json.get("area", None)
+        format.modified_on= request.json.get["modified_on", None]
+        db.session.commit()
+        return jsonify(format.serialize()), 200
 
 #################################################################### HELLO 
 @api.route('/hello', methods=['POST', 'GET'])
