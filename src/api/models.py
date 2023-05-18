@@ -64,6 +64,7 @@ class Valla(db.Model):
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     lat = db.Column(db.Float, nullable= True)
     lng = db.Column(db.Float, nullable= True)
+    shape = db.Column(db.String(150), nullable=True)
     comment = db.Column(db.String (250),  nullable=True) 
     status = db.Column(db.String(20), nullable=True)
     picture_url = db.Column(db.String(250), nullable=True)
@@ -100,6 +101,7 @@ class Valla(db.Model):
             "created_on" : self.created_on,
             "modified_on": self.modified_on,
             "comment": self.comment,
+            "shape" : self.shape,
             "status": self.status,
             "picture_url":self.picture_url,
             "lat":self.lat,
@@ -112,8 +114,7 @@ class Valla(db.Model):
             "user_id": self.user_id,
             
         }
-        
-                                            
+                                     
 class Owner(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
@@ -171,7 +172,6 @@ class Client(db.Model):
             "created_on" : self.created_on,
             "modified_on": self.modified_on,
             "user_id": self.user_id
-  
         }   
 
 class Order(db.Model):
@@ -194,7 +194,7 @@ class Order(db.Model):
     
     def serialize(self):
         return {
-            "order_id": self.id,
+            "order_id": self.id
         }
         
 
@@ -204,6 +204,7 @@ class Format(db.Model):
     area = db.Column(db.String(200), unique=False, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  #FK
+    vallas= db.relationship('Valla', backref='format', lazy=True)    # relationship
     
     
     def __repr__(self):
@@ -211,7 +212,9 @@ class Format(db.Model):
     
     def serialize(self):
         return {
-            "format_id": self.id,
+            "id": self.id,
+            "size": self.size,
+            "area": self.area
         }
 
 
@@ -228,6 +231,7 @@ class Payment(db.Model):
     def serialize(self):
         return {
             "payment_id": self.id,
+
         }        
 
 

@@ -5,8 +5,7 @@ import { Form, Button, Col, InputGroup, Row, Modal } from "react-bootstrap";
 export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
-  const dataClients = store.allClients;
-  const dataUsers = store.allUsers;
+  const dataFormats = store.allFormats;
   const singleValla = store.singleValla;
   const [files, setFiles] = useState();
   const [formValues, setFormValues] = useState();
@@ -39,7 +38,7 @@ export const FormNewValla = () => {
       submitSingleValla();
 
       // Resume default
-      form.submit();
+      // form.submit();
     }
 
     setValidated(true);
@@ -96,7 +95,7 @@ export const FormNewValla = () => {
 
           <Form.Group as={Col} md="3">
             <Form.Label>Provincia</Form.Label>
-            <Form.Control required as="select" name="province" defaultValue="" onChange={handleChange} >
+            <Form.Control required as="select" name="province" defaultValue="" onChange={handleChange}>
               <option value="">Seleccionar...</option>
               <option value="Alajuela">Alajuela</option>
               <option value="Cartago">Cartago</option>
@@ -153,23 +152,17 @@ export const FormNewValla = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md="4">
-            <Form.Label>Tamaño</Form.Label>
-            <Form.Control as="select" name="size" defaultValue={singleValla.size} onChange={handleChange}>
+            <Form.Label>Medidas</Form.Label>
+            <Form.Control as="select" name="format_id" defaultValue="" onChange={handleChange}>
               <option value="">Seleccionar...</option>
-              <option value="Vertical 7.20 x 9.00 mts (65 mts2)">Vertical 7.20 x 9.00 mts</option>
-              <option value="Vertical 8.50 x 11.00 mts (94 mts2)">Vertical 8.50 x 11.00 mts</option>
-              <option value="Vertical 5.40 x 7.20 mts (39 mts2)">Vertical 5.40 x 7.20 mts</option>
-              <option value="Horizontal 12.60 x 5.00 mts (63 mts2)">Horizontal 12.60 x 5.00 mts</option>
-              <option value="Horizontal 14.40 x 5.00 mts (72 mts2)">Horizontal 14.40 x 5.00 mts</option>
-              <option value="Horizontal 14.40 x 6.00 mts (87 mts2)">Horizontal 14.40 x 6.00 mts</option>
-              <option value="Horizontal 7.20 x 5.40 mts (39 mts2)">Horizontal 7.20 x 5.40 mts</option>
-              <option value="Landmark 33.30 x 8.50 mts (283 mts2)">Landmark 33.30 x 8.50 mts</option>
-              <option value="Landmark 71.10 x 4.90 mts (349 mts2)">Landmark 71.10 x 4.90 mts</option>
-              <option value="Landmark 34.80 x 8.90 mts (310 mts2)">Landmark 34.80 x 8.90 mts</option>
-              <option value="Otro">Otro</option>
+              {dataFormats.map((item, index) => (
+                <option key={index} value={item.id}>
+                  {item.size}
+                </option>
+              ))}
             </Form.Control>
 
-            <Form.Control.Feedback type="invalid">{errors.size}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.format_id}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
@@ -251,7 +244,7 @@ export const FormNewValla = () => {
 
           <Form.Group as={Col} md="4">
             <Form.Label>Propietario</Form.Label>
-            <Form.Control as="select" name="user_id" defaultValue={singleValla.owner_id} onChange={handleChange}>
+            <Form.Control as="select" name="owner_id" defaultValue="" onChange={handleChange}>
               <option value="">Seleccionar...</option>
               {dataOwners.map((item, index) => (
                 <option key={index} value={item.id}>

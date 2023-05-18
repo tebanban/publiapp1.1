@@ -161,6 +161,8 @@ def get_single_valla(id):
             valla.lat = request.json.get('lat', None)
         if "lng" in request.json:
             valla.lng = request.json.get('lng', None)
+        if "shape" in request.json:
+            valla.shape = request.json.get('shape', None)
         if "comment" in request.json:
             valla.comment = request.json.get('comment', None)
         if "format" in request.json:    
@@ -238,6 +240,7 @@ def create_new_valla():
             valla.address = request.json.get('address', None)
             valla.lat = request.json.get('lat', None)
             valla.lng = request.json.get('lng', None)
+            valla.shape = request.json.get('shape', None)
             valla.comment = request.json.get('comment', None)
             valla.format_id = request.json.get('format_id')
             valla.owner_id = request.json.get('owner_id', None)
@@ -257,21 +260,6 @@ def get_owners():
         all_owners = Owner.query.all()
         all_owners = list(map(lambda x: x.serialize(), all_owners)) 
         return jsonify(all_owners), 200
-
-def create_new_format():
-    if request.method == 'POST':
-        format = Format()
-        if not request.json['code'] or not request.json['name'] :
-            return jsonify('Please enter all the fields'), 200 
-        else:
-            format.code = request.json.get('code') 
-            format.name = request.json.get('name')  
-            format.status = request.json.get('status')  
-            format.light = request.json.get('light', None)
-          
-            db.session.add(format)   
-            db.session.commit()
-            return jsonify(format.serialize()), 200
 
 
 # Handle single owner:
@@ -322,12 +310,28 @@ def get_single_client(id):
 
 ################################################################### FORMAT: 
 # Get all formats
-@api.route("/format/", methods=["GET"])   
+@api.route("/format/", methods=["GET", "POST"])   
 def get_all_formats():
+    if request.method == 'GET':
+        all_formats = Format.query.all()
+        all_formats = list(map(lambda x: x.serialize(), all_formats)) 
+        return jsonify(all_formats), 200
 
-    all_formats = Format.query.all()
-    all_formats = list(map(lambda x: x.serialize(), all_formats)) 
-    return jsonify(all_formats), 200
+#Post new format
+def create_new_format():
+    if request.method == 'POST':
+        format = Format()
+        if not request.json['code'] or not request.json['name'] :
+            return jsonify('Please enter all the fields'), 200 
+        else:
+            format.code = request.json.get('code') 
+            format.name = request.json.get('name')  
+            format.status = request.json.get('status')  
+            format.light = request.json.get('light', None)
+          
+            db.session.add(format)   
+            db.session.commit()
+            return jsonify(format.serialize()), 200
 
 # Handle single format:
 @api.route("/format/<int:id>", methods=["GET", "PUT"])  

@@ -112,8 +112,8 @@ export const Table_valla = () => {
                   <td className="col-2">{item.name}</td>
                   <td className="col-1">{item.province}</td>
                   <td className="col-1">{item.way}</td>
-                  <td className="col-3">{item.size}</td>
-                  <td className="col-1">{item.typology}</td>
+                  <td className="col-3">{item.format}</td>
+                  <td className="col-1">{item.shape}</td>
                   <td className="col-1">{item.status}</td>
                   <td className="col-1">
                     {dataClients.map((element, index) => (element.id == item.client_id ? element.name : ""))}

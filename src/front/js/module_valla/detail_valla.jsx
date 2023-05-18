@@ -17,6 +17,7 @@ export const DetailValla = () => {
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataClients = store.allClients;
   const dataUsers = store.allUsers;
+  const dataFormats = store.allFormats;
 
   const [show, setShow] = useState(false);
 
@@ -89,7 +90,7 @@ export const DetailValla = () => {
         </Col>
         <Col>
           <h5>Medidas:</h5>
-          <p>{singleValla.size}</p>
+          <p>{dataFormats.map(item => item.id === singleValla.format_id ? item.size : null)}</p>
         </Col>
         <Col>
           <img className="navbar-brand px-2 mb-0 h1" src={logo} alt="Logo" style={{ width: "270px" }} />

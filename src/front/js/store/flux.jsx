@@ -13,8 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         code: "",
         name: "",
         status: "",
-        typology: "",
-        layout: "",
+        format: "",
         size: "",
         light: "",
         price_low: "",
@@ -31,6 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       allOwners: [],
       allClients: [],
       allUsers: [],
+      allFormats: [],
       newValla: "",
       updatedVallaMessage: "",
     },
@@ -243,7 +243,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             setStore({ allOwners: data }), console.log(data);
           })
-          .catch((error) => console.log("Error get owners", error));
+          .catch((error) => console.log("Error getting owners", error));
       },
 
       getClients: () => {
@@ -253,7 +253,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             setStore({ allClients: data }), console.log(data);
           })
-          .catch((error) => console.log("Error get clients", error));
+          .catch((error) => console.log("Error getting clients", error));
       },
 
       getUsers: () => {
@@ -263,7 +263,17 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             setStore({ allUsers: data }), console.log(data);
           })
-          .catch((error) => console.log("Error get users", error));
+          .catch((error) => console.log("Error getting users", error));
+      },
+
+      getFormats: () => {
+        ////////////////////////////////////////////////////////////////////////////////////GET ALL Formats
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/format")
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ allFormats: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error getting formats", error));
       },
 
       // Use getActions to call a function within a fuction

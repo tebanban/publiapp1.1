@@ -12,6 +12,7 @@ export const FormUpdateValla = () => {
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState("");
   const updatedVallaMessage = store.updatedVallaMessage;
+  const dataFormats = store.allFormats;
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -145,34 +146,26 @@ export const FormUpdateValla = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md="4">
-            <Form.Label>Tamaño</Form.Label>
-            <Form.Control as="select" name="size" defaultValue={singleValla.size} onChange={handleChange}>
+            <Form.Label>Medidas</Form.Label>
+            <Form.Control as="select" name="format_id" defaultValue={singleValla.format_id} onChange={handleChange}>
               <option value="">Seleccionar...</option>
-              <option value="Vertical 7.20 x 9.00 mts (65 mts2)">Vertical 7.20 x 9.00 mts</option>
-              <option value="Vertical 8.50 x 11.00 mts (94 mts2)">Vertical 8.50 x 11.00 mts</option>
-              <option value="Vertical 5.40 x 7.20 mts (39 mts2)">Vertical 5.40 x 7.20 mts</option>
-              <option value="Horizontal 12.60 x 5.00 mts (63 mts2)">Horizontal 12.60 x 5.00 mts</option>
-              <option value="Horizontal 14.40 x 5.00 mts (72 mts2)">Horizontal 14.40 x 5.00 mts</option>
-              <option value="Horizontal 14.40 x 6.00 mts (87 mts2)">Horizontal 14.40 x 6.00 mts</option>
-              <option value="Horizontal 7.20 x 5.40 mts (39 mts2)">Horizontal 7.20 x 5.40 mts</option>
-              <option value="Landmark 33.30 x 8.50 mts (283 mts2)">Landmark 33.30 x 8.50 mts</option>
-              <option value="Landmark 71.10 x 4.90 mts (349 mts2)">Landmark 71.10 x 4.90 mts</option>
-              <option value="Landmark 34.80 x 8.90 mts (310 mts2)">Landmark 34.80 x 8.90 mts</option>
-              <option value="Otro">Otro</option>
+              {dataFormats.map((item, index) => (
+                <option key={index} value={item.id}>{item.size}</option>
+              ))}
             </Form.Control>
-            <Form.Control.Feedback type="invalid">{errors.size}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.format}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
             <Form.Label>Tipo</Form.Label>
-            <Form.Control as="select" name="typology" defaultValue={singleValla.typology} onChange={handleChange}>
+            <Form.Control as="select" name="shape" defaultValue={singleValla.shape} onChange={handleChange}>
               <option value="">Seleccionar...</option>
               <option value="Unipolar">Unipolar 2 caras</option>
               <option value="Landmark">Landmark</option>
               <option value="3 Columnas">3 columnas</option>
               <option value="Otro">Otro</option>
             </Form.Control>
-            <Form.Control.Feedback type="invalid">{errors.typology}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.shape}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="4">
