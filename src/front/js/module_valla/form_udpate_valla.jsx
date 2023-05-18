@@ -110,9 +110,9 @@ export const FormUpdateValla = () => {
               name="lat"
               defaultValue={singleValla.lat}
               onChange={handleChange}
-              min="-90.00000"
-              max="90.00000"
-              step="0.00001"
+              min="-90.0000"
+              max="90.0000"
+              step="0.001"
             />
             <Form.Control.Feedback type="invalid">{errors.lat}</Form.Control.Feedback>
           </Form.Group>
@@ -124,9 +124,9 @@ export const FormUpdateValla = () => {
               name="lng"
               defaultValue={singleValla.lng}
               onChange={handleChange}
-              min="-180.00000"
-              max="180.00000"
-              step="0.00001"
+              min="-180.0000"
+              max="180.0000"
+              step="0.001"
             />
             <Form.Control.Feedback type="invalid">{errors.lng}</Form.Control.Feedback>
           </Form.Group>
@@ -150,7 +150,9 @@ export const FormUpdateValla = () => {
             <Form.Control as="select" name="format_id" defaultValue={singleValla.format_id} onChange={handleChange}>
               <option value="">Seleccionar...</option>
               {dataFormats.map((item, index) => (
-                <option key={item.id} value={item.id}>{item.size}</option>
+                <option key={item.id} value={item.id}>
+                  {item.size}
+                </option>
               ))}
             </Form.Control>
             <Form.Control.Feedback type="invalid">{errors.format}</Form.Control.Feedback>
@@ -189,7 +191,7 @@ export const FormUpdateValla = () => {
                 defaultValue={singleValla.price_low}
                 onChange={handleChange}
                 max="20000.00"
-                step="0.01"
+                step="0.1"
               />
               <Form.Control.Feedback type="invalid">{errors.price_low}</Form.Control.Feedback>
             </InputGroup>
@@ -205,7 +207,7 @@ export const FormUpdateValla = () => {
                 defaultValue={singleValla.price_high}
                 onChange={handleChange}
                 max="20000.00"
-                step="0.01"
+                step="0.1"
               />
               <Form.Control.Feedback type="invalid">{errors.price_high}</Form.Control.Feedback>
             </InputGroup>
@@ -221,14 +223,14 @@ export const FormUpdateValla = () => {
                 defaultValue={singleValla.price_canvas}
                 onChange={handleChange}
                 max="20000.00"
-                step="0.01"
+                step="0.1"
               />
               <Form.Control.Feedback type="invalid">{errors.price_canvas}</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
 
           <Form.Group as={Col} md="2">
-            <Form.Label>Tráfico</Form.Label>
+            <Form.Label>Tráfico (miles)</Form.Label>
             <Form.Control type="number" name="traffic" defaultValue={singleValla.traffic} onChange={handleChange} step="1" />
             <Form.Control.Feedback type="invalid">{errors.traffic}</Form.Control.Feedback>
           </Form.Group>

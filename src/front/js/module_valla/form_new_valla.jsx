@@ -114,11 +114,12 @@ export const FormNewValla = () => {
             <Form.Control
               type="number"
               name="lat"
-              defaultValue="9.984"
+              placeholder="9.984"
+              defaultValue=""
               onChange={handleChange}
-              min="-90.00000"
-              max="90.00000"
-              step="0.00001"
+              min="-90.0000"
+              max="90.0000"
+              step="0.001"
             />
             <Form.Control.Feedback type="invalid">{errors.lat}</Form.Control.Feedback>
           </Form.Group>
@@ -128,11 +129,12 @@ export const FormNewValla = () => {
             <Form.Control
               type="number"
               name="lng"
-              defaultValue="-84.148"
+              defaultValue=""
+              placeholder="-84.148"
               onChange={handleChange}
-              min="-180.00000"
-              max="180.00000"
-              step="0.00001"
+              min="-180.0000"
+              max="180.0000"
+              step="0.001"
             />
             <Form.Control.Feedback type="invalid">{errors.lng}</Form.Control.Feedback>
           </Form.Group>
@@ -145,7 +147,7 @@ export const FormNewValla = () => {
 
           <Form.Group as={Col} md="4">
             <Form.Label>Sentido</Form.Label>
-            <Form.Control type="text" name="way" defaultValue={singleValla.way} onChange={handleChange} />
+            <Form.Control type="text" name="way" defaultValue="" onChange={handleChange} />
             <Form.Control.Feedback type="invalid">{errors.way}</Form.Control.Feedback>
           </Form.Group>
         </Row>
@@ -153,7 +155,7 @@ export const FormNewValla = () => {
         <Row className="mb-3">
           <Form.Group as={Col} md="4">
             <Form.Label>Medidas</Form.Label>
-            <Form.Control as="select" name="format_id" defaultValue="" onChange={handleChange}>
+            <Form.Control as="select" name="format_id" defaultValue="" onChange={handleChange} placeholder="Seleccionar...">
               <option value="">Seleccionar...</option>
               {dataFormats.map((item) => (
                 <option key={item.id} value={item.id}>
@@ -192,14 +194,7 @@ export const FormNewValla = () => {
             <Form.Label>Precio S.C.</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
-              <Form.Control
-                type="number"
-                name="price_low"
-                defaultValue="1100"
-                onChange={handleChange}
-                max="20000.00"
-                step="0.01"
-              />
+              <Form.Control type="number" name="price_low" placeholder="1100" onChange={handleChange} max="20000.00" step="1" />
               <Form.Control.Feedback type="invalid">{errors.price_low}</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
@@ -208,14 +203,7 @@ export const FormNewValla = () => {
             <Form.Label>Precio C.C.</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
-              <Form.Control
-                type="number"
-                name="price_high"
-                defaultValue="1300"
-                onChange={handleChange}
-                max="20000.00"
-                step="0.01"
-              />
+              <Form.Control type="number" name="price_high" placeholder="1300" onChange={handleChange} max="20000.00" step="1" />
               <Form.Control.Feedback type="invalid">{errors.price_high}</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
@@ -227,18 +215,18 @@ export const FormNewValla = () => {
               <Form.Control
                 type="number"
                 name="price_canvas"
-                defaultValue="950"
+                placeholder="950"
                 onChange={handleChange}
                 max="20000.00"
-                step="0.01"
+                step="1"
               />
               <Form.Control.Feedback type="invalid">{errors.price_canvas}</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
 
           <Form.Group as={Col} md="2">
-            <Form.Label>Tráfico</Form.Label>
-            <Form.Control type="number" name="traffic" defaultValue="50" onChange={handleChange} step="1" />
+            <Form.Label>Tráfico (miles)</Form.Label>
+            <Form.Control type="number" name="traffic" placeholder="75.000" onChange={handleChange} step="0.1" />
             <Form.Control.Feedback type="invalid">{errors.traffic}</Form.Control.Feedback>
           </Form.Group>
 

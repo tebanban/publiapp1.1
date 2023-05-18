@@ -47,12 +47,14 @@ export const DetailValla = () => {
           <h1>{singleValla.code}</h1>
           <h5>{singleValla.route}</h5>
         </Col>
-        <Col xs={8} className="detail-name p-3">
+        <Col md="7" className="detail-name p-3">
           <h1>{singleValla.name}</h1>
         </Col>
         <Col className="detail-status p-3">
-          <h6>Estatus: {singleValla.status}</h6>
-          <h5>{singleValla.order_id}</h5>
+          <h5>Estatus: {singleValla.status}</h5>
+          <hr></hr>
+          <p>Disponible a partir de:</p>
+          <p>{""}</p>
         </Col>
       </Row>
       <Row className="detail-middle-section pb-5">
@@ -90,13 +92,12 @@ export const DetailValla = () => {
         </Col>
         <Col>
           <h5>Medidas:</h5>
-          <p>{dataFormats.map(item => item.id === singleValla.format_id ? item.size : null)}</p>
+          <p>{dataFormats.map((item) => (item.id === singleValla.format_id ? item.size : null))}</p>
         </Col>
         <Col>
           <img className="navbar-brand px-2 mb-0 h1" src={logo} alt="Logo" style={{ width: "270px" }} />
         </Col>
       </Row>
-      
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
         <Link to="/app">
@@ -118,8 +119,6 @@ export const DetailValla = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-
-        
       </Stack>
     </Container>
   );
