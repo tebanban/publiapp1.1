@@ -150,7 +150,7 @@ export const FormUpdateValla = () => {
             <Form.Control as="select" name="format_id" defaultValue={singleValla.format_id} onChange={handleChange}>
               <option value="">Seleccionar...</option>
               {dataFormats.map((item, index) => (
-                <option key={index} value={item.id}>{item.size}</option>
+                <option key={item.id} value={item.id}>{item.size}</option>
               ))}
             </Form.Control>
             <Form.Control.Feedback type="invalid">{errors.format}</Form.Control.Feedback>

@@ -155,8 +155,8 @@ export const FormNewValla = () => {
             <Form.Label>Medidas</Form.Label>
             <Form.Control as="select" name="format_id" defaultValue="" onChange={handleChange}>
               <option value="">Seleccionar...</option>
-              {dataFormats.map((item, index) => (
-                <option key={index} value={item.id}>
+              {dataFormats.map((item) => (
+                <option key={item.id} value={item.id}>
                   {item.size}
                 </option>
               ))}
@@ -246,8 +246,8 @@ export const FormNewValla = () => {
             <Form.Label>Propietario</Form.Label>
             <Form.Control as="select" name="owner_id" defaultValue="" onChange={handleChange}>
               <option value="">Seleccionar...</option>
-              {dataOwners.map((item, index) => (
-                <option key={index} value={item.id}>
+              {dataOwners.map((item) => (
+                <option key={item.id} value={item.id}>
                   {item.name}
                 </option>
               ))}

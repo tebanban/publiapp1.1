@@ -83,17 +83,17 @@ export const Table_owner = () => {
             </tr>
           </thead>
           <tbody>
-            {dataOwners.map((item, index) => {
+            {dataOwners.map((item) => {
               return (
                 <tr
-                  key={index}
+                  key={item.id}
                   // This dinamically changes the background color of the row
                   className={
                     item.status === "Arrendada" ? "arrendada " : "disponible "
                   }
                 >
                   <td className="col-1 codeButton">
-                    <Link to={"/sitedetail/" + index}>
+                    <Link to={"/sitedetail/" + item.id}>
                       <span>{item.code}</span>
                     </Link>
                   </td>
