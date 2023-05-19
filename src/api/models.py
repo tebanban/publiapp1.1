@@ -176,6 +176,7 @@ class Client(db.Model):
 
 class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(15), unique=True, nullable=False)
     base_price = db.Column(db.Integer, nullable=True)
     discount = db.Column(db.Integer, nullable=True)
     net_price = db.Column(db.Integer, nullable=True)
@@ -200,8 +201,9 @@ class Order(db.Model):
 
 class Format(db.Model):
     id=db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(10), unique=True, nullable=True)
     size = db.Column(db.String(200), unique=False, nullable=False)
-    area = db.Column(db.String(200), unique=False, nullable=False)
+    area = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  #FK
     vallas= db.relationship('Valla', backref='format', lazy=True)    # relationship
@@ -213,6 +215,7 @@ class Format(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "code": self.code,
             "size": self.size,
             "area": self.area
         }

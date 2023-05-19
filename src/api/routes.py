@@ -261,6 +261,22 @@ def get_owners():
         all_owners = list(map(lambda x: x.serialize(), all_owners)) 
         return jsonify(all_owners), 200
 
+#Post new owner
+def create_new_owner():
+    if request.method == 'POST':
+        owner = Owner()
+        if not request.json['code'] or not request.json['name'] :
+            return jsonify('Missing form fields'), 200 
+        else:
+            owner.name = request.json['name']  
+            owner.code = request.json['code'] 
+            owner.phone = request.json['phone']
+            owner.email = request.json['email'] 
+            owner.company = request.json['company']  
+            db.session.add(owner)   
+            db.session.commit()
+            return jsonify(owner.serialize()), 200
+
 
 # Handle single owner:
 @api.route("/owner/<int:id>", methods=["GET", "PUT"])  
@@ -274,9 +290,9 @@ def get_single_owner(id):
         owner = Owner.query.get(id)
         owner.name = request.json['name']  
         owner.code = request.json['code'] 
-        owner.phone = request.json['owner_phone']
-        owner.email = request.json['owner_email'] 
-        owner.company = request.json['owner_company']
+        owner.phone = request.json['phone']
+        owner.email = request.json['email'] 
+        owner.company = request.json['company']
         db.session.commit()
         return jsonify(owner.serialize()), 200
 
@@ -290,6 +306,22 @@ def get_all_clients():
     all_clients = list(map(lambda x: x.serialize(), all_clients)) 
     return jsonify(all_clients), 200
 
+#Post new client
+def create_new_client():
+    if request.method == 'POST':
+        owner = Client()
+        if not request.json['code'] or not request.json['name'] :
+            return jsonify('Missing form fields'), 200 
+        else:
+            client.name = request.json['name']  
+            client.code = request.json['code'] 
+            client.phone = request.json['phone']
+            client.email = request.json['email'] 
+            client.company = request.json['company']  
+            db.session.add(client)   
+            db.session.commit()
+            return jsonify(client.serialize()), 200
+            
 # Handle single client:
 @api.route("/client/<int:id>", methods=["GET", "PUT"])  
 def get_single_client(id):
@@ -321,14 +353,12 @@ def get_all_formats():
 def create_new_format():
     if request.method == 'POST':
         format = Format()
-        if not request.json['code'] or not request.json['name'] :
-            return jsonify('Please enter all the fields'), 200 
+        if not request.json['code'] or not request.json['size'] :
+            return jsonify('Missing form fields'), 200 
         else:
             format.code = request.json.get('code') 
-            format.name = request.json.get('name')  
-            format.status = request.json.get('status')  
-            format.light = request.json.get('light', None)
-          
+            format.size = request.json.get('size')  
+            format.area = request.json.get('area')  
             db.session.add(format)   
             db.session.commit()
             return jsonify(format.serialize()), 200

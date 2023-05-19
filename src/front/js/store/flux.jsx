@@ -9,6 +9,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       isAuth: null,
 
       allVallas: [],
+      allOwners: [],
+      allClients: [],
+      allUsers: [],
+      allFormats: [],
       singleValla: {
         code: "",
         name: "",
@@ -27,11 +31,30 @@ const getState = ({ getStore, getActions, setStore }) => {
         client_id: "",
         owner_id: "",
       },
-      allOwners: [],
-      allClients: [],
-      allUsers: [],
-      allFormats: [],
+      singleFormat: {
+        code: "",
+        size: "",
+        area: "",
+      },
+      singleOwner: {
+        code: "",
+        name: "",
+        phone: "",
+        email: "",
+        company: "",
+      },
+      singleClient: {
+        code: "",
+        name: "",
+        phone: "",
+        email: "",
+        company: "",
+      },
+
       newValla: "",
+      newOwner: "",
+      newFormat: "",
+      newClient: "",
       updatedVallaMessage: "",
     },
 
@@ -76,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       /////////////////////////////////////////////////////////////////  LOG IN
 
       login: (email, password) => {
-        fetch(import.meta.env.VITE_BACKEND_URL + "/api/token", { 
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/token", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -236,7 +259,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error registering new valla", error));
       },
 
-      ///////////////////////////////////////////////////////////////////////////////GET ALL owners table
+      ///////////////////////////////////////////////////////////////////////////////GET ALL owners
       getOwners: () => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner")
           .then((res) => res.json())
@@ -246,8 +269,43 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error getting owners", error));
       },
 
+      //////////////////////////////////////////////////////////////////////////////// GET Single Owner
+      getSingleOwner: (id) => {
+        const store = getStore();
+        const options = {
+          headers: {
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner/" + id, options)
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ singleOwner: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error getting single owner", error));
+      },
+
+      ///////////////////////////////////////////////////////////////////////////////// POST new owner
+      postNewOwner: (inputDataOwner) => {
+        const store = getStore();
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify(inputDataOwner),
+        };
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner", options)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success adding new owner", data), setStore({ newOwner: data });
+          })
+          .catch((error) => console.log("Error registering new owner", error));
+      },
+
+      ////////////////////////////////////////////////////////////////////////////// GET ALL  clients
       getClients: () => {
-        ////////////////////////////////////////////////////////////////////////////// GET ALL  clients table
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/client")
           .then((res) => res.json())
           .then((data) => {
@@ -256,8 +314,43 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("Error getting clients", error));
       },
 
+      //////////////////////////////////////////////////////////////////////////////// GET Single Client
+      getSingleClient: (id) => {
+        const store = getStore();
+        const options = {
+          headers: {
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/client/" + id, options)
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ singleClient: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error getting single client", error));
+      },
+
+      /////////////////////////////////////////////////////////////////////////////// POST new client
+      postNewClient: (inputDataClient) => {
+        const store = getStore();
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify(inputDataClient),
+        };
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/client", options)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success adding new owner", data), setStore({ newClient: data });
+          })
+          .catch((error) => console.log("Error registering new client", error));
+      },
+
+      ////////////////////////////////////////////////////////////////////////////////////GET ALL users
       getUsers: () => {
-        ////////////////////////////////////////////////////////////////////////////////////GET ALL users
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/user")
           .then((res) => res.json())
           .then((data) => {
@@ -274,6 +367,41 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ allFormats: data }), console.log(data);
           })
           .catch((error) => console.log("Error getting formats", error));
+      },
+
+      ////////////////////////////////////////////////////////////////////////////////// GET Single Format
+      getSingleFormat: (id) => {
+        const store = getStore();
+        const options = {
+          headers: {
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/format/" + id, options)
+          .then((res) => res.json())
+          .then((data) => {
+            setStore({ singleFormat: data }), console.log(data);
+          })
+          .catch((error) => console.log("Error getting single format", error));
+      },
+
+      /////////////////////////////////////////////////////////////////////////////// POST new format
+      postNewFormat: (inputDataFormat) => {
+        const store = getStore();
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify(inputDataFormat),
+        };
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/format", options)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success adding new owner", data), setStore({ newFormat: data });
+          })
+          .catch((error) => console.log("Error registering new format", error));
       },
 
       // Use getActions to call a function within a fuction
