@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/app.scss";
 import { Table_valla } from "../module_valla/table_valla";
-import { Table_owner } from "../component/table_owner";
+import { Table_owner } from "../module_owner/table_owner";
 
 export const App = () => {
   const [tableBox, setTableBox] = useState(<Table_valla />);

@@ -12,6 +12,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
 import { DetailValla } from "./module_valla/detail_valla";
+import { DetailOwner } from "./module_owner/detail_owner";
 import { Context } from "./store/appContext";
 
 //create your first component
@@ -39,6 +40,10 @@ const Layout = () => {
             <Route exact path="/detailValla/:id">
               {token == "undefined" || !token ? <Redirect to="/" /> : <DetailValla />}
             </Route>
+            <Route exact path="/detailOwner/:id">
+              {token == "undefined" || !token ? <Redirect to="/" /> : <DetailOwner />}
+            </Route>
+            
 
             <Route path="*" component={Error404} />
           </Switch>
