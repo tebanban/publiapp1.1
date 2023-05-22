@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/app.scss";
+import "../../styles/index.scss";
 import { Table_valla } from "../module_valla/table_valla";
 import { Table_owner } from "../module_owner/table_owner";
 

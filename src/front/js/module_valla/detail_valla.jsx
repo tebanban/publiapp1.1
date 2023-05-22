@@ -6,17 +6,18 @@ import logo from "../../img/logo-publiex.png";
 import { Form, Button, Stack, Container, Col, Row } from "react-bootstrap";
 import { GoogleMapVallas } from "../module_valla/googlemap_vallas";
 import { FormUpdateValla } from "../module_valla/form_udpate_valla";
+import "../../styles/valla.scss";
 
 console.log("pre-load");
 
 export const DetailValla = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams(); //////////////////////////// get  valla id from the URL
-  const id = params.id; ////////////////////////////////// store valla id as a variable
+  /////////get  valla id from the URL
+  const params = useParams();
+  //////// store valla id as a variable
+  const id = params.id;
 
-  const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
-  const dataClients = store.allClients;
-  const dataUsers = store.allUsers;
+  //get all formats from the store
   const dataFormats = store.allFormats;
 
   const [show, setShow] = useState(false);
@@ -29,7 +30,7 @@ export const DetailValla = () => {
   // const [files, setFiles] = useState();
 
   useEffect(() => {
-    /////////////////////////////////////// sends valla id as a parameter to the flux
+    ///////////////////// sends valla id as a parameter to the flux
     actions.getSingleValla(id);
   }, []);
 
@@ -41,35 +42,35 @@ export const DetailValla = () => {
   };
 
   return (
-    <Container className="detail-container py-4">
-      <Row className="detail-title ">
-        <Col className="detail-code p-3">
-          <h1>{singleValla.code}</h1>
-          <h5>{singleValla.route}</h5>
+    <Container className=" py-4">
+      <Row >
+        <Col className="p-3">
+          <h1 className="title-blue">{singleValla.code}</h1>
+          <h5 className="title-blue">{singleValla.route}</h5>
         </Col>
-        <Col md="7" className="detail-name p-3">
-          <h1>{singleValla.name}</h1>
+        <Col md="7" className="p-3">
+          <h1 className="title-red">{singleValla.name}</h1>
         </Col>
-        <Col className="detail-status p-3">
-          <h5>Estatus: {singleValla.status}</h5>
+        <Col className="background-gray p-3">
+          <h5 className="title-red">Estatus: {singleValla.status}</h5>
           <hr></hr>
           <p>Disponible a partir de:</p>
           <p>{""}</p>
         </Col>
       </Row>
-      <Row className="detail-middle-section pb-5">
+      <Row className="detail-valla-media-section pb-5">
         <Col lg={6} className="p-0">
           <div>
             <GoogleMapVallas lat={singleValla?.lat} lng={singleValla?.lng} />
           </div>
         </Col>
-        <Col className="detail-img p-0">
+        <Col className="detail-valla-img p-0">
           <div>
             <Image src={vallaPhoto} style={{ height: "50vh", width: "100%" }} />
           </div>
         </Col>
       </Row>
-      <Row className="detail-blueline py-3">
+      <Row className="detail-valla-blueline py-3">
         <Col>
           <h5>Precio mensual: ${singleValla.price_high}</h5>
         </Col>
@@ -81,7 +82,7 @@ export const DetailValla = () => {
         </Col>
       </Row>
 
-      <Row className="detail-info py-3">
+      <Row className="detail-valla-info py-3">
         <Col>
           <h5>Ubicación:</h5>
           <p>{singleValla.address}</p>

@@ -6,6 +6,7 @@ import logo from "../../img/logo-publiex.png";
 import { Button, Stack, Container, Col, Row } from "react-bootstrap";
 import { FormUpdateOwner } from "../module_owner/form_udpate_owner";
 
+
 export const DetailOwner = () => {
   const { store, actions } = useContext(Context);
   const params = useParams(); //////////////////////////// get  owner id from the URL
@@ -36,7 +37,7 @@ export const DetailOwner = () => {
       <Row className="detail-title ">
         <Col className="detail-code p-3">
           <h1>{singleOwner.code}</h1>
-          <h5>{singleOwner.route}</h5>
+          <h5>{singleOwner.name}</h5>
         </Col>
         <Col md="7" className="detail-name p-3">
           <h1>{singleOwner.name}</h1>

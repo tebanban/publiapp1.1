@@ -78,3 +78,6 @@ docs/Install_postgres.md
 python
 import os;
 print(os.urandom(16));
+
+# Psql db string
+postgresql://gitpod@localhost:5432/example
