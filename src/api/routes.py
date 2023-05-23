@@ -125,7 +125,7 @@ def get_single_valla(id):
         single_valla = Valla.query.get(id)
         return jsonify(single_valla.serialize()), 200
 
-#UPDATE single Valla
+##############################################################################UPDATE single Valla
     if request.method == 'PUT':   
     
         valla = Valla.query.get(id)
@@ -136,11 +136,11 @@ def get_single_valla(id):
         if "code" in request.json:
             valla.code = request.json.get('code')
         if "name" in request.json:
-            valla.name = request.json.get('name', None)  
+            valla.name = request.json.get('name')  
         if "status" in request.json:
-            valla.status = request.json.get('status', None)  
+            valla.status = request.json.get('status')  
         if "light" in request.json:
-            valla.light = request.json.get('light', None)
+            valla.light = request.json.get('light')
         if "price_low" in request.json:
             valla.price_low = request.json.get('price_low', None)
         if "price_high" in request.json:
@@ -229,7 +229,7 @@ def create_new_valla():
             valla.code = request.json.get('code') 
             valla.name = request.json.get('name')  
             valla.status = request.json.get('status')  
-            valla.light = request.json.get('light', None)
+            valla.light = request.json.get('light')
             valla.price_low = request.json.get('price_low', None)
             valla.price_high = request.json.get('price_high', None)
             valla.price_canvas = request.json.get('price_canvas', None)
@@ -274,7 +274,8 @@ def create_new_owner():
             owner.phone1 = request.json['phone1']
             owner.phone2 = request.json['phone2']
             owner.email = request.json['email'] 
-            owner.company = request.json['company']  
+            owner.company = request.json['company']
+            owner.comment = request.json['comment']
             db.session.add(owner)   
             db.session.commit()
             return jsonify(owner.serialize()), 200
@@ -288,15 +289,26 @@ def get_single_owner(id):
         single_owner = Owner.query.get(id)
         return jsonify(single_owner.serialize()), 200
     
-    if request.method == 'PUT':   
+    if request.method == 'PUT': 
         owner = Owner.query.get(id)
-        owner.name = request.json['name']  
-        owner.code = request.json['code'] 
-        owner.address = request.json['address'] 
-        owner.phone1 = request.json['phone1']
-        owner.phone2 = request.json['phone2']
-        owner.email = request.json['email'] 
-        owner.company = request.json['company']
+        if owner is None:
+            raise APIException("owner not found", status_code=404)  
+        if "code" in request.json:
+            owner.code = request.json.get('code')
+        if "name" in request.json:
+            owner.name = request.json.get('name')
+        if "address" in request.json:
+            owner.address = request.json.get('address')
+        if "phone1" in request.json:
+            owner.phone1 = request.json.get('phone1')
+        if "phone2" in request.json:
+            owner.phone2 = request.json.get('phone2')
+        if "comment" in request.json:
+            owner.comment = request.json.get('comment', None)
+        if "email" in request.json:
+            owner.email = request.json.get('email') 
+        if "company" in request.json:
+            owner.company = request.json.get('company')  
         db.session.commit()
         return jsonify(owner.serialize()), 200
 

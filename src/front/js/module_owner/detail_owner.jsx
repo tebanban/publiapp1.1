@@ -12,9 +12,7 @@ export const DetailOwner = () => {
   const id = params.id; ////////////////////////////////// store owner id as a variable
 
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
-  const dataClients = store.allClients;
-  const dataUsers = store.allUsers;
-  const dataFormats = store.allFormats;
+  const dataOrders = store.allOrders;
 
   const [show, setShow] = useState(false);
 
@@ -36,37 +34,41 @@ export const DetailOwner = () => {
       <Row>
         <Col className="detail-owner-img">
           <div>
-            <Image src={logo} style={{ height: "15vh", width: "40%" }} />
+            <Image src={logo} style={{ height: "15vh", width: "20rem" }} />
           </div>
         </Col>
       </Row>
 
       <Row>
         <Col className="detail-owner-name py-3 ">
-          <h3>{singleOwner.name}</h3>
+          <h3 className="title-blue">{singleOwner.name}</h3>
         </Col>
       </Row>
       <hr className="mt-0"></hr>
 
       <Row className="detail-info ">
-        <Col >
-          <Col className="py-2">
-            <h5>Compañía: {singleOwner.company}</h5>
+        <Col>
+          <Col className="py-1">
+            <p>Código: {singleOwner.code}</p>
           </Col>
-          <Col className="py-2">
-            <h5>Email: {singleOwner.email}</h5>
+          <Col className="py-1">
+            <p>Compañía: {singleOwner.company}</p>
           </Col>
-          <Col className="py-2">
-            <h5>Teléfono 1: {singleOwner.phone}</h5>
+          <Col className="py-1">
+            <p>Email: {singleOwner.email}</p>
           </Col>
-          <Col className="py-2">
-            <h5>Teléfono 2: {singleOwner.phone}</h5>
-          </Col >
-          <Col className="py-2">
-            <h5>Dirección:{singleOwner.address}</h5>
+          <Col className="py-1">
+            <p>Teléfono 1: {singleOwner.phone1}</p>
           </Col>
-
-          
+          <Col className="py-1">
+            <p>Teléfono 2: {singleOwner.phone2}</p>
+          </Col>
+          <Col className="py-1">
+            <p>Dirección:{singleOwner.address}</p>
+          </Col>
+          <Col className="py-1">
+            <p>Nota:{singleOwner.comment}</p>
+          </Col>
         </Col>
       </Row>
       <hr></hr>

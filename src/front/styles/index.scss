@@ -9,7 +9,8 @@
   --corp_blue: #0047bb;
   --corp_red: #f63440;
   --text_gray: #79828e;
-  --background_gray: #f1f1f1;
+  --background_ligthgray: #f1f1f1;
+  --background_gray: #a7a7a7;
   --background_white: #ffffff;
 }
 
@@ -99,14 +100,16 @@ body {
 
 .detail-owner-box {
 width: 60%;
-background-color: var(--background_gray);
+background-color: var(--background_white);
+box-shadow: 0 2px 6px 0 var(--background_gray);
+
 border-radius: 15px;
 }
 
 .detail-owner-img {
   text-align: center;
   height: "15vh";
-  background-color: (var(--background_white));
+  background-color: (var(--corp_blue));
 }
 
 .detail-owner-name{

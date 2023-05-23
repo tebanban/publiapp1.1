@@ -130,6 +130,7 @@ class Owner(db.Model):
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
+    comment = db.Column(db.String (250),  nullable=True) 
     picture_url = db.Column(db.String(400), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
     vallas= db.relationship('Valla', backref='owner', lazy=True)    # relationship
@@ -147,6 +148,7 @@ class Owner(db.Model):
             "phone2": self.phone2,
             "address": self.address,
             "email": self.email, 
+            "comment": self.comment,
             "picture_url": self.picture_url,
             "created_on" : self.created_on,
             "modified_on": self.modified_on,
@@ -165,6 +167,7 @@ class Client(db.Model):
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
+    comment = db.Column(db.String (250),  nullable=True) 
     picture_url = db.Column(db.String(400), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
     vallas= db.relationship('Valla', backref='client', lazy=True)    # relationship
@@ -183,6 +186,7 @@ class Client(db.Model):
             "phone2": self.phone2,
             "address": self.address,
             "email": self.email, 
+            "comment": self.comment,
             "picture_url": self.picture_url,
             "created_on" : self.created_on,
             "modified_on": self.modified_on,
@@ -200,6 +204,7 @@ class Order(db.Model):
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     check_in = db.Column(db.DateTime,  nullable=True)
     check_out = db.Column(db.DateTime,  nullable=True)
+    comment = db.Column(db.String (250),  nullable=True) 
     picture_url = db.Column(db.String(400), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)  #FK
@@ -221,6 +226,7 @@ class Format(db.Model):
     size = db.Column(db.String(200), unique=False, nullable=False)
     area = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
+    comment = db.Column(db.String (250),  nullable=True) 
     picture_url = db.Column(db.String(400), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  #FK
     vallas= db.relationship('Valla', backref='format', lazy=True)    # relationship
@@ -234,6 +240,7 @@ class Format(db.Model):
             "id": self.id,
             "code": self.code,
             "size": self.size,
+            "comment": self.comment,
             "picture_url": self.picture_url,
             "area": self.area
         }

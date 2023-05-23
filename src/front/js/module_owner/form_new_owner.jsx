@@ -68,181 +68,71 @@ export const FormNewOwner = () => {
     <>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} md="3" controlId="">
+          <Form.Group as={Col} md="2" controlId="">
             <Form.Label>Código</Form.Label>
-            <Form.Control required type="text" name="code" defaultValue="" onChange={handleChange} min="5" />
+            <Form.Control required type="text" name="code" defaultValue="" placeholder="C001" onChange={handleChange} min="5" />
             <Form.Control.Feedback type="invalid">{errors.code}</Form.Control.Feedback>
           </Form.Group>
-
-          <Form.Group as={Col} md="3" controlId="">
+          <Form.Group as={Col} md="10" controlId="">
             <Form.Label>Nombre</Form.Label>
-            <Form.Control required type="text" name="name" defaultValue="" onChange={handleChange} min="5" />
+            <Form.Control
+              required
+              type="text"
+              name="name"
+              defaultValue=""
+              placeholder="Nombre y apellidos"
+              onChange={handleChange}
+              min="5"
+            />
             <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group as={Col} md="3">
-            <Form.Label>Estatus</Form.Label>
-            <Form.Control required as="select" name="status" defaultValue="" onChange={handleChange}>
-              <option value="">Seleccionar...</option>
-              <option value="Arrendada">Arrendada</option>
-              <option value="Disponible">Disponible</option>
-              <option value="Reservada">Reservada</option>
-              <option value="Deshabilitada">Deshabilitada</option>
-              <option value="Otro">Otro</option>
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">{errors.status}</Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group as={Col} md="3">
-            <Form.Label>Provincia</Form.Label>
-            <Form.Control required as="select" name="province" defaultValue="" onChange={handleChange}>
-              <option value="">Seleccionar...</option>
-              <option value="Alajuela">Alajuela</option>
-              <option value="Cartago">Cartago</option>
-              <option value="Guanacaste">Guanacaste</option>
-              <option value="Heredia">Heredia</option>
-              <option value="Limón">Limón</option>
-              <option value="Puntarenas">Puntarenas</option>
-              <option value="San José">San José</option>
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">{errors.province}</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Row className="mb-3">
-          <Form.Group as={Col} md="2">
-            <Form.Label>Latitud</Form.Label>
+          <Form.Group as={Col} md="6">
+            <Form.Label>Compañía</Form.Label>
             <Form.Control
-              type="number"
-              name="lat"
-              placeholder="9.984"
+              type="text"
+              name="company"
               defaultValue=""
+              placeholder="Nombre de la sociedad"
               onChange={handleChange}
-              min="-90.0000"
-              max="90.0000"
-              step="0.001"
             />
-            <Form.Control.Feedback type="invalid">{errors.lat}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.company}</Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group as={Col} md="6">
+            <Form.Label>Email</Form.Label>
+              <InputGroup>
+                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                <Form.Control type="text" name="email" defaultValue="" onChange={handleChange} />
+              </InputGroup>
+            <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+        <Form.Group as={Col} md="2">
+            <Form.Label>Teléfono 1</Form.Label>
+            <InputGroup>
+              <InputGroup.Text id="inputGroupPrepend">#</InputGroup.Text>
+              <Form.Control type="string" name="phone1" defaultValue="" onChange={handleChange} />
+            </InputGroup>
+            <Form.Control.Feedback type="invalid">{errors.phone1}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} md="2">
-            <Form.Label>Longitud</Form.Label>
-            <Form.Control
-              type="number"
-              name="lng"
-              defaultValue=""
-              placeholder="-84.148"
-              onChange={handleChange}
-              min="-180.0000"
-              max="180.0000"
-              step="0.001"
-            />
-            <Form.Control.Feedback type="invalid">{errors.lng}</Form.Control.Feedback>
+            <Form.Label>Teléfono 2</Form.Label>
+            <InputGroup>
+              <InputGroup.Text id="inputGroupPrepend">#</InputGroup.Text>
+              <Form.Control type="string" name="phone2" defaultValue="" onChange={handleChange} />
+            </InputGroup>
+            <Form.Control.Feedback type="invalid">{errors.phone2}</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} md="4">
+          <Form.Group as={Col} md="8">
             <Form.Label>Dirección</Form.Label>
             <Form.Control type="text" name="address" defaultValue="" onChange={handleChange} />
             <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
           </Form.Group>
-
-          <Form.Group as={Col} md="4">
-            <Form.Label>Sentido</Form.Label>
-            <Form.Control type="text" name="way" defaultValue="" onChange={handleChange} />
-            <Form.Control.Feedback type="invalid">{errors.way}</Form.Control.Feedback>
-          </Form.Group>
         </Row>
-
-        <Row className="mb-3">
-          <Form.Group as={Col} md="4">
-            <Form.Label>Medidas</Form.Label>
-            <Form.Control as="select" name="format_id" defaultValue="" onChange={handleChange} placeholder="Seleccionar...">
-              <option value="">Seleccionar...</option>
-              {dataFormats.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.size}
-                </option>
-              ))}
-            </Form.Control>
-
-            <Form.Control.Feedback type="invalid">{errors.format_id}</Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group as={Col} md="4">
-            <Form.Label>Tipo</Form.Label>
-            <Form.Control as="select" name="typology" defaultValue="" onChange={handleChange}>
-              <option value="">Seleccionar...</option>
-              <option value="Unipolar">Unipolar</option>
-              <option value="Landmark">Landmark</option>
-              <option value="3 Columnas">3 Columnas</option>
-              <option value="Otro">Otro</option>
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">{errors.typology}</Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group as={Col} md="4">
-            <Form.Label>Iluminación</Form.Label>
-            <Form.Control as="select" name="light" defaultValue="" onChange={handleChange}>
-              <option value="">Seleccionar...</option>
-              <option value="yes">Sí</option>
-              <option value="no">No</option>
-            </Form.Control>
-          </Form.Group>
-        </Row>
-
-        <Row className="mb-3">
-          <Form.Group as={Col} md="2">
-            <Form.Label>Precio S.C.</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
-              <Form.Control type="number" name="price_low" placeholder="1100" onChange={handleChange} max="20000.00" step="1" />
-              <Form.Control.Feedback type="invalid">{errors.price_low}</Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
-
-          <Form.Group as={Col} md="2">
-            <Form.Label>Precio C.C.</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
-              <Form.Control type="number" name="price_high" placeholder="1300" onChange={handleChange} max="20000.00" step="1" />
-              <Form.Control.Feedback type="invalid">{errors.price_high}</Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
-
-          <Form.Group as={Col} md="2">
-            <Form.Label>Lona</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
-              <Form.Control
-                type="number"
-                name="price_canvas"
-                placeholder="950"
-                onChange={handleChange}
-                max="20000.00"
-                step="1"
-              />
-              <Form.Control.Feedback type="invalid">{errors.price_canvas}</Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
-
-          <Form.Group as={Col} md="2">
-            <Form.Label>Tráfico (miles)</Form.Label>
-            <Form.Control type="number" name="traffic" placeholder="75.000" onChange={handleChange} step="0.1" />
-            <Form.Control.Feedback type="invalid">{errors.traffic}</Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group as={Col} md="4">
-            <Form.Label>Propietario</Form.Label>
-            <Form.Control as="select" name="owner_id" defaultValue="" onChange={handleChange}>
-              <option value="">Seleccionar...</option>
-              {dataOwners.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group>
-        </Row>
-
         <Row>
           <Form.Group as={Col} md="6">
             <Form.Label>Comentario</Form.Label>
@@ -250,15 +140,20 @@ export const FormNewOwner = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="6">
-            <Form.Label>Fotografía</Form.Label>
-            <Form.Control
-              type="file"
-              name="file"
-              id="file"
-              onChange={(e) => {
-                setFiles(e.target.files);
-              }}
-            />
+            <label htmlFor="file" className=" control-label">
+              Fotografía
+            </label>
+            <div className="">
+              <input
+                className="form-control"
+                id="file"
+                name="file"
+                type="file"
+                onChange={(e) => {
+                  setFiles(e.target.files);
+                }}
+              />
+            </div>
           </Form.Group>
         </Row>
 

@@ -35,18 +35,23 @@ const getState = ({ getStore, getActions, setStore }) => {
         code: "",
         size: "",
         area: "",
+        comment: "",
       },
       singleOwner: {
         code: "",
         name: "",
-        phone: "",
+        phone1: "",
+        phone2: "",
+        comment: "",
         email: "",
         company: "",
       },
       singleClient: {
         code: "",
         name: "",
-        phone: "",
+        phone1: "",
+        phone2: "",
+        comment: "",
         email: "",
         company: "",
       },
@@ -302,6 +307,26 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Success adding new owner", data), setStore({ newOwner: data });
           })
           .catch((error) => console.log("Error registering new owner", error));
+      },
+
+      ///////////////////////////////////////////////////////////////// ///////////// Update  Owner
+      updateOwner: (id, formValues) => {
+        const store = getStore();
+        const options = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify(formValues),
+        };
+        console.log("Update owner Body", options.body);
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner/" + id, options)
+          .then((response) => response.json())
+          .then((data, message) => {
+            console.log(data), setStore({ updatedOwnerMessage: data.message });
+          })
+          .catch((error) => console.log("Error when updating owner data", error));
       },
 
       ////////////////////////////////////////////////////////////////////////////// GET ALL  clients
