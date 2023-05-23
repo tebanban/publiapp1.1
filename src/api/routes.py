@@ -268,9 +268,11 @@ def create_new_owner():
         if not request.json['code'] or not request.json['name'] :
             return jsonify('Missing form fields'), 200 
         else:
-            owner.name = request.json['name']  
+            owner.name = request.json['name']    
             owner.code = request.json['code'] 
-            owner.phone = request.json['phone']
+            owner.address = request.json['address']
+            owner.phone1 = request.json['phone1']
+            owner.phone2 = request.json['phone2']
             owner.email = request.json['email'] 
             owner.company = request.json['company']  
             db.session.add(owner)   
@@ -290,7 +292,9 @@ def get_single_owner(id):
         owner = Owner.query.get(id)
         owner.name = request.json['name']  
         owner.code = request.json['code'] 
-        owner.phone = request.json['phone']
+        owner.address = request.json['address'] 
+        owner.phone1 = request.json['phone1']
+        owner.phone2 = request.json['phone2']
         owner.email = request.json['email'] 
         owner.company = request.json['company']
         db.session.commit()
@@ -315,7 +319,8 @@ def create_new_client():
         else:
             client.name = request.json['name']  
             client.code = request.json['code'] 
-            client.phone = request.json['phone']
+            client.phone1 = request.json['phone1']
+            client.phone2 = request.json['phone2']
             client.email = request.json['email'] 
             client.company = request.json['company']  
             db.session.add(client)   
@@ -334,7 +339,8 @@ def get_single_client(id):
         client = Client.query.get(id)  
         client.name = request.json['name']  
         client.code = request.json['code'] 
-        client.phone = request.json['phone']
+        client.phone1 = request.json['phone1']
+        client.phone2 = request.json['phone2']
         client.email = request.json['email'] 
         client.company = request.json['company']
         db.session.commit()

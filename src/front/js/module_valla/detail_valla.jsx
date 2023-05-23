@@ -43,7 +43,7 @@ export const DetailValla = () => {
 
   return (
     <Container className=" py-4">
-      <Row >
+      <Row>
         <Col className="p-3">
           <h1 className="title-blue">{singleValla.code}</h1>
           <h5 className="title-blue">{singleValla.route}</h5>
@@ -58,7 +58,7 @@ export const DetailValla = () => {
           <p>{""}</p>
         </Col>
       </Row>
-      <Row className="detail-valla-media-section pb-5">
+      <Row className="detail-valla-media-section">
         <Col lg={6} className="p-0">
           <div>
             <GoogleMapVallas lat={singleValla?.lat} lng={singleValla?.lng} />
@@ -70,7 +70,7 @@ export const DetailValla = () => {
           </div>
         </Col>
       </Row>
-      <Row className="detail-valla-blueline py-3">
+      <Row className="detail-valla-blueline py-3 mt-5">
         <Col>
           <h5>Precio mensual: ${singleValla.price_high}</h5>
         </Col>
@@ -82,7 +82,7 @@ export const DetailValla = () => {
         </Col>
       </Row>
 
-      <Row className="detail-valla-info py-3">
+      <Row className="py-3">
         <Col>
           <h5>Ubicación:</h5>
           <p>{singleValla.address}</p>

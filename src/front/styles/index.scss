@@ -9,7 +9,8 @@
   --corp_blue: #0047bb;
   --corp_red: #f63440;
   --text_gray: #79828e;
-  --background_gray: #f8f9fa;
+  --background_gray: #f1f1f1;
+  --background_white: #ffffff;
 }
 
 * {
@@ -94,4 +95,21 @@ body {
 
 .modal-lg {
   max-width: 1000px;
+}
+
+.detail-owner-box {
+width: 60%;
+background-color: var(--background_gray);
+border-radius: 15px;
+}
+
+.detail-owner-img {
+  text-align: center;
+  height: "15vh";
+  background-color: (var(--background_white));
+}
+
+.detail-owner-name{
+  text-align: center;
+  align-content: center;
 }

@@ -13,13 +13,17 @@ export const App = () => {
           Vallas
         </button>
 
+        <button onClick={() => setTableBox(<Table_client />)} className="btn btn-primary mx-2">
+          Clientes
+        </button>
+
         <button onClick={() => setTableBox(<Table_owner />)} className="btn btn-primary mx-2">
           Propietarios
         </button>
 
-        <button className="btn btn-secondary mx-2">Clientes</button>
-
-        <button className="btn btn-secondary mx-2">Usuarios</button>
+        <button onClick={() => setTableBox(<Table_format />)} className="btn btn-primary mx-2">
+          Formatos
+        </button>
       </div>
 
       <div>{tableBox}</div>

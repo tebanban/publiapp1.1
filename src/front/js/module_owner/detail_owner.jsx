@@ -3,9 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal } from "react-bootstrap";
 import logo from "../../img/logo-publiex.png";
-import { Button, Stack, Container, Col, Row } from "react-bootstrap";
+import { Button, Stack, Container, Col, Row, Image } from "react-bootstrap";
 import { FormUpdateOwner } from "../module_owner/form_udpate_owner";
-
 
 export const DetailOwner = () => {
   const { store, actions } = useContext(Context);
@@ -33,49 +32,44 @@ export const DetailOwner = () => {
   const singleOwner = store.singleOwner;
 
   return (
-    <Container className="detail-container py-4">
-      <Row className="detail-title ">
-        <Col className="detail-code p-3">
-          <h1>{singleOwner.code}</h1>
-          <h5>{singleOwner.name}</h5>
-        </Col>
-        <Col md="7" className="detail-name p-3">
-          <h1>{singleOwner.name}</h1>
-        </Col>
-        <Col className="detail-status p-3">
-          <h5>Estatus: {singleOwner.status}</h5>
-          <hr></hr>
-          <p>Disponible a partir de:</p>
-          <p>{""}</p>
+    <Container className="detail-owner-box py-4">
+      <Row>
+        <Col className="detail-owner-img">
+          <div>
+            <Image src={logo} style={{ height: "15vh", width: "40%" }} />
+          </div>
         </Col>
       </Row>
 
-      <Row className="detail-blueline py-3">
-        <Col>
-          <h5>Precio mensual: ${singleOwner.price_high}</h5>
-        </Col>
-        <Col>
-          <h5>Impresión de lona: ${singleOwner.price_canvas}</h5>
-        </Col>
-        <Col>
-          <h5>Tráfico vehicular diario: {singleOwner.traffic} mil* </h5>
+      <Row>
+        <Col className="detail-owner-name py-3 ">
+          <h3>{singleOwner.name}</h3>
         </Col>
       </Row>
+      <hr className="mt-0"></hr>
 
-      <Row className="detail-info py-3">
-        <Col>
-          <h5>Ubicación:</h5>
-          <p>{singleOwner.address}</p>
-        </Col>
-        <Col>
-          <h5>Sentido:</h5>
-          <p>{singleOwner.way}</p>
-        </Col>
+      <Row className="detail-info ">
+        <Col >
+          <Col className="py-2">
+            <h5>Compañía: {singleOwner.company}</h5>
+          </Col>
+          <Col className="py-2">
+            <h5>Email: {singleOwner.email}</h5>
+          </Col>
+          <Col className="py-2">
+            <h5>Teléfono 1: {singleOwner.phone}</h5>
+          </Col>
+          <Col className="py-2">
+            <h5>Teléfono 2: {singleOwner.phone}</h5>
+          </Col >
+          <Col className="py-2">
+            <h5>Dirección:{singleOwner.address}</h5>
+          </Col>
 
-        <Col>
-          <img className="navbar-brand px-2 mb-0 h1" src={logo} alt="Logo" style={{ width: "270px" }} />
+          
         </Col>
       </Row>
+      <hr></hr>
 
       <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
         <Link to="/app">
