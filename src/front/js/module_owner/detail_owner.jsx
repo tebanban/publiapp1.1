@@ -52,7 +52,10 @@ export const DetailOwner = () => {
             <p>Código: {singleOwner.code}</p>
           </Col>
           <Col className="py-1">
-            <p>Compañía: {singleOwner.company}</p>
+            <p>Cédula: {singleOwner.number_id}</p>
+          </Col>
+          <Col className="py-1">
+            <p>Contacto: {singleOwner.contact}</p>
           </Col>
           <Col className="py-1">
             <p>Email: {singleOwner.email}</p>

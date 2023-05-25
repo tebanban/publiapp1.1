@@ -291,7 +291,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       ///////////////////////////////////////////////////////////////////////////////// POST new owner
-      postNewOwner: (inputDataOwner) => {
+      postNewOwner: (formValues) => {
         const store = getStore();
         const options = {
           method: "POST",
@@ -299,7 +299,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
             Authorization: "Bearer " + store.token,
           },
-          body: JSON.stringify(inputDataOwner),
+          body: JSON.stringify(formValues),
         };
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner", options)
           .then((response) => response.json())

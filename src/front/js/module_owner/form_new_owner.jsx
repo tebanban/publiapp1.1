@@ -68,19 +68,14 @@ export const FormNewOwner = () => {
     <>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} md="2" controlId="">
-            <Form.Label>Código</Form.Label>
-            <Form.Control required type="text" name="code" defaultValue="" placeholder="C001" onChange={handleChange} min="5" />
-            <Form.Control.Feedback type="invalid">{errors.code}</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="10" controlId="">
+          <Form.Group as={Col} controlId="">
             <Form.Label>Nombre</Form.Label>
             <Form.Control
               required
               type="text"
               name="name"
               defaultValue=""
-              placeholder="Nombre y apellidos"
+              placeholder="Físico o jurídico"
               onChange={handleChange}
               min="5"
             />
@@ -88,28 +83,37 @@ export const FormNewOwner = () => {
           </Form.Group>
         </Row>
         <Row className="mb-3">
-          <Form.Group as={Col} md="6">
-            <Form.Label>Compañía</Form.Label>
-            <Form.Control
-              type="text"
-              name="company"
-              defaultValue=""
-              placeholder="Nombre de la sociedad"
-              onChange={handleChange}
-            />
-            <Form.Control.Feedback type="invalid">{errors.company}</Form.Control.Feedback>
+          <Form.Group as={Col} md="8">
+            <Form.Label>Cédula</Form.Label>
+            <Form.Control type="text" name="number_id" defaultValue="" placeholder="Física o jurídica" onChange={handleChange} />
+            <Form.Control.Feedback type="invalid">{errors.number_id}</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="6">
+          <Form.Group as={Col} md="4" controlId="">
+            <Form.Label>Código</Form.Label>
+            <Form.Control required type="text" name="code" defaultValue="" placeholder="C001" onChange={handleChange} min="5" />
+            <Form.Control.Feedback type="invalid">{errors.code}</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="8">
+            <Form.Label>Contacto</Form.Label>
+
+            <Form.Control type="text" name="contact" defaultValue="" onChange={handleChange} />
+
+            <Form.Control.Feedback type="invalid">{errors.contact}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
             <Form.Label>Email</Form.Label>
-              <InputGroup>
-                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                <Form.Control type="text" name="email" defaultValue="" onChange={handleChange} />
-              </InputGroup>
+            <InputGroup>
+              <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+              <Form.Control type="text" name="email" defaultValue="" onChange={handleChange} />
+            </InputGroup>
             <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Row className="mb-3">
-        <Form.Group as={Col} md="2">
+          <Form.Group as={Col} md="2">
             <Form.Label>Teléfono 1</Form.Label>
             <InputGroup>
               <InputGroup.Text id="inputGroupPrepend">#</InputGroup.Text>

@@ -106,7 +106,7 @@ def delete_single_user(id):
         return jsonify("The user was deleted", user.serialize()), 200
 
 
-################################################################# VALLAS
+################################################################# GET ALL VALLAS
 #Get all vallas
 @api.route("/valla/", methods=["GET"])   
 def get_vallas():
@@ -221,94 +221,97 @@ def delete_single_valla(id):
 @api.route("/valla/", methods=["POST"]) 
 @jwt_required() 
 def create_new_valla():
-    
-        valla = Valla()
-        if not request.json['code'] or not request.json['name'] :
-            return jsonify('Please enter all the fields'), 200 
-        else:
-            valla.code = request.json.get('code') 
-            valla.name = request.json.get('name')  
-            valla.status = request.json.get('status')  
-            valla.light = request.json.get('light')
-            valla.price_low = request.json.get('price_low', None)
-            valla.price_high = request.json.get('price_high', None)
-            valla.price_canvas = request.json.get('price_canvas', None)
-            valla.traffic = request.json.get('traffic', None)
-            valla.way = request.json.get('way', None)
-            valla.route = request.json.get('province', None)
-            valla.province = request.json.get('route', None)
-            valla.address = request.json.get('address', None)
-            valla.lat = request.json.get('lat', None)
-            valla.lng = request.json.get('lng', None)
-            valla.shape = request.json.get('shape', None)
-            valla.comment = request.json.get('comment', None)
-            valla.format_id = request.json.get('format_id')
-            valla.owner_id = request.json.get('owner_id', None)
-            valla.client_id = request.json.get('client_id', None)
+    valla = Valla()
+    if not request.json['code'] or not request.json['name']:
+        return jsonify('Required code and name'), 200
+
+    fields = {
+        'code': None,
+        'name': None,
+        'status': None,
+        'light': None,
+        'price_low': 1100,
+        'price_high': 1300,
+        'price_canvas': 950,
+        'traffic': 55,
+        'way': None,
+        'route': None,
+        'province': None,
+        'address': None,
+        'lat': 9.987,
+        'lng': -84.148,
+        'shape': None,
+        'comment': None,
+        'format_id': None,
+        'owner_id': None,
+        'client_id': None
+    }
+
+    for field, default_value in fields.items():
+        setattr(valla, field, request.json.get(field, default_value))
         
-            db.session.add(valla)   
-            db.session.commit()
-            return jsonify(valla.serialize()), 200
+
+    db.session.add(valla)
+    db.session.commit()
+
+    return jsonify(valla.serialize()), 200
 
     
 ############################################################### OWNERS 
 # Get all owners:
-@api.route("/owner/", methods=["GET", "POST"])   
+@api.route("/owner/", methods=["GET"])   
 def get_owners():
 
-    if request.method == 'GET':
         all_owners = Owner.query.all()
         all_owners = list(map(lambda x: x.serialize(), all_owners)) 
         return jsonify(all_owners), 200
 
 #Post new owner
+@api.route("/owner/", methods=[ "POST"])   
+@jwt_required() 
 def create_new_owner():
-    if request.method == 'POST':
+    
         owner = Owner()
-        if not request.json['code'] or not request.json['name'] :
-            return jsonify('Missing form fields'), 200 
-        else:
-            owner.name = request.json['name']    
-            owner.code = request.json['code'] 
-            owner.address = request.json['address']
-            owner.phone1 = request.json['phone1']
-            owner.phone2 = request.json['phone2']
-            owner.email = request.json['email'] 
-            owner.company = request.json['company']
-            owner.comment = request.json['comment']
-            db.session.add(owner)   
-            db.session.commit()
-            return jsonify(owner.serialize()), 200
+        code = request.json.get('code')
+        name = request.json.get('name')
+
+        if not code or not name:
+            return jsonify('Missing required form fields'), 200
+
+        owner.code = code
+        owner.name = name
+        owner.number_id = request.json.get('number_id', 333333)
+        owner.contact = request.json.get('contact')
+        owner.address = request.json.get('address')
+        owner.phone1 = request.json.get('phone1')
+        owner.phone2 = request.json.get('phone2')
+        owner.email = request.json.get('email')
+        owner.comment = request.json.get('comment')
+
+        db.session.add(owner)
+        db.session.commit()
+
+        return jsonify(owner.serialize()), 200
+
 
 
 # Handle single owner:
 @api.route("/owner/<int:id>", methods=["GET", "PUT"])  
-def get_single_owner(id):
-
-    if request.method == 'GET':                                           
+def handle_single_owner(id):
+    if request.method == 'GET':
         single_owner = Owner.query.get(id)
         return jsonify(single_owner.serialize()), 200
     
-    if request.method == 'PUT': 
+    if request.method == 'PUT':
         owner = Owner.query.get(id)
         if owner is None:
-            raise APIException("owner not found", status_code=404)  
-        if "code" in request.json:
-            owner.code = request.json.get('code')
-        if "name" in request.json:
-            owner.name = request.json.get('name')
-        if "address" in request.json:
-            owner.address = request.json.get('address')
-        if "phone1" in request.json:
-            owner.phone1 = request.json.get('phone1')
-        if "phone2" in request.json:
-            owner.phone2 = request.json.get('phone2')
-        if "comment" in request.json:
-            owner.comment = request.json.get('comment', None)
-        if "email" in request.json:
-            owner.email = request.json.get('email') 
-        if "company" in request.json:
-            owner.company = request.json.get('company')  
+            raise APIException("Owner not found", status_code=404)
+
+        fields = ['code', 'name', 'number_id', 'contact', 'address', 'phone1', 'phone2', 'comment', 'email']
+        for field in fields:
+            if field in request.json:
+                setattr(owner, field, request.json.get(field))
+
         db.session.commit()
         return jsonify(owner.serialize()), 200
 
@@ -334,7 +337,7 @@ def create_new_client():
             client.phone1 = request.json['phone1']
             client.phone2 = request.json['phone2']
             client.email = request.json['email'] 
-            client.company = request.json['company']  
+            client.contact = request.json['contact']  
             db.session.add(client)   
             db.session.commit()
             return jsonify(client.serialize()), 200

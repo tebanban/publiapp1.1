@@ -70,12 +70,17 @@ export const FormUpdateOwner = () => {
             <Form.Control required type="text" name="name" defaultValue={singleOwner.name} onChange={handleChange} min="5" />
             <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
           </Form.Group>
+          <Form.Group as={Col} controlId="">
+            <Form.Label>Cédula</Form.Label>
+            <Form.Control required type="text" name="number_id" defaultValue={singleOwner.number_id} onChange={handleChange} min="5" />
+            <Form.Control.Feedback type="invalid">{errors.number_id}</Form.Control.Feedback>
+          </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md="6">
-            <Form.Label>Compañía</Form.Label>
-            <Form.Control type="text" name="company" defaultValue={singleOwner.company} onChange={handleChange} />
-            <Form.Control.Feedback type="invalid">{errors.company}</Form.Control.Feedback>
+            <Form.Label>Contacto</Form.Label>
+            <Form.Control type="text" name="contact" defaultValue={singleOwner.contact} onChange={handleChange} />
+            <Form.Control.Feedback type="invalid">{errors.contact}</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="6">
             <Form.Label>Email</Form.Label>

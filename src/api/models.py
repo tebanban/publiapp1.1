@@ -121,18 +121,19 @@ class Valla(db.Model):
 class Owner(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
-    name = db.Column(db.String(150), nullable=False)
-    company = db.Column(db.String(150), unique=True, nullable=True)
-    phone1 = db.Column(db.String(30), unique=True, nullable=False)
-    phone2 = db.Column(db.String(30), unique=True, nullable=False)
-    email = db.Column(db.String(50), unique=True, nullable=False)
-    address = db.Column(db.String(150), unique=True, nullable=False)
+    name = db.Column(db.String(200), unique=True, nullable=False)
+    number_id= db.Column(db.String(50), unique=True, nullable=True)
+    contact = db.Column(db.String(200), nullable=True)
+    phone1 = db.Column(db.String(30), unique=True, nullable=True)
+    phone2 = db.Column(db.String(30), unique=True, nullable=True)
+    email = db.Column(db.String(50), unique=True, nullable=True)
+    address = db.Column(db.String(150), unique=True, nullable=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     modified_on = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
     comment = db.Column(db.String (250),  nullable=True) 
     picture_url = db.Column(db.String(400), nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
     vallas= db.relationship('Valla', backref='owner', lazy=True)    # relationship
     
     def __repr__(self):
@@ -143,7 +144,8 @@ class Owner(db.Model):
             "id": self.id,
             "code": self.code,
             "name": self.name,
-            "company": self.company,
+            "number_id": self.number_id,
+            "contact": self.contact,
             "phone1": self.phone1,
             "phone2": self.phone2,
             "address": self.address,
@@ -158,8 +160,9 @@ class Owner(db.Model):
 class Client(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
-    name = db.Column(db.String(150), unique=False, nullable=False)
-    company = db.Column(db.String(150), unique=True, nullable=True)
+    name = db.Column(db.String(200), unique=False, nullable=False)
+    number_id = db.Column(db.String(50), unique=True, nullable=False)
+    contact = db.Column(db.String(200), unique=True, nullable=True)
     phone1 = db.Column(db.String(30), unique=True, nullable=False)
     phone2 = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
@@ -181,7 +184,8 @@ class Client(db.Model):
             "id": self.id,
             "code": self.code,
             "name": self.name,
-            "company": self.company,
+            "number_id": self.number_id,
+            "contact": self.contact,
             "phone1": self.phone1,
             "phone2": self.phone2,
             "address": self.address,
