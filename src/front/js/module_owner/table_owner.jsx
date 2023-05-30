@@ -17,7 +17,7 @@ export const Table_owner = () => {
   const dataClients = store.allClients;
   const dataFormats = store.allFormats;
 
-  //Filter by status
+  //Filters
   const allOwners = store.allOwners.filter((index) => {
     if (query === "" ) {
       return index;
@@ -85,7 +85,7 @@ export const Table_owner = () => {
         <Table striped hover size="sm" className="table">
           <thead>
             <tr className="listheader  d-flex">
-              <th className="col-1">Código</th>
+              <th sm="1">Código</th>
               <th className="col-2">Nombre</th>
               <th className="col-1">Provincia</th>
               <th className="col-2">Sentido</th>

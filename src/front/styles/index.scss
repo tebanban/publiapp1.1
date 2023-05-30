@@ -31,8 +31,9 @@ body {
   color: #fff;
   text-decoration: none;
 }
+
 .link:hover {
-  color: rgb(245, 231, 224);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2)
 }
 
 .formBox {
@@ -51,6 +52,7 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: rgb(241, 255, 241);
+  
 }
 
 .inactiva {
@@ -59,9 +61,6 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-.table {
-  font-size: small;
-}
 
 .navbar {
   position: relative;
@@ -71,10 +70,27 @@ body {
 .appBox {
   width: 90%;
   margin: auto;
+  margin-top: 2rem;
 }
+
 
 .appNav {
   width: auto;
+}
+
+.tableBox {
+  margin-top: 1rem;
+  border: 1px solid var(--background_ligthgray);
+  border-radius: 5px;
+}
+
+.tableHeader{
+  height: 2.5rem;
+  align-items: center;
+}
+
+.table > :not(:first-child) {
+  border-top: 1px solid currentColor;
 }
 
 .form {
@@ -103,7 +119,7 @@ width: 60%;
 background-color: var(--background_white);
 box-shadow: 0 2px 6px 0 var(--background_gray);
 
-border-radius: 15px;
+border-radius: 1rem;
 }
 
 .detail-owner-img {
@@ -116,3 +132,17 @@ border-radius: 15px;
   text-align: center;
   align-content: center;
 }
+
+.col-1, .col-2{
+  border-left: 1px solid lightgray;
+
+}
+
+.table > :not(:first-child) {
+  border-top: 1px solid currentColor;
+}
+
+
+
+
+

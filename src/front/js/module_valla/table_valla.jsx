@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/index.scss";
-import { Col, Row, Form, Table, Modal, Button } from "react-bootstrap";
+import { Col, Row, Form, Table, Modal, Button} from "react-bootstrap";
 import { FormNewValla } from "./form_new_valla";
 
 export const Table_valla = () => {
@@ -81,10 +81,10 @@ export const Table_valla = () => {
         </Row>
 
         {/* Table content................................................................... */}
-
-        <Table striped hover size="sm" className="table">
+        <div className="tableBox">
+        <Table striped hover size="sm" >
           <thead>
-            <tr className="listheader  d-flex">
+            <tr className="d-flex tableHeader">
               <th className="col-1">Código</th>
               <th className="col-2">Nombre</th>
               <th className="col-1">Provincia</th>
@@ -96,7 +96,7 @@ export const Table_valla = () => {
               <th className="col-1">Arrendador</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="tbody">
             {allVallas.map((item) => {
               return (
                 <tr
@@ -104,7 +104,7 @@ export const Table_valla = () => {
                   // This dinamically changes the background color of the row
                   className={item.status === "Arrendada" ? "arrendada " : "disponible "}
                 >
-                  <td className="col-1 ">
+                  <td className="col-1">
                     <Link to={"/DetailValla/" + item.id}>
                       <span>{item.code}</span>
                     </Link>
@@ -126,6 +126,10 @@ export const Table_valla = () => {
             })}
           </tbody>
         </Table>
+
+
+        </div>
+        
       </div>
       <br />
       <Modal size="lg" show={show} onHide={handleClose}>
