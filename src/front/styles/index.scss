@@ -46,6 +46,8 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: rgb(255, 240, 244);
+  height: 3rem;
+  align-items: center;
 }
 
 .disponible {
@@ -80,18 +82,18 @@ body {
 
 .tableBox {
   margin-top: 1rem;
-  border: 1px solid var(--background_ligthgray);
-  border-radius: 5px;
+ 
 }
 
 .tableHeader{
-  height: 2.5rem;
+  height: 2rem;
   align-items: center;
 }
 
 .table > :not(:first-child) {
   border-top: 1px solid currentColor;
 }
+
 
 .form {
   width: 90%;
@@ -133,14 +135,8 @@ border-radius: 1rem;
   align-content: center;
 }
 
-.col-1, .col-2{
-  border-left: 1px solid lightgray;
 
-}
 
-.table > :not(:first-child) {
-  border-top: 1px solid currentColor;
-}
 
 
 

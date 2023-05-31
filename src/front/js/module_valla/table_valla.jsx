@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/index.scss";
-import { Col, Row, Form, Table, Modal, Button} from "react-bootstrap";
+import { Col, Row, Form, Table, Modal, Button } from "react-bootstrap";
 import { FormNewValla } from "./form_new_valla";
 
 export const Table_valla = () => {
@@ -19,7 +19,7 @@ export const Table_valla = () => {
 
   //Filter by status
   const allVallas = store.allVallas.filter((index) => {
-    if (query === "" ) {
+    if (query === "") {
       return index;
     } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
       return index;
@@ -81,55 +81,44 @@ export const Table_valla = () => {
         </Row>
 
         {/* Table content................................................................... */}
-        <div className="tableBox">
-        <Table striped hover size="sm" >
-          <thead>
-            <tr className="d-flex tableHeader">
-              <th className="col-1">Código</th>
-              <th className="col-2">Nombre</th>
-              <th className="col-1">Provincia</th>
-              <th className="col-2">Sentido</th>
-              <th className="col-2">Medidas</th>
-              <th className="col-1">Tipo</th>
-              <th className="col-1">Status</th>
-              <th className="col-1">Cliente</th>
-              <th className="col-1">Arrendador</th>
-            </tr>
-          </thead>
-          <tbody className="tbody">
-            {allVallas.map((item) => {
-              return (
-                <tr
-                  key={item.id}
-                  // This dinamically changes the background color of the row
-                  className={item.status === "Arrendada" ? "arrendada " : "disponible "}
-                >
-                  <td className="col-1">
-                    <Link to={"/DetailValla/" + item.id}>
-                      <span>{item.code}</span>
-                    </Link>
-                  </td>
-                  <td className="col-2">{item.name}</td>
-                  <td className="col-1">{item.province}</td>
-                  <td className="col-2">{item.way}</td>
-                  <td className="col-2">{dataFormats.map(element => element.id == item.format_id ? element.size : "")}</td>
-                  <td className="col-1">{item.shape}</td>
-                  <td className="col-1">{item.status}</td>
-                  <td className="col-1">
-                    {dataClients.map(element => element.id == item.client_id ? element.name : "")}
-                  </td>
-                  <td className="col-1">
-                    {dataOwners.map(element => element.id == item.owner_id ? element.name : "")}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-
-
+        <div>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th className="col-1">Código</th>
+                <th className="col-2">Nombre</th>
+                <th className="col-1">Provincia</th>
+                <th className="col-2">Sentido</th>
+                <th className="col-2">Medidas</th>
+                <th className="col-1">Tipo</th>
+                <th className="col-1">Status</th>
+                <th className="col-1">Cliente</th>
+                <th className="col-1">Arrendador</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allVallas.map((item) => {
+                return (
+                  <tr key={item.id}>
+                    <td className="col-1">
+                      <Link to={"/DetailValla/" + item.id}>
+                        <span>{item.code}</span>{" "}
+                      </Link>
+                    </td>
+                    <td className="col-2">{item.name}</td>
+                    <td className="col-1">{item.province}</td>
+                    <td className="col-2">{item.way}</td>
+                    <td className="col-2">{dataFormats.map((element) => (element.id == item.format_id ? element.size : ""))}</td>
+                    <td className="col-1">{item.shape}</td>
+                    <td className="col-1">{item.status}</td>
+                    <td className="col-1">{dataClients.map((element) => (element.id == item.client_id ? element.name : ""))}</td>
+                    <td className="col-1">{dataOwners.map((element) => (element.id == item.owner_id ? element.name : ""))}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         </div>
-        
       </div>
       <br />
       <Modal size="lg" show={show} onHide={handleClose}>
