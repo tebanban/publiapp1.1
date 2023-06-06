@@ -8,17 +8,20 @@ import { FormNewValla } from "./form_new_valla";
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
+  
 
   // Modal here:
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
-  const dataClients = store.allClients;
-  const dataFormats = store.allFormats;
+  const allOwners = store.allOwners; /////////////////////////////Get all owners from store
+  const allClients = store.allClients;
+  const allFormats = store.allFormats;
+  const allVallas = store.allVallas
+  const [sortedVallas, setSortedVallas] = useState([...allVallas]);
 
   //Filter by status
-  const allVallas = store.allVallas.filter((index) => {
+  const filterVallas = allVallas.filter((index) => {
     if (query === "") {
       return index;
     } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
@@ -97,7 +100,7 @@ export const Table_valla = () => {
               </tr>
             </thead>
             <tbody>
-              {allVallas.map((item) => {
+              {filterVallas.map((item) => {
                 return (
                   <tr key={item.id}>
                     <td className="col-1">
@@ -108,11 +111,11 @@ export const Table_valla = () => {
                     <td className="col-2">{item.name}</td>
                     <td className="col-1">{item.province}</td>
                     <td className="col-2">{item.way}</td>
-                    <td className="col-2">{dataFormats.map((element) => (element.id == item.format_id ? element.size : ""))}</td>
+                    <td className="col-2">{allFormats.map((element) => (element.id == item.format_id ? element.size : ""))}</td>
                     <td className="col-1">{item.shape}</td>
                     <td className="col-1">{item.status}</td>
-                    <td className="col-1">{dataClients.map((element) => (element.id == item.client_id ? element.name : ""))}</td>
-                    <td className="col-1">{dataOwners.map((element) => (element.id == item.owner_id ? element.name : ""))}</td>
+                    <td className="col-1">{allClients.map((element) => (element.id == item.client_id ? element.name : ""))}</td>
+                    <td className="col-1">{allOwners.map((element) => (element.id == item.owner_id ? element.name : ""))}</td>
                   </tr>
                 );
               })}
