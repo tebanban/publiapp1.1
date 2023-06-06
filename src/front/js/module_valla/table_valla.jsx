@@ -8,7 +8,6 @@ import { FormNewValla } from "./form_new_valla";
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const [query, setQuery] = useState("");
-  
 
   // Modal here:
   const [show, setShow] = useState(false);
@@ -17,11 +16,18 @@ export const Table_valla = () => {
   const allOwners = store.allOwners; /////////////////////////////Get all owners from store
   const allClients = store.allClients;
   const allFormats = store.allFormats;
-  const allVallas = store.allVallas
-  const [sortedVallas, setSortedVallas] = useState([...allVallas]);
+  const allVallas = store.allVallas;
 
+  // Function to sort an array of objects by a specified property
+  function sortByProperty(array, property) {
+  array.sort((a, b) => {
+    const valueA = a[property].toLowerCase();
+    const valueB = b[property].toLowerCase();
+    return valueA.localeCompare(valueB);
+  });
+}
   //Filter by status
-  const filterVallas = allVallas.filter((index) => {
+  const filteredVallas = allVallas.filter((index) => {
     if (query === "") {
       return index;
     } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
@@ -33,6 +39,11 @@ export const Table_valla = () => {
     }
   });
 
+  // Sort the filtered array by status using the sortByProperty function
+sortByProperty(filteredVallas, 'code');
+
+
+ 
   useEffect(() => {
     actions.getClients();
     actions.getUsers();
@@ -100,7 +111,7 @@ export const Table_valla = () => {
               </tr>
             </thead>
             <tbody>
-              {filterVallas.map((item) => {
+              {filteredVallas.map((item) => {
                 return (
                   <tr key={item.id}>
                     <td className="col-1">
