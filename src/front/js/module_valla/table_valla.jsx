@@ -17,15 +17,26 @@ export const Table_valla = () => {
   const allClients = store.allClients;
   const allFormats = store.allFormats;
   const allVallas = store.allVallas;
+  const [sortedVallas, setSortedVallas] = useState(allVallas);
+  
 
   // Function to sort an array of objects by a specified property
-  function sortByProperty(array, property) {
-  array.sort((a, b) => {
-    const valueA = a[property].toLowerCase();
-    const valueB = b[property].toLowerCase();
-    return valueA.localeCompare(valueB);
-  });
-}
+  const sortByProperty = (property) => {
+    const sortedArray = [...filteredVallas];
+    sortedArray.sort((a, b) => {
+      const valueA = a[property].toLowerCase();
+      const valueB = b[property].toLowerCase();
+      return valueA.localeCompare(valueB);
+    });
+    setSortedVallas(sortedArray);
+  };
+
+  // Function to handle the onClick event
+  const handleClick = (property) => {
+    console.log("click");
+    sortByProperty(property);
+  };
+
   //Filter by status
   const filteredVallas = allVallas.filter((index) => {
     if (query === "") {
@@ -39,11 +50,6 @@ export const Table_valla = () => {
     }
   });
 
-  // Sort the filtered array by status using the sortByProperty function
-sortByProperty(filteredVallas, 'code');
-
-
- 
   useEffect(() => {
     actions.getClients();
     actions.getUsers();
@@ -99,19 +105,21 @@ sortByProperty(filteredVallas, 'code');
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th className="col-1">Código</th>
-                <th className="col-2">Nombre</th>
+                <th className="col-1 table-header">Código<button className="btn" onClick={() => handleClick('code')}> v </button></th>
+                <th className="col-2">
+                  Nombre<button onClick={() => handleClick('name')}>v</button>
+                </th>
                 <th className="col-1">Provincia</th>
                 <th className="col-2">Sentido</th>
                 <th className="col-2">Medidas</th>
                 <th className="col-1">Tipo</th>
-                <th className="col-1">Status</th>
+                <th className="col-1">Status<button onClick={() => handleClick('status')}>v</button></th>
                 <th className="col-1">Cliente</th>
                 <th className="col-1">Arrendador</th>
               </tr>
             </thead>
             <tbody>
-              {filteredVallas.map((item) => {
+              {sortedVallas.map((item) => {
                 return (
                   <tr key={item.id}>
                     <td className="col-1">
