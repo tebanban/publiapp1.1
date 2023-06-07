@@ -15,8 +15,6 @@ export const Table_owner = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const allOwners = store.allOwners; /////////////////////////////Get all owners from store
-  const allClients = store.allClients;
-  const allFormats = store.allFormats;
   const allVallas = store.allVallas;
   const [sortedOwners, setSortedOwners] = useState(allOwners);
   const [sortDirection, setSortDirection] = useState("ascending");
@@ -48,14 +46,14 @@ export const Table_owner = () => {
   };
 
   //Filter by status
-  const filteredOwners = allOwners.filter((index) => {
+  const filteredOwners = sortedOwners.filter((index) => {
     if (query === "") {
       return index;
     } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
       return index;
-    } else if (index.status.toLowerCase().includes(query.toLowerCase())) {
+    } else if (index.name.toLowerCase().includes(query.toLowerCase())) {
       return index;
-    } else if (index.province.toLowerCase().includes(query.toLowerCase())) {
+    } else if (index.email.toLowerCase().includes(query.toLowerCase())) {
       return index;
     }
   });
@@ -83,7 +81,7 @@ export const Table_owner = () => {
           </Col>
           <Col md={4}>
             <Form.Group>
-              <Form.Control as="select" name="province" defaultValue="" onChange={(e) => setQuery(e.target.value)}>
+              <Form.Control as="select" name="name" defaultValue="" onChange={(e) => setQuery(e.target.value)}>
                 <option value="">Filtro por provincia...</option>
                 <option value="Alajuela">Alajuela</option>
                 <option value="Cartago">Cartago</option>
@@ -103,7 +101,6 @@ export const Table_owner = () => {
                 <option value="Disponible">Disponible</option>
                 <option value="Reservada">Reservada</option>
                 <option value="Deshabilitada">Deshabilitada</option>
-                <option value="Otro">Otro</option>
               </Form.Control>
             </Form.Group>
           </Col>
@@ -139,7 +136,7 @@ export const Table_owner = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedOwners.map((item) => {
+              {filteredOwners.map((item) => {
                 return (
                   <tr key={item.id}>
                     <td className="col-1">
@@ -153,7 +150,7 @@ export const Table_owner = () => {
                     <td className="col-2">{item.email}</td>
                     <td className="col-1">{item.phone1}</td>
                     <td className="col-1">{item.phone2}</td>
-                    <td className="col-2">{item.adress}</td>
+                    <td className="col-2">{item.address}</td>
                   </tr>
                 );
               })}

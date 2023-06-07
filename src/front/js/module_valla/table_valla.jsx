@@ -48,7 +48,7 @@ export const Table_valla = () => {
   };
 
   //Filter by status
-  const filteredVallas = allVallas.filter((index) => {
+  const filteredVallas = sortedVallas.filter((index) => {
     if (query === "") {
       return index;
     } else if (index.code.toLowerCase().includes(query.toLowerCase())) {
@@ -146,7 +146,7 @@ export const Table_valla = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedVallas.map((item) => {
+              {filteredVallas.map((item) => {
                 return (
                   <tr key={item.id}>
                     <td className="col-1">
