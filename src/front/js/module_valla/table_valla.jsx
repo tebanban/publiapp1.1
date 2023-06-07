@@ -27,7 +27,6 @@ export const Table_valla = () => {
     sortedArray.sort((a, b) => {
       const valueA = a[property].toLowerCase();
       const valueB = b[property].toLowerCase();
-
       if (direction === "ascending") {
         return valueA.localeCompare(valueB);
       } else if (direction === "descending") {
@@ -41,11 +40,9 @@ export const Table_valla = () => {
   // Function to handle the onClick event
   const handleClick = (property) => {
     let nextSortDirection = "ascending";
-
     if (sortDirection === "ascending") {
       nextSortDirection = "descending";
     }
-
     setSortDirection(nextSortDirection);
     sortByProperty(property, nextSortDirection);
   };
@@ -65,7 +62,6 @@ export const Table_valla = () => {
 
   useEffect(() => {
     actions.getClients();
-    actions.getUsers();
     actions.getOwners();
     actions.getVallas();
   }, []);
@@ -119,15 +115,15 @@ export const Table_valla = () => {
             <thead>
               <tr>
                 <th className="col-1 tableHeader">
-                  <span>Código</span>
+                  Código
                   <button className="btn tableButton" onClick={() => handleClick("code")}>
-                    <img src={Arrow} alt="SVG arrow" />
+                    <img src={Arrow} alt="Sorting arrow" />
                   </button>
                 </th>
                 <th className="col-2">
-                  <span>Nombre</span>
+                  Nombre
                   <button className="btn tableButton" onClick={() => handleClick("name")}>
-                    <img src={Arrow} alt="SVG arrow" />
+                    <img src={Arrow} alt="Sorting arrow" />
                   </button>
                 </th>
                 <th className="col-1">Provincia</th>
@@ -135,9 +131,17 @@ export const Table_valla = () => {
                 <th className="col-2">Medidas</th>
                 <th className="col-1">Tipo</th>
                 <th className="col-1">
-                  Status<button onClick={() => handleClick("status")}>v</button>
+                  Status
+                  <button className="btn tableButton" onClick={() => handleClick("status")}>
+                    <img src={Arrow} alt="Sorting arrow" />
+                  </button>
                 </th>
-                <th className="col-1">Cliente</th>
+                <th className="col-1">
+                  Cliente
+                  <button className="btn tableButton" onClick={() => handleClick("client_id")}>
+                    <img src={Arrow} alt="Sorting arrow" />
+                  </button>
+                </th>
                 <th className="col-1">Arrendador</th>
               </tr>
             </thead>
