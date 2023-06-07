@@ -126,23 +126,16 @@ export const Table_owner = () => {
                     <img src={Arrow} alt="Sorting arrow" />
                   </button>
                 </th>
-                <th className="col-1">Provincia</th>
-                <th className="col-2">Sentido</th>
-                <th className="col-2">Medidas</th>
-                <th className="col-1">Tipo</th>
-                <th className="col-1">
-                  Status
-                  <button className="btn tableButton" onClick={() => handleClick("status")}>
+                <th className="col-2">
+                  Contacto
+                  <button className="btn tableButton" onClick={() => handleClick("contact")}>
                     <img src={Arrow} alt="Sorting arrow" />
                   </button>
                 </th>
-                <th className="col-1">
-                  Cliente
-                  <button className="btn tableButton" onClick={() => handleClick("client_id")}>
-                    <img src={Arrow} alt="Sorting arrow" />
-                  </button>
-                </th>
-                <th className="col-1">Arrendador</th>
+                <th className="col-2">Email</th>
+                <th className="col-1">Teléfono 1</th>
+                <th className="col-1">Teléfono 2</th>
+                <th className="col-2">Dirección</th>
               </tr>
             </thead>
             <tbody>
@@ -155,13 +148,12 @@ export const Table_owner = () => {
                       </Link>
                     </td>
                     <td className="col-2">{item.name}</td>
-                    <td className="col-1">{item.province}</td>
-                    <td className="col-2">{item.way}</td>
-                    <td className="col-2">{allFormats.map((element) => (element.id == item.format_id ? element.size : ""))}</td>
-                    <td className="col-1">{item.shape}</td>
-                    <td className="col-1">{item.status}</td>
-                    <td className="col-1">{allClients.map((element) => (element.id == item.client_id ? element.name : ""))}</td>
-                    <td className="col-1">{allOwners.map((element) => (element.id == item.owner_id ? element.name : ""))}</td>
+
+                    <td className="col-2">{item.contact}</td>
+                    <td className="col-2">{item.email}</td>
+                    <td className="col-1">{item.phone1}</td>
+                    <td className="col-1">{item.phone2}</td>
+                    <td className="col-2">{item.adress}</td>
                   </tr>
                 );
               })}
