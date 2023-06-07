@@ -12,7 +12,7 @@
   --background_ligthgray: #f1f1f1;
   --background_gray: #a7a7a7;
   --background_white: #ffffff;
-  --background_arrendada:  #fff0f4;
+  --background_arrendada: #fff0f4;
   --background_disponible: #f1fff1;
 }
 
@@ -53,7 +53,7 @@ body {
 }
 
 #Inactiva {
-  background-color: var(--background_arrendada)
+  background-color: var(--background_arrendada);
 }
 
 .navbar {
@@ -77,6 +77,13 @@ body {
 
 .tableHeader {
   background-color: var(--background_ligthgray);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tableButton {
+  padding: 0.1rem 0.1rem;
+  margin-left: 0.35rem;
 }
 
 .table > :not(:first-child) {

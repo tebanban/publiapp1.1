@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/index.scss";
 import { Col, Row, Form, Table, Modal, Button } from "react-bootstrap";
 import { FormNewValla } from "./form_new_valla";
+import Arrow from "./../../img/arrow-up.svg";
 
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
@@ -18,23 +19,35 @@ export const Table_valla = () => {
   const allFormats = store.allFormats;
   const allVallas = store.allVallas;
   const [sortedVallas, setSortedVallas] = useState(allVallas);
-  
+  const [sortDirection, setSortDirection] = useState("ascending");
 
   // Function to sort an array of objects by a specified property
-  const sortByProperty = (property) => {
+  const sortByProperty = (property, direction) => {
     const sortedArray = [...filteredVallas];
     sortedArray.sort((a, b) => {
       const valueA = a[property].toLowerCase();
       const valueB = b[property].toLowerCase();
-      return valueA.localeCompare(valueB);
+
+      if (direction === "ascending") {
+        return valueA.localeCompare(valueB);
+      } else if (direction === "descending") {
+        return valueB.localeCompare(valueA);
+      }
+      return 0;
     });
     setSortedVallas(sortedArray);
   };
 
   // Function to handle the onClick event
   const handleClick = (property) => {
-    console.log("click");
-    sortByProperty(property);
+    let nextSortDirection = "ascending";
+
+    if (sortDirection === "ascending") {
+      nextSortDirection = "descending";
+    }
+
+    setSortDirection(nextSortDirection);
+    sortByProperty(property, nextSortDirection);
   };
 
   //Filter by status
@@ -105,15 +118,25 @@ export const Table_valla = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th className="col-1 table-header">Código<button className="btn" onClick={() => handleClick('code')}> v </button></th>
+                <th className="col-1 tableHeader">
+                  <span>Código</span>
+                  <button className="btn tableButton" onClick={() => handleClick("code")}>
+                    <img src={Arrow} alt="SVG arrow" />
+                  </button>
+                </th>
                 <th className="col-2">
-                  Nombre<button onClick={() => handleClick('name')}>v</button>
+                  <span>Nombre</span>
+                  <button className="btn tableButton" onClick={() => handleClick("name")}>
+                    <img src={Arrow} alt="SVG arrow" />
+                  </button>
                 </th>
                 <th className="col-1">Provincia</th>
                 <th className="col-2">Sentido</th>
                 <th className="col-2">Medidas</th>
                 <th className="col-1">Tipo</th>
-                <th className="col-1">Status<button onClick={() => handleClick('status')}>v</button></th>
+                <th className="col-1">
+                  Status<button onClick={() => handleClick("status")}>v</button>
+                </th>
                 <th className="col-1">Cliente</th>
                 <th className="col-1">Arrendador</th>
               </tr>
