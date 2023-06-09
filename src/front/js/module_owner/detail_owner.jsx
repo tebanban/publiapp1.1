@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal } from "react-bootstrap";
 import logo from "../../img/logo-publiex.png";
-import { Button, Stack, Container, Col, Row, Image } from "react-bootstrap";
+import { Button, Stack, Container, Col, Row, Image, Card } from "react-bootstrap";
 import { FormUpdateOwner } from "../module_owner/form_udpate_owner";
 
 export const DetailOwner = () => {
@@ -32,47 +32,42 @@ export const DetailOwner = () => {
   return (
     <Container className="detail-owner-box py-4">
       <Row>
-        <Col className="detail-owner-img">
+        <h4>Perfil de Propietario</h4>
+        <hr className="mt-0"></hr>
+      </Row>
+      <Row>
+        <Col className="detail-owner-img" md="2">
           <div>
-            <Image src={logo} style={{ height: "15vh", width: "20rem" }} />
+            <Image src={logo} style={{ height: "8rem", width: "8rem" }} />
           </div>
+        </Col>
+        <Col md="4">
+          <h3 className="title-blue">{singleOwner.name}</h3>
+          
+          <p className="pt-4">Código: {singleOwner.code}</p>
+
+          <p>Cédula: {singleOwner.number_id}</p>
+
+          <p>Contacto: {singleOwner.contact}</p>
+
+          <p>Email: {singleOwner.email}</p>
+
+          <p>Teléfono 1: {singleOwner.phone1}</p>
+
+          <p>Teléfono 2: {singleOwner.phone2}</p>
+
+          <p>Dirección:{singleOwner.address}</p>
+
+          <p>Nota:{singleOwner.comment}</p>
         </Col>
       </Row>
 
       <Row>
-        <Col className="detail-owner-name py-3 ">
-          <h3 className="title-blue">{singleOwner.name}</h3>
-        </Col>
+        <Col className="detail-owner-name py-3 "></Col>
       </Row>
-      <hr className="mt-0"></hr>
 
       <Row className="detail-info ">
-        <Col>
-          <Col className="py-1">
-            <p>Código: {singleOwner.code}</p>
-          </Col>
-          <Col className="py-1">
-            <p>Cédula: {singleOwner.number_id}</p>
-          </Col>
-          <Col className="py-1">
-            <p>Contacto: {singleOwner.contact}</p>
-          </Col>
-          <Col className="py-1">
-            <p>Email: {singleOwner.email}</p>
-          </Col>
-          <Col className="py-1">
-            <p>Teléfono 1: {singleOwner.phone1}</p>
-          </Col>
-          <Col className="py-1">
-            <p>Teléfono 2: {singleOwner.phone2}</p>
-          </Col>
-          <Col className="py-1">
-            <p>Dirección:{singleOwner.address}</p>
-          </Col>
-          <Col className="py-1">
-            <p>Nota:{singleOwner.comment}</p>
-          </Col>
-        </Col>
+        <Col></Col>
       </Row>
       <hr></hr>
 

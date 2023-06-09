@@ -44,7 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         phone2: "",
         comment: "",
         email: "",
-        company: "",
+        contact: "",
       },
       singleClient: {
         code: "",
@@ -53,7 +53,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         phone2: "",
         comment: "",
         email: "",
-        company: "",
+        contact: "",
       },
 
       newValla: "",

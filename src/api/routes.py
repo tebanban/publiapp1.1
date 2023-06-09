@@ -275,6 +275,7 @@ def handle_single_owner(id):
         single_owner.phone2 = request.json['phone2']
         single_owner.email = request.json['email']
         single_owner.contact = request.json['contact']
+        single_owner.contact = request.json['comment']
         single_owner.is_active = request.json['is_active']
         db.session.commit()
         return jsonify(single_owner.serialize()), 200

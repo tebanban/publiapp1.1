@@ -24,7 +24,7 @@ class User(db.Model):
         return '%s' % self.name   # This will be printed at the shell
 
     def serialize(self):
-        #role = Role.query.filter_by(id=self.role_id).first() 
+         
         return {
             "id": self.id,
             "name":self.name,
@@ -108,11 +108,9 @@ class Valla(db.Model):
             "picture_url":self.picture_url,
             "lat":self.lat,
             "lng" : self.lng,
-            "picture_url": self.picture_url,
             "format_id": self.format_id,
             "owner_id": self.owner_id,
             "client_id": self.client_id,
-            "user_id": self.user_id,
             "order_id": self.order_id,
             "user_id": self.user_id,
             
@@ -133,7 +131,7 @@ class Owner(db.Model):
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
     comment = db.Column(db.String (250),  nullable=True) 
     picture_url = db.Column(db.String(400), nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #FK
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL', onupdate='CASCADE'), nullable=True)#FK
     vallas= db.relationship('Valla', backref='owner', lazy=True)    # relationship
     
     def __repr__(self):
@@ -216,8 +214,8 @@ class Order(db.Model):
     payments= db.relationship('Payment', backref='order', lazy=True)    # relationship
     
     def __repr__(self):
-        return ' %r' % self.id
-    
+        return '<Order %r>' % self.id
+   
     def serialize(self):
         return {
             "order_id": self.id

@@ -145,7 +145,6 @@ export const Table_owner = () => {
                       </Link>
                     </td>
                     <td className="col-2">{item.name}</td>
-
                     <td className="col-2">{item.contact}</td>
                     <td className="col-2">{item.email}</td>
                     <td className="col-1">{item.phone1}</td>
@@ -161,7 +160,7 @@ export const Table_owner = () => {
       <br />
       <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Nueva Owner</Modal.Title>
+          <Modal.Title>Crear Nuevo Propietario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <FormNewOwner />
@@ -175,7 +174,7 @@ export const Table_owner = () => {
 
       <button className="btn btn-primary" onClick={handleShow}>
         {" "}
-        + Nueva Owner{" "}
+        + Nuevo Propietario{" "}
       </button>
 
       {/* <DataGridx /> */}
