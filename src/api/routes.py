@@ -140,9 +140,9 @@ def create_new_valla():
         'lng': -84.148,
         'shape': None,
         'comment': None,
-        'format_id': None,
+        'format_size': None,
         'owner_name': None,
-        'client_id': None
+        'client_name': None
     }
 
     for field, default_value in fields.items():
@@ -173,7 +173,7 @@ def handle_single_valla(id):
         allowed_fields = [
             "code", "name", "status", "light", "price_low", "price_high", "price_canvas",
             "traffic", "way", "route", "province", "address", "lat", "lng", "shape",
-            "comment", "format", "owner_name", "client_id", "user_id"
+            "comment", "format_size", "owner_name", "client_name"
         ]
 
         for field in allowed_fields:

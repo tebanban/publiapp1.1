@@ -14,9 +14,6 @@ export const Table_valla = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const allOwners = store.allOwners; /////////////////////////////Get all owners from store
-  const allClients = store.allClients;
-  const allFormats = store.allFormats;
   const allVallas = store.allVallas;
   const [sortedVallas, setSortedVallas] = useState(allVallas);
   const [sortDirection, setSortDirection] = useState("ascending");
@@ -142,7 +139,7 @@ export const Table_valla = () => {
                     <img src={Arrow} alt="Sorting arrow" />
                   </button>
                 </th>
-                <th className="col-1">Arrendador</th>
+                <th className="col-1">Propietario</th>
               </tr>
             </thead>
             <tbody>
@@ -157,11 +154,11 @@ export const Table_valla = () => {
                     <td className="col-2">{item.name}</td>
                     <td className="col-1">{item.province}</td>
                     <td className="col-2">{item.way}</td>
-                    <td className="col-2">{allFormats.map((element) => (element.id == item.format_id ? element.size : ""))}</td>
+                    <td className="col-2">{item.format_size}</td>
                     <td className="col-1">{item.shape}</td>
                     <td className="col-1">{item.status}</td>
-                    <td className="col-1">{allClients.map((element) => (element.id == item.client_id ? element.name : ""))}</td>
-                    <td className="col-1">{allOwners.map((element) => (element.id == item.owner_id ? element.name : ""))}</td>
+                    <td className="col-1">{item.client_name}</td>
+                    <td className="col-1">{item.owner_name}</td>
                   </tr>
                 );
               })}

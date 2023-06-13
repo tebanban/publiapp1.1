@@ -17,9 +17,6 @@ export const DetailValla = () => {
   //////// store valla id as a variable
   const id = params.id;
 
-  //get all formats from the store
-  const dataFormats = store.allFormats;
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -93,7 +90,7 @@ export const DetailValla = () => {
         </Col>
         <Col>
           <h5>Medidas:</h5>
-          <p>{dataFormats.map((item) => (item.id === singleValla.format_id ? item.size : null))}</p>
+          <p>{singleValla.format_size}</p>
         </Col>
         <Col>
           <img className="navbar-brand px-2 mb-0 h1" src={logo} alt="Logo" style={{ width: "270px" }} />
