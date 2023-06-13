@@ -141,7 +141,7 @@ def create_new_valla():
         'shape': None,
         'comment': None,
         'format_id': None,
-        'owner_id': None,
+        'owner_name': None,
         'client_id': None
     }
 
@@ -173,7 +173,7 @@ def handle_single_valla(id):
         allowed_fields = [
             "code", "name", "status", "light", "price_low", "price_high", "price_canvas",
             "traffic", "way", "route", "province", "address", "lat", "lng", "shape",
-            "comment", "format", "owner_id", "client_id", "user_id"
+            "comment", "format", "owner_name", "client_id", "user_id"
         ]
 
         for field in allowed_fields:

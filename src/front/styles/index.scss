@@ -111,6 +111,37 @@ body {
   max-width: 1000px;
 }
 
+.title-blue {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--corp_blue);
+  font-weight: 800;
+}
+
+.title-red {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--corp_red);
+  font-weight: 800;
+}
+
+.background-gray {
+  background-color: var(--background_ligthgray);
+  text-align: left;
+}
+
+.detail-valla-media-section {
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  border: 4px solid var(--whitefont);
+}
+
+
+.detail-valla-blueline {
+  background-color: var(--corp_blue);
+  color: var(--whitefont);
+  min-height: 3rem;
+}
+
 .detail-owner-box {
   width: 100%;
   background-color: var(--background_white);
