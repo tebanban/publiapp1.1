@@ -58,8 +58,7 @@ export const Table_valla = () => {
   });
 
   useEffect(() => {
-    actions.getClients();
-    actions.getOwners();
+  
     actions.getVallas();
   }, []);
 

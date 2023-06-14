@@ -38,7 +38,7 @@ class User(BaseModel):
             "name": self.name,
             "email": self.email,
             "is_active": self.is_active,
-            "role": self.role.serialize() if self.role else None,
+            "role": self.role.name if self.role else None,
             "picture_url": self.picture_url,
             "created_on": self.created_on,
             "updated_on": self.updated_on,
