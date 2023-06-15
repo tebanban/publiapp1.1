@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       message: null,
       deleteVallaMessage: null,
-      token: null || sessionStorage.getItem("token"),
+      token: null ,
       current_user: null,
       current_user_data: [],
       isAuth: null,
@@ -116,9 +116,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("This came from the backend", data),
-              sessionStorage.setItem("token", data.access_token),
-              setStore({ token: data.access_token });
+            console.log("This came from the backend", data);
+            if (data.msg) {
+              // Display alert message
+              alert(data.msg);
+          }
+
+          sessionStorage.setItem("token", data.access_token);
+          setStore({ token: data.access_token });
+          
           })
           .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when login", error));

@@ -11,7 +11,8 @@ function LoginForm() {
 
   const current_user = store.current_user;
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault()
     actions.login(email, password);
   };
 

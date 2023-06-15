@@ -31,7 +31,7 @@ def get_token():
         return jsonify({"msg": "Incorrect  password" }), 401
 
     access_token = create_access_token(identity=email, expires_delta=expires, additional_claims={"role": user.role} )
-    return jsonify( access_token=access_token ) 
+    return jsonify( {"access_token": access_token, "msg" : "Login succesfull!"}) 
     
 ## GET CURRENT_USER 
 @api.route('/private', methods=['GET'])
