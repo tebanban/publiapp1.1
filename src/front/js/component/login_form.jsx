@@ -9,17 +9,17 @@ function LoginForm() {
   const [password, setPassword] = useState();
   const token = store.token;
 
-  const current_user = store.current_user;
+  const user_name = store.user_name;
 
   const login = (e) => {
-    e.preventDefault()
+   
     actions.login(email, password);
   };
 
   return (
     <div className="text-center my-3">
       {token && token != "" && token != "undefined" ? (
-        <p className="text-danger">Usted ha iniciado sesión con el usuario: {current_user}</p>
+        <p className="text-danger">Usted ha iniciado sesión con el usuario: {user_name}</p>
       ) : (
         <Form className="form-login p-4 rounded">
           <h3>Please Login</h3>
