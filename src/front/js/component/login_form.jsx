@@ -7,9 +7,8 @@ function LoginForm() {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const token = store.token;
-
-  const user_name = store.user_name;
+  const {token} = store;
+  const {user} = store;
 
   const login = (e) => {
    
@@ -19,7 +18,7 @@ function LoginForm() {
   return (
     <div className="text-center my-3">
       {token && token != "" && token != "undefined" ? (
-        <p className="text-danger">Usted ha iniciado sesión con el usuario: {user_name}</p>
+        <p className="text-danger">Usted ha iniciado sesión con el usuario: {user.name}</p>
       ) : (
         <Form className="form-login p-4 rounded">
           <h3>Please Login</h3>
