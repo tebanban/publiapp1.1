@@ -134,8 +134,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       //////////////////////////////////////////////////////////////////////////LOG OUT
       logout: () => {
         sessionStorage.removeItem("token");
-        console.log("Logged out");
         setStore({ token: null });
+        alert("Logged out");
+       
       },
 
       //////////////////////////////////////////////////////////////////////////// SYNC TOKEN
@@ -145,21 +146,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (token && token != "" && token != undefined) setStore({ token: token });
       },
       //////////////////////////////////////////////////////////////////////// GET CURRENT USER
-      getCurrentUser: () => {
-        const store = getStore();
-        // const SessionToken = sessionStorage.getItem("token");
-        const options = {
-          headers: {
-            Authorization: "Bearer " + store.token,
-          },
-        };
-        fetch(import.meta.env.VITE_BACKEND_URL + "/api/private", options)
-          .then((resp) => resp.json())
-          .then((data) => {
-            setStore({ current_user: data.name, current_user_data: data }), console.log("The current user is: " + data.email);
-          })
-          .catch((error) => console.log("Error loading current_user from backend", error));
-      },
+      // getCurrentUser: () => {
+      //   const store = getStore();
+      //   // const SessionToken = sessionStorage.getItem("token");
+      //   const options = {
+      //     headers: {
+      //       Authorization: "Bearer " + store.token,
+      //     },
+      //   };
+      //   fetch(import.meta.env.VITE_BACKEND_URL + "/api/private", options)
+      //     .then((resp) => resp.json())
+      //     .then((data) => {
+      //       setStore({ current_user: data.name, current_user_data: data }), console.log("The current user is: " + data.email);
+      //     })
+      //     .catch((error) => console.log("Error loading current_user from backend", error));
+      // },
 
       //////////////////////////////////////////////////////////////////////// Is Auth
       isAuthStatus: () => {

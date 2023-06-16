@@ -35,18 +35,18 @@ def get_token():
     return jsonify( {"access_token": access_token, "msg" : "Login succesfull!", "user_name": user.name, "user": userData}) 
     
 ## GET CURRENT_USER 
-@api.route('/private', methods=['GET'])
-@jwt_required()
-def get_current_user():
-    # Access the identity of the current user with get_jwt_identity.
-    # The argument is the identity that was used when creating a JWT.
-    current_user = get_jwt_identity()
+# @api.route('/private', methods=['GET'])
+# @jwt_required()
+# def get_current_user():
+#     # Access the identity of the current user with get_jwt_identity.
+#     # The argument is the identity that was used when creating a JWT.
+#     current_user = get_jwt_identity()
 
-    # Retrieve the user from the database based on the current user's email
-    user = User.query.filter_by(email=current_user).first()
+#     # Retrieve the user from the database based on the current user's email
+#     user = User.query.filter_by(email=current_user).first()
 
-    # Return the serialized user data as a JSON response with a 200 status code
-    return jsonify(user.serialize()), 200
+#     # Return the serialized user data as a JSON response with a 200 status code
+#     return jsonify(user.serialize()), 200
 
 
 # REGISTER NEW USER

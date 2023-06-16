@@ -6,7 +6,7 @@ import { Form, Button } from "react-bootstrap";
 export const UserProfile = () => {
   const { store, actions } = useContext(Context);
 
-  const current_user_data = store.current_user_data;
+  const {user} = store;
 
   const [editUser, setEditUser] = useState();
   const handleInputChange = (e) => {
@@ -19,7 +19,7 @@ export const UserProfile = () => {
     actions.updateUser(id, editUser.name, editUser.email, editUser.password);
   };
   const deleteUser = () => {
-    actions.deleteUser(current_user_data.id);
+    actions.deleteUser(user.id);
   };
 
   return (
@@ -27,7 +27,7 @@ export const UserProfile = () => {
       <Form.Group className="form-group my-2">
         <div className="col-md-10">
           <input
-            defaultValue={current_user_data.name}
+            defaultValue={user.name}
             className="form-control"
             id="name"
             maxLength="150"
@@ -41,11 +41,11 @@ export const UserProfile = () => {
       <Form.Group className="form-group my-2">
         <div className="col-md-10">
           <input
-            defaultValue={current_user_data.email}
+            defaultValue={user.email}
             className="form-control"
-            id="name"
+            id="email"
             maxLength="150"
-            name="name"
+            name="email"
             required=""
             type="text"
             onChange={handleInputChange}
@@ -55,11 +55,11 @@ export const UserProfile = () => {
       <Form.Group className="form-group my-2">
         <div className="col-md-10">
           <input
-            defaultValue={current_user_data.password}
+            defaultValue={user.password}
             className="form-control"
-            id="name"
+            id="password"
             maxLength="150"
-            name="name"
+            name="password"
             required=""
             type="password"
             onChange={handleInputChange}

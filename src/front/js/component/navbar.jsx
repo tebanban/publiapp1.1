@@ -5,6 +5,7 @@ import logoNav from "../../img/logo-nav.png";
 import { Nav, Modal, Button } from "react-bootstrap/";
 import { UserProfile } from "./user_profile";
 
+
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const token = sessionStorage.getItem("token");
@@ -17,6 +18,7 @@ export const Navbar = () => {
 
   const logout = () => {
     actions.logout();
+    history.push("/login");
   };
 
   return (
