@@ -140,11 +140,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       //////////////////////////////////////////////////////////////////////////// SYNC TOKEN
-      syncTokenFromSessionStorage: () => {
-        const token = sessionStorage.getItem("token");
-        console.log("App just Loaded, synching token from SessionStorage to store");
-        if (token && token != "" && token != undefined) setStore({ token: token });
-      },
+      // syncTokenFromSessionStorage: () => {
+      //   const token = sessionStorage.getItem("token");
+      //   console.log("App just Loaded, synching token from SessionStorage to store");
+      //   if (token && token != "" && token != undefined) setStore({ token: token });
+      // },
       //////////////////////////////////////////////////////////////////////// GET CURRENT USER
       // getCurrentUser: () => {
       //   const store = getStore();
