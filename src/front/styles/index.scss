@@ -56,15 +56,17 @@ body {
   background-color: var(--background_arrendada);
 }
 
-.navbar {
-  position: relative;
+.navbarTop {
+  width: 100%;
+  height: 60px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .appBox {
-  width: 90%;
-  margin: auto;
-  margin-top: 2rem;
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+  margin-left: 180px; /* Adjust this value to match the width of the sidebar */
+  overflow-y: auto;
 }
 
 .appNav {
@@ -135,7 +137,6 @@ body {
   border: 4px solid var(--whitefont);
 }
 
-
 .detail-valla-blueline {
   background-color: var(--corp_blue);
   color: var(--whitefont);
@@ -160,3 +161,4 @@ body {
   text-align: center;
   align-content: center;
 }
+

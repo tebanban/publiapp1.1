@@ -5,7 +5,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
 import { Register } from "./component/register";
 import { App } from "./pages/app";
-import { Demo } from "./pages/demo";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -14,6 +13,7 @@ import Error404 from "./pages/Error404";
 import { DetailValla } from "./module_valla/detail_valla";
 import { DetailOwner } from "./module_owner/detail_owner";
 import { Context } from "./store/appContext";
+import { Table_valla } from "./module_valla/table_valla";
 
 //create your first component
 const Layout = () => {
@@ -32,10 +32,13 @@ const Layout = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/demo" component={Demo} />
+            
 
             <Route exact path="/app">
               {token == "undefined" || !token ? <Redirect to="/" /> : <App />}
+            </Route>
+            <Route exact path="/vallas">
+              {token == "undefined" || !token ? <Redirect to="/" /> : <Table_valla />}
             </Route>
             <Route exact path="/detailValla/:id">
               {token == "undefined" || !token ? <Redirect to="/" /> : <DetailValla />}

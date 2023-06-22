@@ -9,6 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       current_user: null,
       current_user_data: [],
       isAuth: null,
+      tableData: [],
 
       allVallas: [],
       allOwners: [],
@@ -122,11 +123,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (data.msg) {
               // Display alert message
               alert(data.msg);
-          }
+            }
 
-          sessionStorage.setItem("token", data.access_token);
-          setStore({ token: data.access_token , user_name: data.user_name, user: data.user });
-          
+            sessionStorage.setItem("token", data.access_token);
+            sessionStorage.setItem("user_name", data.user_name);
+            setStore({ token: data.access_token, user_name: data.user_name, user: data.user });
           })
           // .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when login", error));
@@ -136,15 +137,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         sessionStorage.removeItem("token");
         setStore({ token: null });
         alert("Logged out");
-       
       },
 
-      //////////////////////////////////////////////////////////////////////////// SYNC TOKEN
-      // syncTokenFromSessionStorage: () => {
-      //   const token = sessionStorage.getItem("token");
-      //   console.log("App just Loaded, synching token from SessionStorage to store");
-      //   if (token && token != "" && token != undefined) setStore({ token: token });
-      // },
+      ////////////////////////////////////////////////////////////////////////// SYNC TOKEN
+      syncTokenFromSessionStorage: () => {
+        const token = sessionStorage.getItem("token");
+        const user_name = sessionStorage.getItem("user_name");
+        
+        console.log("App just Loaded, synching token from SessionStorage to store");
+        if (token && token != "" && token != 'undefined') setStore({ token: token, user_name : user_name });
+      },
+
       //////////////////////////////////////////////////////////////////////// GET CURRENT USER
       // getCurrentUser: () => {
       //   const store = getStore();

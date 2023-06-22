@@ -5,11 +5,10 @@ import logoNav from "../../img/logo-nav.png";
 import { Nav, Modal, Button } from "react-bootstrap/";
 import { UserProfile } from "./user_profile";
 
-
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
-  const token = sessionStorage.getItem("token");
-  const {user} = store;
+  const { token } = store;
+  const  user  = store.user;
 
   const [show, setShow] = useState(false);
 
@@ -22,14 +21,9 @@ export const Navbar = () => {
   };
 
   return (
-    <Nav className="navbar navbar-light mb-3 ">
+    <Nav className="navbar navbar-light navbarTop">
       <Link to="/">
-        <img
-          className="navbar-brand px-2 mb-0 h1"
-          src={logoNav}
-          alt="Logo"
-          style={{ width: "100px" }}
-        />
+        <img className="navbar-brand px-2 mb-0 h1" src={logoNav} alt="Logo" style={{ width: "100px" }} />
       </Link>
       <div className="ml-auto d-inline-block">
         <Link to="/app">

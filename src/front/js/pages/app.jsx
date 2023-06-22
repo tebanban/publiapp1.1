@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../styles/index.scss";
 import { Table_valla } from "../module_valla/table_valla";
 import { Table_owner } from "../module_owner/table_owner";
+import { Sidebar } from "../component/sidebar";
 
 export const App = () => {
   const [tableBox, setTableBox] = useState('Table_valla');
@@ -9,6 +10,8 @@ export const App = () => {
 
   return (
     <div className="appBox">
+      <Sidebar />
+      
       <div className="appNav my-2">
         <button onClick={() => setTableBox('Table_valla')} className={tableBox == 'Table_valla' ? "btn btn-primary mx-2" : "btn btn-secondary mx-2"}>
           Vallas
@@ -26,6 +29,7 @@ export const App = () => {
           Formatos
         </button>
       </div>
+      
 
       <div>{tableBox === 'Table_valla' && <Table_valla />}
       {tableBox === 'Table_client' && <Table_client />}
