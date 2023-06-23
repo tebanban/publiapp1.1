@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       message: null,
       deleteVallaMessage: null,
-      token: null ,
+      token: null,
       user: [],
       user_name: null,
       current_user: null,
@@ -124,7 +124,6 @@ const getState = ({ getStore, getActions, setStore }) => {
               // Display alert message
               alert(data.msg);
             }
-
             sessionStorage.setItem("token", data.access_token);
             sessionStorage.setItem("user_name", data.user_name);
             setStore({ token: data.access_token, user_name: data.user_name, user: data.user });
@@ -135,7 +134,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       //////////////////////////////////////////////////////////////////////////LOG OUT
       logout: () => {
         sessionStorage.removeItem("token");
-        setStore({ token: null });
+        sessionStorage.removeItem("user_name");
+        setStore({ token: null, user_name: null });
         alert("Logged out");
       },
 
@@ -143,9 +143,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       syncTokenFromSessionStorage: () => {
         const token = sessionStorage.getItem("token");
         const user_name = sessionStorage.getItem("user_name");
-        
+
         console.log("App just Loaded, synching token from SessionStorage to store");
-        if (token && token != "" && token != 'undefined') setStore({ token: token, user_name : user_name });
+        if (token && token != "" && token != "undefined") setStore({ token: token, user_name: user_name });
       },
 
       //////////////////////////////////////////////////////////////////////// GET CURRENT USER

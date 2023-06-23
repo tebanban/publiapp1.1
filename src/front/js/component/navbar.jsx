@@ -8,7 +8,7 @@ import { UserProfile } from "./user_profile";
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const { token } = store;
-  const  user  = store.user;
+  const {user_name}  = store;
 
   const [show, setShow] = useState(false);
 
@@ -17,7 +17,6 @@ export const Navbar = () => {
 
   const logout = () => {
     actions.logout();
-    history.push("/login");
   };
 
   return (
@@ -36,7 +35,7 @@ export const Navbar = () => {
           <div className="d-inline-block mx-4">
             <Button variant="primary" onClick={handleShow}>
               <i className="fa fa-user mx-2" aria-hidden="true" />
-              {user.name}
+              {user_name}
             </Button>
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
