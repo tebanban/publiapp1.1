@@ -6,6 +6,7 @@
     top: 60px;
     background-color: (--background_gray);
     padding: 20px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   }
   .sidebar.hidden {
     transform: translateX(-100%);
