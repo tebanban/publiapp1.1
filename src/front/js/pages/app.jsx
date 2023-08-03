@@ -2,39 +2,32 @@ import React, { useState } from "react";
 import "../../styles/index.scss";
 import { Table_valla } from "../module_valla/table_valla";
 import { Table_owner } from "../module_owner/table_owner";
+import { Table_client } from "../module_client/table_client";
 import { Sidebar } from "../component/sidebar";
+import { Tab, Tabs } from "react-bootstrap/";
 
 export const App = () => {
-  const [tableBox, setTableBox] = useState('Table_valla');
-  console.log(tableBox)
+  const [tableBox, setTableBox] = useState("vallas");
+  console.log(tableBox);
 
   return (
     <div className="appBox">
       <Sidebar />
-      
-      <div className="appNav my-2">
-        <button onClick={() => setTableBox('Table_valla')} className={tableBox == 'Table_valla' ? "btn btn-primary mx-2" : "btn btn-secondary mx-2"}>
-          Vallas
-        </button>
 
-        <button onClick={() => setTableBox('Table_client')} className={tableBox == 'Table_client' ? "btn btn-primary mx-2" : "btn btn-secondary mx-2"}>
-          Clientes
-        </button>
-
-        <button onClick={() => setTableBox('Table_owner')} className={tableBox == 'Table_owner' ? "btn btn-primary mx-2" : "btn btn-secondary mx-2"}>
-          Propietarios
-        </button>
-
-        <button onClick={() => setTableBox('Table_format')} className={tableBox == 'Table_format' ? "btn btn-primary mx-2" : "btn btn-secondary mx-2"}>
-          Formatos
-        </button>
-      </div>
-      
-
-      <div>{tableBox === 'Table_valla' && <Table_valla />}
-      {tableBox === 'Table_client' && <Table_client />}
-        {tableBox === 'Table_owner' && <Table_owner />}
-        {tableBox === 'Table_format' && <Table_format />}</div>
+      <Tabs id="controlled-tab-example" activeKey={tableBox} onSelect={(k) => setTableBox(k)} className="mb-3">
+        <Tab eventKey="vallas" title="Vallas">
+          <Table_valla />
+        </Tab>
+        <Tab eventKey="propietarios" title="Propietarios">
+          <Table_owner />
+        </Tab>
+        <Tab eventKey="clients" title="Clientes">
+          <Table_client />
+        </Tab>
+        <Tab eventKey="users" title="Usuarios" disabled>
+          user content
+        </Tab>
+      </Tabs>
     </div>
   );
 };
