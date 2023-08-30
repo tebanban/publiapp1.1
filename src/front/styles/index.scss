@@ -69,6 +69,10 @@ body {
   overflow-y: auto;
 }
 
+.extended {
+  margin-left: 60px; /* Set the width when the sidebar is minimized */
+}
+
 .appNav {
   width: auto;
 }

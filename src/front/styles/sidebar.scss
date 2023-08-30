@@ -1,38 +1,38 @@
 .sidebar {
-    width: 180px;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 60px;
-    background-color: (--background_gray);
-    padding: 20px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-  }
-  .sidebar.hidden {
-    transform: translateX(-100%);
-  }
-  .sidebar .navbar {
-    border: none;
-  }
+  width: 180px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 60px;
+  background-color: (--background_gray);
   
-  .sidebar .nav-link {
-    color: #333;
-    padding: 10px 20px;
-  }
-  
-  .sidebar .nav-link:hover {
-    background-color: #ddd;
-  }
-  
-  .sidebar .toggle-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .sidebar .toggle-button:hover {
-    background-color: #ddd;
-  }
-  
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .navbar {
+  border: none;
+}
+
+.sidebar .nav-link {
+  color: #333;
+  padding: 10px 20px;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #ddd;
+}
+
+.sidebar .toggle-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar .toggle-button:hover {
+  background-color: #ddd;
+}
+.minimized {
+  width: 60px; /* Set the width when the sidebar is minimized */
+}

@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       message: null,
       deleteVallaMessage: null,
+      sidebarState: null,
       token: null,
       user: [],
       user_name: null,
@@ -445,6 +446,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       resetDeleteVallaMessage: () => {
         setStore({ deleteVallaMessage: null });
+      },
+
+      // Controls the sidebar state, open or retracted
+      setSidebarState: (isOpen) => {
+        setStore({ sidebarState: isOpen });
       },
 
       getMessage: () => {
