@@ -38,7 +38,7 @@ export const FormUpdateValla = () => {
       submitSingleValla();
 
       // Resume default
-      form.submit();
+      // form.submit();
     }
 
     setValidated(true);
@@ -52,7 +52,7 @@ export const FormUpdateValla = () => {
       actions.updateValla(id, formValues);
       console.log(formValues);
       // Show a success message using a modal dialog
-      setModalTitle("Éxito!");
+      setModalTitle("Cambios aplciados con éxito!");
       setModalBody(updatedVallaMessage || "Cambios aplicados");
       setShowModal(true);
     }

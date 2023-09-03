@@ -87,7 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             console.log("Register data from the backend: ", data);
           })
-          // .then(() => window.location.reload()) // this reloads the home page to show the current user
+          // .then(() => window.location.reload()) // this reloads the home page to show the current user ( unnesesary)
           .catch((error) => console.log("Error when register", error));
       },
 

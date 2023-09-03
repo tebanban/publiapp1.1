@@ -13,7 +13,10 @@ import Error404 from "./pages/Error404";
 import { DetailValla } from "./module_valla/detail_valla";
 import { DetailOwner } from "./module_owner/detail_owner";
 import { Context } from "./store/appContext";
-import { Table_valla } from "./module_valla/table_valla";
+import { ProtectedRoute} from "./component/protected_route"
+
+
+
 
 //create your first component
 const Layout = () => {
@@ -21,8 +24,7 @@ const Layout = () => {
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = import.meta.env.BASENAME || "";
   const { store } = useContext(Context);
-
-  const token = store.token;
+  const { token } = store;
 
   return (
     <div className="d-flex flex-column h-100">
@@ -32,21 +34,11 @@ const Layout = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
-            
 
-            <Route exact path="/app">
-              {token == "undefined" || !token ? <Redirect to="/" /> : <App />}
-            </Route>
-            <Route exact path="/vallas">
-              {token == "undefined" || !token ? <Redirect to="/" /> : <Table_valla />}
-            </Route>
-            <Route exact path="/detailValla/:id">
-              {token == "undefined" || !token ? <Redirect to="/" /> : <DetailValla />}
-            </Route>
-            <Route exact path="/detailOwner/:id">
-              {token == "undefined" || !token ? <Redirect to="/" /> : <DetailOwner />}
-            </Route>
-            
+            {/* Use the ProtectedRoute component */}
+            <ProtectedRoute exact path="/app" component={App} token={token} />
+            <ProtectedRoute exact path="/detailValla/:id" component={DetailValla} token={token} />
+            <ProtectedRoute exact path="/detailOwner/:id" component={DetailOwner} token={token} />
 
             <Route path="*" component={Error404} />
           </Switch>

@@ -11,7 +11,7 @@ export const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
     actions.setSidebarState(isOpen);
-    console.log(isOpen)
+    console.log(isOpen);
   };
 
   return (
@@ -27,11 +27,13 @@ export const Sidebar = () => {
         <Navbar.Collapse id="sidebar-nav">
           <Nav className="flex-column">
             <Link to="/app">
-              <button className="btn btn-primary mx-2">App</button>
+              <button className="btn btn-outline-primary mx-2">{isOpen ? "Tableros" : ""}</button>
+            </Link>
+            <Link to="/dashboard">
+              <button className="sidebar-btn btn-outline-primary mx-2">{isOpen ? "Dashboard" : ""}</button>
             </Link>
             <Nav.Link href="/">{isOpen ? "About" : "A"}</Nav.Link>
             <Nav.Link href="/app">{isOpen ? "Contact" : "C"}</Nav.Link>
-            <Nav.Link href="/app">{isOpen ? "Dash" : "D"}</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

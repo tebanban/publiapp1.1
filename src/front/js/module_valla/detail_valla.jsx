@@ -43,7 +43,7 @@ export const DetailValla = () => {
       <Row>
         <Col className="p-3">
           <h1 className="title-blue">{singleValla.code}</h1>
-          <h5 className="title-blue">{singleValla.route}</h5>
+          <h5 className="title-blue">{singleValla.province}</h5>
         </Col>
         <Col md="7" className="p-3">
           <h1 className="title-red">{singleValla.name}</h1>
