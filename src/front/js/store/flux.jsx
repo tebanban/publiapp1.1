@@ -145,7 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const token = sessionStorage.getItem("token");
         const user_name = sessionStorage.getItem("user_name");
 
-        console.log("App just Loaded, synching token from SessionStorage to store");
+        console.log("syncTokenFromSessionStorage: App just Loaded, synching token from SessionStorage to store");
         if (token && token != "" && token != "undefined") setStore({ token: token, user_name: user_name });
       },
 
@@ -181,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allVallas: data }), console.log(data);
+            setStore({ allVallas: data }), console.log("getVallas: ", data);
           })
           .catch((error) => console.log("Error getting all vallas", error));
       },
@@ -196,7 +196,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla/" + id, options)
           .then((res) => res.json())
           .then((data) => {
-            setStore({ singleValla: data }), console.log(data);
+            setStore({ singleValla: data }), console.log("getSingleValla:", data);
           })
           .catch((error) => console.log("Error getting single valla", error));
       },
@@ -282,7 +282,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allOwners: data }), console.log(data);
+            setStore({ allOwners: data }), console.log("getOwners: ", data);
           })
           .catch((error) => console.log("Error getting owners", error));
       },
@@ -298,7 +298,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner/" + id, options)
           .then((res) => res.json())
           .then((data) => {
-            setStore({ singleOwner: data }), console.log(data);
+            setStore({ singleOwner: data }), console.log("getSingleOwner:", data);
           })
           .catch((error) => console.log("Error getting single owner", error));
       },
@@ -347,7 +347,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/client")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allClients: data }), console.log(data);
+            setStore({ allClients: data }), console.log("getClients:" , data);
           })
           .catch((error) => console.log("Error getting clients", error));
       },

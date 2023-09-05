@@ -8,13 +8,14 @@ import Arrow from "./../../img/arrow-up.svg";
 
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
+  const { allVallas } = store;
   const [query, setQuery] = useState("");
 
   // Modal here:
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const allVallas = store.allVallas;
+
   const [sortedVallas, setSortedVallas] = useState(allVallas);
   const [sortDirection, setSortDirection] = useState("ascending");
 
@@ -58,7 +59,6 @@ export const Table_valla = () => {
   });
 
   useEffect(() => {
-  
     actions.getVallas();
   }, []);
 

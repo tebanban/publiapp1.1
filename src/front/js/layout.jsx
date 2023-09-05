@@ -12,11 +12,9 @@ import { Footer } from "./component/footer";
 import Error404 from "./pages/Error404";
 import { DetailValla } from "./module_valla/detail_valla";
 import { DetailOwner } from "./module_owner/detail_owner";
+import { DetailClient } from "./module_client/detail_client";
 import { Context } from "./store/appContext";
-import { ProtectedRoute} from "./component/protected_route"
-
-
-
+import { ProtectedRoute } from "./component/protected_route";
 
 //create your first component
 const Layout = () => {
@@ -39,6 +37,7 @@ const Layout = () => {
             <ProtectedRoute exact path="/app" component={App} token={token} />
             <ProtectedRoute exact path="/detailValla/:id" component={DetailValla} token={token} />
             <ProtectedRoute exact path="/detailOwner/:id" component={DetailOwner} token={token} />
+            <ProtectedRoute exact path="/detailClient/:id" component={DetailClient} token={token} />
 
             <Route path="*" component={Error404} />
           </Switch>
