@@ -29,7 +29,7 @@ export const DetailValla = () => {
   useEffect(() => {
     ///////////////////// sends valla id as a parameter to the flux
     actions.getSingleValla(id);
-  }, []);
+  }, [show]);
 
   const singleValla = store.singleValla;
   const vallaPhoto = singleValla.picture_url;
@@ -113,7 +113,7 @@ export const DetailValla = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Cancelar
+              Cerrar
             </Button>
           </Modal.Footer>
         </Modal>
