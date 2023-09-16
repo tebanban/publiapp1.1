@@ -14,6 +14,7 @@ export const Navbar = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
 
   const logout = () => {
     actions.logout();
@@ -26,7 +27,7 @@ export const Navbar = () => {
       </Link>
       <div className="ml-auto d-inline-block">
         <Link to="/app">
-          <button className="btn btn-primary mx-2">App</button>
+          <button className="btn btn-primary mx-2" >App</button>
         </Link>
         <Link to="/">
           <button className="btn btn-primary mx-2">Home</button>

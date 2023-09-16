@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, memo} from "react";
 import { Context } from "../store/appContext";
 import { Form, Button, Col, InputGroup, Row, Modal } from "react-bootstrap";
 
-export const FormUpdateValla = () => {
+export const FormUpdateValla = memo(() => {
   const { store, actions } = useContext(Context);
   const singleValla = store.singleValla;
   const [files, setFiles] = useState();
@@ -275,4 +275,4 @@ export const FormUpdateValla = () => {
       </Modal>
     </>
   );
-};
+})

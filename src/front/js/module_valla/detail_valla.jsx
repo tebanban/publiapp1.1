@@ -29,9 +29,10 @@ export const DetailValla = () => {
   useEffect(() => {
     ///////////////////// sends valla id as a parameter to the flux
     actions.getSingleValla(id);
+    console.log("Detail_valla Render");
   }, [show]);
 
-  const singleValla = store.singleValla;
+  const { singleValla } = store;
   const vallaPhoto = singleValla.picture_url;
 
   const deleteSingleValla = () => {
@@ -58,7 +59,7 @@ export const DetailValla = () => {
       <Row className="detail-valla-media-section">
         <Col lg={6} className="p-0">
           <div>
-            <GoogleMapVallas lat={singleValla?.lat} lng={singleValla?.lng} />
+            <GoogleMapVallas  />
           </div>
         </Col>
         <Col className="detail-valla-img p-0">

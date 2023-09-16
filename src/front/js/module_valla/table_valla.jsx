@@ -9,9 +9,10 @@ import Arrow from "./../../img/arrow-up.svg";
 export const Table_valla = () => {
   const { store, actions } = useContext(Context);
   const { allVallas } = store;
+  const { getVallas } = actions;
   const [query, setQuery] = useState("");
 
-  // Modal here:
+  // Modal for Create new item:
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -35,7 +36,7 @@ export const Table_valla = () => {
     setSortedVallas(sortedArray);
   };
 
-  // Function to handle the onClick event
+  // Function to handle the onClick event to shift ascending or descending order
   const handleClick = (property) => {
     let nextSortDirection = "ascending";
     if (sortDirection === "ascending") {
@@ -45,7 +46,7 @@ export const Table_valla = () => {
     sortByProperty(property, nextSortDirection);
   };
 
-  //Filter by status
+  //Search by code, status, and province
   const filteredVallas = sortedVallas.filter((index) => {
     if (query === "") {
       return index;
@@ -59,7 +60,8 @@ export const Table_valla = () => {
   });
 
   useEffect(() => {
-    actions.getVallas();
+    getVallas();
+    console.log("Table_vallas render");
   }, []);
 
   return (
@@ -73,8 +75,8 @@ export const Table_valla = () => {
               onChange={(e) => setQuery(e.target.value)}
               type="text"
               className="form-control"
-              id="inputSearch"
-              placeholder="Search"
+              id="vallaInputSearch"
+              placeholder="Buscar"
             ></input>
           </Col>
           <Col md={4}>

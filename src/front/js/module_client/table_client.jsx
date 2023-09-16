@@ -15,7 +15,7 @@ export const Table_client = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const allClients = store.allClients; /////////////////////////////Get all clients from store
-  const allVallas = store.allVallas;
+  const { getClients } = actions;
   const [sortedClients, setSortedClients] = useState(allClients);
   const [sortDirection, setSortDirection] = useState("ascending");
 
@@ -59,9 +59,8 @@ export const Table_client = () => {
   });
 
   useEffect(() => {
-    actions.getClients();
-    actions.getClients();
-    actions.getOwners();
+    getClients();
+    console.log("Table_clients render");
   }, []);
 
   return (
@@ -75,7 +74,7 @@ export const Table_client = () => {
               onChange={(e) => setQuery(e.target.value)}
               type="text"
               className="form-control"
-              id="inputSearch"
+              id="clientInputSearch"
               placeholder="Buscar"
             ></input>
           </Col>

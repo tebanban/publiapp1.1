@@ -181,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allVallas: data }), console.log("getVallas: ", data);
+            setStore({ allVallas: data }), console.log("Flux getVallas: ", data);
           })
           .catch((error) => console.log("Error getting all vallas", error));
       },
@@ -282,7 +282,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/owner")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allOwners: data }), console.log("getOwners: ", data);
+            setStore({ allOwners: data }), console.log("Flux getOwners: ", data);
           })
           .catch((error) => console.log("Error getting owners", error));
       },
@@ -347,7 +347,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/client")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allClients: data }), console.log("getClients:" , data);
+            setStore({ allClients: data }), console.log("Flux getClients:" , data);
           })
           .catch((error) => console.log("Error getting clients", error));
       },

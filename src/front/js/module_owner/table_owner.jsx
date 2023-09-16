@@ -15,7 +15,7 @@ export const Table_owner = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const allOwners = store.allOwners; /////////////////////////////Get all owners from store
-  const allVallas = store.allVallas;
+  const { getOwners } = actions;
   const [sortedOwners, setSortedOwners] = useState(allOwners);
   const [sortDirection, setSortDirection] = useState("ascending");
 
@@ -59,9 +59,8 @@ export const Table_owner = () => {
   });
 
   useEffect(() => {
-    actions.getClients();
-    actions.getOwners();
-    actions.getOwners();
+    getOwners();
+    console.log("Table_owner render")
   }, []);
 
   return (

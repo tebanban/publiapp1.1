@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "../../styles/map.scss";
 import GoogleMapReact from "google-map-react";
-
+import { Context } from "../store/appContext";
 import mark from "../../img/marker_green.webp";
+import { useEffect } from "react";
 
 const Marker = () => (
   <div>
@@ -10,14 +11,22 @@ const Marker = () => (
   </div>
 );
 
-export const GoogleMapVallas = (props) => {
+export const GoogleMapVallas = () => {
+  const { store } = useContext(Context);
+  const { singleValla } = store;
+
   const location = {
     center: {
-      lat: props.lat,
-      lng: props.lng,
+      lat: singleValla.lat || 9.9338,
+      lng: singleValla.lng || -84.1014,
     },
+
     zoom: 15,
   };
+
+  useEffect(() => {
+    console.log("Google map render");
+  }, [singleValla]);
 
   return (
     // Important! Always set the container height explicitly
@@ -28,7 +37,7 @@ export const GoogleMapVallas = (props) => {
         center={location.center}
         defaultZoom={location.zoom}
       >
-        <Marker lat={props.lat} lng={props.lng} text="My Marker" />
+        <Marker lat={singleValla.lat} lng={singleValla.lng} text="My Marker" />
       </GoogleMapReact>
     </div>
   );

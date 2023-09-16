@@ -6,7 +6,7 @@ export const FormNewValla = () => {
   const { store, actions } = useContext(Context);
   const dataOwners = store.allOwners; /////////////////////////////Get all owners from store
   const dataFormats = store.allFormats;
-  const singleValla = store.singleValla;
+  // const singleValla = store.singleValla;
   const [files, setFiles] = useState();
   const [formValues, setFormValues] = useState();
   const [validated, setValidated] = useState(false);
@@ -36,11 +36,9 @@ export const FormNewValla = () => {
       // Call an API or perform some other action with the form data here
       event.preventDefault();
       submitSingleValla();
-
       // Resume default
       // form.submit();
     }
-
     setValidated(true);
   };
 

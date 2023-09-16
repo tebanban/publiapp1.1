@@ -35,8 +35,8 @@ export const Table_owner = () => {
               onChange={(e) => setQuery(e.target.value)}
               type="text"
               className="form-control"
-              id="inputSearch"
-              placeholder="Search"
+              id="ownerInputSearch"
+              placeholder="Buscar"
             ></input>
           </Col>
           <Col md={4}>
