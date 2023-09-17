@@ -14,6 +14,7 @@ export const App = () => {
   const { getVallas } = actions;
   const { getOwners } = actions;
   const { getClients } = actions;
+  
 
   // State to track whether data is loaded
   const [dataLoaded, setDataLoaded] = useState(false);
