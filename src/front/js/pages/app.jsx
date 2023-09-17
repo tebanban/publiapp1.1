@@ -15,31 +15,42 @@ export const App = () => {
   const { getOwners } = actions;
   const { getClients } = actions;
 
+  // State to track whether data is loaded
+  const [dataLoaded, setDataLoaded] = useState(false);
+
   useEffect(() => {
-    // getVallas();
-    // getOwners();
-    // getClients();
+    // Fetch data and set the dataLoaded state when data is loaded
+    const fetchData = async () => {
+      await Promise.all([getVallas(), getOwners(), getClients()]);
+      setDataLoaded(true);
+    };
+
+    fetchData();
     console.log("App Render");
-  }, []);
+  }, [getVallas, getOwners, getClients]);
 
   return (
     <div className={`appBox ${isOpen ? "extended" : ""}`}>
       <Sidebar />
 
-      <Tabs id="controlled-tab-example" activeKey={tableBox} onSelect={(k) => setTableBox(k)} className="mb-3">
-        <Tab eventKey="vallas" title="Vallas">
-          <Table_valla />
-        </Tab>
-        <Tab eventKey="owners" title="Propietarios">
-          <Table_owner />
-        </Tab>
-        <Tab eventKey="clients" title="Clientes">
-          <Table_client />
-        </Tab>
-        <Tab eventKey="users" title="Usuarios" disabled>
-          {/* user content */}
-        </Tab>
-      </Tabs>
+      {dataLoaded ? (
+        <Tabs id="controlled-tab-example" activeKey={tableBox} onSelect={(k) => setTableBox(k)} className="mb-3">
+          <Tab eventKey="vallas" title="Vallas">
+            <Table_valla />
+          </Tab>
+          <Tab eventKey="owners" title="Propietarios">
+            <Table_owner />
+          </Tab>
+          <Tab eventKey="clients" title="Clientes">
+            <Table_client />
+          </Tab>
+          <Tab eventKey="users" title="Usuarios" disabled>
+            {/* user content */}
+          </Tab>
+        </Tabs>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

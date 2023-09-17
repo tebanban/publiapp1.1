@@ -177,13 +177,19 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       //////////////////////////////////////////////////////////////////////// GET All vallas
-      getVallas: () => {
-        fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla")
-          .then((res) => res.json())
-          .then((data) => {
-            setStore({ allVallas: data }), console.log("Flux getVallas: ", data);
-          })
-          .catch((error) => console.log("Error getting all vallas", error));
+      getVallas: async () => {
+        try {
+          const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla");
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          const data = await response.json();
+          setStore({ allVallas: data });
+          console.log("Flux getVallas: ", data);
+        } catch (error) {
+          console.error("Error getting all vallas", error);
+        }
       },
       ///////////////////////////////////////////////////////////////////////// GET Single valla
       getSingleValla: (id) => {
@@ -347,7 +353,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(import.meta.env.VITE_BACKEND_URL + "/api/client")
           .then((res) => res.json())
           .then((data) => {
-            setStore({ allClients: data }), console.log("Flux getClients:" , data);
+            setStore({ allClients: data }), console.log("Flux getClients:", data);
           })
           .catch((error) => console.log("Error getting clients", error));
       },
