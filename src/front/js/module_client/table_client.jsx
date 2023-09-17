@@ -59,7 +59,7 @@ export const Table_client = () => {
   });
 
   useEffect(() => {
-    getClients();
+    // getClients();
     console.log("Table_clients render");
   }, []);
 

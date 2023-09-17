@@ -60,7 +60,7 @@ export const Table_valla = () => {
   });
 
   useEffect(() => {
-    getVallas();
+    // getVallas();
     console.log("Table_vallas render");
   }, []);
 

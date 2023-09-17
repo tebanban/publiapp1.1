@@ -59,7 +59,7 @@ export const Table_owner = () => {
   });
 
   useEffect(() => {
-    getOwners();
+    // getOwners();
     console.log("Table_owner render")
   }, []);
 
