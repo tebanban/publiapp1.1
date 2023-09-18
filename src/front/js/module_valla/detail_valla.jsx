@@ -27,8 +27,9 @@ export const DetailValla = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([getSingleValla(id)]); // Wrap getSingleValla(id) in an array
+      await getSingleValla(id);
       setDataLoaded(true);
+      console.log("setDataLoaded True");
     };
     fetchData();
     console.log("Detail_valla Render");
@@ -126,4 +127,4 @@ export const DetailValla = () => {
       )}
     </>
   );
-};;
+};

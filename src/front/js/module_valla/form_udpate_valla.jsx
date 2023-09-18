@@ -36,11 +36,9 @@ export const FormUpdateValla = memo(() => {
       // Call an API or perform some other action with the form data here
       event.preventDefault();
       submitSingleValla();
-
       // Resume default
       // form.submit();
     }
-
     setValidated(true);
   };
 

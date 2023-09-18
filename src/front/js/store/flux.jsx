@@ -192,19 +192,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       ///////////////////////////////////////////////////////////////////////// GET Single valla
-      getSingleValla: (id) => {
+      getSingleValla: async (id) => {
         const store = getStore();
         const options = {
           headers: {
             Authorization: "Bearer " + store.token,
           },
         };
-        fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla/" + id, options)
-          .then((res) => res.json())
-          .then((data) => {
-            setStore({ singleValla: data }), console.log("getSingleValla:", data);
-          })
-          .catch((error) => console.log("Error getting single valla", error));
+        try {
+          const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/valla/" + id, options);
+          if (!response.ok) {
+            // Handle non-successful response here if needed
+            throw new Error("Failed to fetch data");
+          }
+          const data = await response.json();
+          setStore({ singleValla: data });
+          console.log("getSingleValla:", data);
+        } catch (error) {
+          console.error("Error getting single valla", error);
+        }
       },
 
       ///////////////////////////////////////////////////////////////////////DELETE  valla

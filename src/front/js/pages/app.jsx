@@ -24,6 +24,7 @@ export const App = () => {
     const fetchData = async () => {
       await Promise.all([getVallas(), getOwners(), getClients()]);
       setDataLoaded(true);
+      console.log("setDataLoaded True")
     };
 
     fetchData();
