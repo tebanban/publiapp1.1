@@ -1,18 +1,20 @@
-import React, { useContext, useState, useEffect, memo} from "react";
+import React, { useContext, useState, useEffect, memo } from "react";
 import { Context } from "../store/appContext";
 import { Form, Button, Col, InputGroup, Row, Modal } from "react-bootstrap";
 
-export const FormUpdateValla = memo(() => {
+export const FormUpdateValla = ( {closeForm}) => {
   const { store, actions } = useContext(Context);
   const singleValla = store.singleValla;
   const [files, setFiles] = useState();
   const [formValues, setFormValues] = useState();
   const [validated, setValidated] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState("");
   const updatedVallaMessage = store.updatedVallaMessage;
   const dataFormats = store.allFormats;
+
+  const handleCloseAlertModal = () => setShowAlertModal(false);
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -26,41 +28,53 @@ export const FormUpdateValla = memo(() => {
     terms: "Aceptar los términos",
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
-
     if (!form.checkValidity()) {
       event.stopPropagation();
-      event.preventDefault();
     } else {
-      // Call an API or perform some other action with the form data here
-      event.preventDefault();
-      submitSingleValla();
-      // Resume default
-      // form.submit();
+      try {
+        await submitSingleValla();
+        setTimeout(() => {
+          setShowAlertModal(false); // Close the modal
+        }, 2000);
+        setTimeout(() => {
+          closeForm(); 
+        }, 3000);
+      } catch (error) {
+        console.error("Form submission error:", error);
+        // Optionally, display an error message to the user.
+      }
     }
     setValidated(true);
   };
 
-  const handleCloseModal = () => setShowModal(false);
-
-  const submitSingleValla = () => {
+  const submitSingleValla = async () => {
     const id = singleValla.id;
     if (formValues) {
-      actions.updateValla(id, formValues);
-      console.log(formValues);
-      // Show a success message using a modal dialog
-      setModalTitle("Cambios aplciados con éxito!");
-      setModalBody(updatedVallaMessage || "Cambios aplicados");
-      setShowModal(true);
+      await updateVallaData(id);
     }
-
     if (files) {
-      actions.updateVallaFile(id, files);
-      setModalTitle("Éxito!");
-      setModalBody(updatedVallaMessage || "Archivo actualizado");
-      setShowModal(true);
+      await updateVallaFile(id);
     }
+  };
+
+  const updateVallaData = async (id) => {
+    await actions.updateValla(id, formValues);
+    console.log("Updated form values: ", formValues);
+    handleModal("Cambios aplicados", updatedVallaMessage);
+  };
+
+  const updateVallaFile = async (id) => {
+    await actions.updateVallaFile(id, files);
+    handleModal("Archivo actualizado", updatedVallaMessage);
+  };
+
+  const handleModal = (title, body) => {
+    setModalTitle(title);
+    setModalBody(body);
+    setShowAlertModal(true);
   };
 
   return (
@@ -260,17 +274,17 @@ export const FormUpdateValla = memo(() => {
         </Form.Group>
         <Button type="submit">Submit form</Button>
       </Form>
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showAlertModal} onHide={handleCloseAlertModal}>
         <Modal.Header closeButton>
           <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{modalBody}</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleCloseModal}>
+          <Button variant="primary" onClick={handleCloseAlertModal}>
             OK
           </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
-})
+};

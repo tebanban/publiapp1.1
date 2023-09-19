@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal, Image } from "react-bootstrap";
 import logo from "../../img/logo-publiex.png";
-import { Form, Button, Stack, Container, Col, Row } from "react-bootstrap";
+import {  Button, Stack, Container, Col, Row } from "react-bootstrap";
 import { GoogleMapVallas } from "../module_valla/googlemap_vallas";
 import { FormUpdateValla } from "../module_valla/form_udpate_valla";
 import "../../styles/valla.scss";
@@ -12,14 +12,16 @@ export const DetailValla = () => {
   const { store, actions } = useContext(Context);
   const params = useParams(); /////////get  valla id from the URL
   const id = params.id; //////// store valla id as a variable
+  
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
   const { singleValla } = store;
   const { getSingleValla } = actions;
   const vallaPhoto = singleValla.picture_url;
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  const handleShow = () => {
+  const handleClose = () => setShow(false);  // Handle Modal Close
+
+  const handleShow = () => {    // Handle modal show
     setShow(true);
     actions.resetDeleteVallaMessage();
   };
@@ -33,6 +35,7 @@ export const DetailValla = () => {
     };
     fetchData();
     console.log("Detail_valla Render");
+    console.log(id);
   }, [show, getSingleValla, id]); // Add id as a dependency
 
   // const deleteSingleValla = () => {
@@ -107,12 +110,12 @@ export const DetailValla = () => {
             <Button variant="danger" onClick={handleShow}>
               Editar
             </Button>
-            <Modal size="lg" show={show} onHide={handleClose}>
+            <Modal size="lg" show={show} onHide={handleClose} >
               <Modal.Header closeButton>
                 <Modal.Title>Editar Valla</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <FormUpdateValla />
+                <FormUpdateValla  closeForm={handleClose}/>
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
