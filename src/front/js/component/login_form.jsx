@@ -7,11 +7,10 @@ function LoginForm() {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const {token} = store;
-  const {user_name} = store;
+  const { token } = store;
+  const { user_name } = store;
 
   const login = (e) => {
-   
     actions.login(email, password);
   };
 

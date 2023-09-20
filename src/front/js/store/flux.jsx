@@ -124,6 +124,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (data.msg) {
               // Display alert message
               alert(data.msg);
+              console.log(data.msg)
             } else {
               sessionStorage.setItem("token", data.access_token);
               sessionStorage.setItem("user_name", data.user_name);

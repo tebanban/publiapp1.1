@@ -22,14 +22,15 @@ def get_token():
     expires_minutes = int(os.environ.get("EXPIRES_MINUTES", 60))
     expires = timedelta(minutes=expires_minutes)
                  
-
     user = User.query.filter_by(email=email).one_or_none()
-    userData= user.serialize()
   
     if not user:
         return jsonify({"msg": "Email non existent" }), 401
     elif not check_password_hash( user.password, passwd) :       
         return jsonify({"msg": "Incorrect  password!" }), 401
+
+    # Only attempt to serialize the user when it exists
+    userData = user.serialize() if user else {}
 
     access_token = create_access_token(identity=email, expires_delta=expires, additional_claims={"role": user.role} )
     return jsonify( {"access_token": access_token, "user_name": user.name, "user": userData}) 
