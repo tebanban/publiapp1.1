@@ -16,7 +16,7 @@ export const Home = () => {
       </p>
       <LoginForm />
       
-      <div className="alert alert-info">{store.message || "Loading message from the backend..."}</div>
+      <div className="alert alert-info">{store.message || "Error loading message from the backend..."}</div>
       <div>
         <div>Cantidad de vallas: {dataValla.length || "Fetch not working"}</div>
         <div>Cantidad de propietarios: {dataOwner.length || "Fetch not working"}</div>

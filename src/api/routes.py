@@ -29,10 +29,10 @@ def get_token():
     if not user:
         return jsonify({"msg": "Email non existent" }), 401
     elif not check_password_hash( user.password, passwd) :       
-        return jsonify({"msg": "Incorrect  password" }), 401
+        return jsonify({"msg": "Incorrect  password!" }), 401
 
     access_token = create_access_token(identity=email, expires_delta=expires, additional_claims={"role": user.role} )
-    return jsonify( {"access_token": access_token, "msg" : "Login succesfull!", "user_name": user.name, "user": userData}) 
+    return jsonify( {"access_token": access_token, "user_name": user.name, "user": userData}) 
     
 ## GET CURRENT_USER 
 # @api.route('/private', methods=['GET'])

@@ -120,14 +120,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("This came from the backend", data);
+            console.log("Function login: ", data);
             if (data.msg) {
               // Display alert message
               alert(data.msg);
+            } else {
+              sessionStorage.setItem("token", data.access_token);
+              sessionStorage.setItem("user_name", data.user_name);
+              setStore({ token: data.access_token, user_name: data.user_name, user: data.user });
             }
-            sessionStorage.setItem("token", data.access_token);
-            sessionStorage.setItem("user_name", data.user_name);
-            setStore({ token: data.access_token, user_name: data.user_name, user: data.user });
           })
           // .then(() => window.location.reload()) // this reloads the home page to show the current user
           .catch((error) => console.log("Error when login", error));
