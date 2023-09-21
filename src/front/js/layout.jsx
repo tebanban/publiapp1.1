@@ -15,6 +15,7 @@ import { DetailOwner } from "./module_owner/detail_owner";
 import { DetailClient } from "./module_client/detail_client";
 import { Context } from "./store/appContext";
 import { ProtectedRoute } from "./component/protected_route";
+import { UserProfile } from "./component/user_profile";
 
 //create your first component
 const Layout = () => {
@@ -38,6 +39,7 @@ const Layout = () => {
             <ProtectedRoute exact path="/detailValla/:id" component={DetailValla} token={token} />
             <ProtectedRoute exact path="/detailOwner/:id" component={DetailOwner} token={token} />
             <ProtectedRoute exact path="/detailClient/:id" component={DetailClient} token={token} />
+            <ProtectedRoute exact path="/userProfile/:id" component={UserProfile} token={token} />
 
             <Route path="*" component={Error404} />
           </Switch>

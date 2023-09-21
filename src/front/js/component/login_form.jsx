@@ -22,7 +22,7 @@ function LoginForm() {
         <Form className="form-login p-4 rounded">
           <h3>Please Login</h3>
           <Form.Group className=" my-2">
-            <input className="form-control" type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)}></input>
+            <input className="form-control" type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} autoComplete="email"></input>
           </Form.Group>
           <Form.Group className=" my-2">
             <input
@@ -30,6 +30,7 @@ function LoginForm() {
               type="password"
               placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
             ></input>
           </Form.Group>
           <Button variant="primary" onClick={login}>
