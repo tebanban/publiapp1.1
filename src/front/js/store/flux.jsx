@@ -5,10 +5,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       deleteVallaMessage: null,
       sidebarState: null,
       token: null,
-      user: [],
       user_name: null,
-      current_user: null,
-      current_user_data: [],
+      user_email: null,
+
+      // current_user: null,
+      // current_user_data: [],
       isAuth: null,
       tableData: [],
 
@@ -17,6 +18,12 @@ const getState = ({ getStore, getActions, setStore }) => {
       allClients: [],
       allUsers: [],
       allFormats: [],
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        role: "",
+      },
       singleValla: {
         code: "",
         name: "",
@@ -120,15 +127,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Function login: ", data);
             if (data.msg) {
               // Display alert message
               alert(data.msg);
-              console.log(data.msg)
+              console.log(data.msg);
             } else {
               sessionStorage.setItem("token", data.access_token);
               sessionStorage.setItem("user_name", data.user_name);
-              setStore({ token: data.access_token, user_name: data.user_name, user: data.user });
+
+              setStore({ token: data.access_token, user_name: data.user_name, user_email: data.user_email, user: data.user });
+              console.log("Login function user data:", data);
             }
           })
           // .then(() => window.location.reload()) // this reloads the home page to show the current user

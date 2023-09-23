@@ -4,7 +4,7 @@ import { Form, Button, Col, InputGroup, Row, Modal } from "react-bootstrap";
 
 export const FormUpdateValla = ( {closeForm}) => {
   const { store, actions } = useContext(Context);
-  const singleValla = store.singleValla;
+  const { singleValla } = store;
   const [files, setFiles] = useState();
   const [formValues, setFormValues] = useState();
   const [validated, setValidated] = useState(false);

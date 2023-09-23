@@ -9,6 +9,7 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const { token } = store;
   const { user_name } = store;
+  const { user_id } = store.user.id;
 
   const logout = () => {
     actions.logout();
@@ -35,7 +36,9 @@ export const Navbar = () => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="/userProfile/:id">Perfil de Usuario</Dropdown.Item>
+                <Dropdown.Item as={Link} to={`/userProfile/${user_name}`}>
+                  Perfil de Usuario
+                </Dropdown.Item>
 
                 <Dropdown.Item onClick={logout}>Cerrar Sesión</Dropdown.Item>
               </Dropdown.Menu>

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Form, Button } from "react-bootstrap";
 import "../../styles/home.scss";
-import { SettingsSystemDaydreamTwoTone } from "@mui/icons-material";
+
 
 export const Register = () => {
   const { store, actions } = useContext(Context);

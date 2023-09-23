@@ -33,7 +33,7 @@ def get_token():
     userData = user.serialize() if user else {}
 
     access_token = create_access_token(identity=email, expires_delta=expires, additional_claims={"role": user.role} )
-    return jsonify( {"access_token": access_token, "user_name": user.name, "user": userData}) 
+    return jsonify( {"access_token": access_token, "user_name": user.name, "user_email": user.email, "user": userData}) 
     
 ## GET CURRENT_USER 
 # @api.route('/private', methods=['GET'])
@@ -76,7 +76,7 @@ def get_all_users():
         all_users = list(map(lambda x: x.serialize(), all_users)) #Returns a list of dictionaries
         return jsonify(all_users), 200  # list object has no attribute 'serialize'
 
-#GET and UPDATE  single user: 
+##################################################################   GET and UPDATE  single user: 
 @api.route("/user/<int:id>", methods=["GET", "PUT"])
 def handle_single_user(id):
     user = User.query.get(id)

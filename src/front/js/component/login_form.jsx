@@ -9,6 +9,7 @@ function LoginForm() {
   const [password, setPassword] = useState();
   const { token } = store;
   const { user_name } = store;
+  const { user_email } = store;
 
   const login = (e) => {
     actions.login(email, password);
@@ -17,12 +18,21 @@ function LoginForm() {
   return (
     <div className="text-center my-3">
       {token && token != "" && token != "undefined" ? (
-        <p className="text-danger">Usted ha iniciado sesión con el usuario: {user_name}</p>
+        <h5 className="text-danger">
+          Bienvenido: {user_email},
+  
+        </h5>
       ) : (
         <Form className="form-login p-4 rounded">
           <h3>Please Login</h3>
           <Form.Group className=" my-2">
-            <input className="form-control" type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} autoComplete="email"></input>
+            <input
+              className="form-control"
+              type="text"
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            ></input>
           </Form.Group>
           <Form.Group className=" my-2">
             <input
