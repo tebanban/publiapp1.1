@@ -29,6 +29,11 @@ body {
   min-height: 100vh;
 }
 
+.form-label {
+  margin-bottom: 0.1rem;
+  margin-top: 0.8rem;
+}
+
 .link {
   color: #fff;
   text-decoration: none;
@@ -87,10 +92,10 @@ body {
   justify-content: space-between;
 }
 
-.tableButton {
-  padding: 0.1rem 0.1rem;
-  margin-left: 0.25rem;
-}
+// .tableButton {
+//   padding: 0.1rem 0.1rem;
+//   margin-left: 0.25rem;
+// }
 
 .table > :not(:first-child) {
   border-top: 1px solid currentColor;
@@ -107,11 +112,11 @@ body {
   background-color: rgb(250, 250, 250);
 }
 
-.control-label {
-  margin-bottom: 0rem;
-  margin-top: 0.2rem;
-  font-size: 0.95rem;
-}
+// .control-label {
+//   margin-bottom: 0rem;
+//   margin-top: 0.2rem;
+//   font-size: 0.95rem;
+// }
 
 .modal-lg {
   max-width: 1000px;
@@ -165,6 +170,3 @@ body {
   text-align: center;
   align-content: center;
 }
-
-
-

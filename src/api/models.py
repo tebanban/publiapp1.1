@@ -54,8 +54,8 @@ class Role(BaseModel):
     
     def serialize(self):
         return {
-            "role_id": self.id,
-            "role_name": self.name,
+            "id": self.id,
+            "name": self.name,
         }   
 
 class Valla(BaseModel):

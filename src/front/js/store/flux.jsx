@@ -6,13 +6,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       sidebarState: null,
       token: null,
       user_name: null,
-      user_email: null,
-
       // current_user: null,
       // current_user_data: [],
       isAuth: null,
       tableData: [],
-
       allVallas: [],
       allOwners: [],
       allClients: [],

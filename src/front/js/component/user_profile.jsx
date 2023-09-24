@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Col, Stack } from "react-bootstrap";
 
 export const UserProfile = () => {
   const { store, actions } = useContext(Context);
@@ -25,11 +25,11 @@ export const UserProfile = () => {
   };
 
   return (
-    <Form className="text-center form form-login ">
+    <Form className=" form-login p-4 rounded">
       <h3>Perfil de Usuario</h3>
-      <Form.Group className="form-group  my-2">
-        
-        <input
+      <Form.Group as={Col}>
+        <Form.Label>Name:</Form.Label>
+        <Form.Control
           defaultValue={user.name}
           className="form-control"
           id="name"
@@ -41,9 +41,24 @@ export const UserProfile = () => {
           autoComplete="name"
         />
       </Form.Group>
+      <Form.Group as={Col}>
+        <Form.Label>Rol:</Form.Label>
+        <Form.Control
+          defaultValue={user.role}
+          className="form-control"
+          id="role"
+          maxLength="150"
+          name="role"
+          required=""
+          type="text"
+          onChange={handleInputChange}
+          autoComplete="role"
+        />
+      </Form.Group>
 
-      <Form.Group className="form-group my-2">
-        <input
+      <Form.Group as={Col}>
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
           defaultValue={user.email}
           className="form-control"
           id="email"
@@ -55,8 +70,9 @@ export const UserProfile = () => {
           autoComplete="email"
         />
       </Form.Group>
-      <Form.Group className="form-group my-2">
-        <input
+      <Form.Group as={Col}>
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           defaultValue={user.password}
           className="form-control"
           id="password"
@@ -68,13 +84,14 @@ export const UserProfile = () => {
           autoComplete="password"
         />
       </Form.Group>
-
-      <Button variant="primary" onClick={submitUser}>
-        Actualizar
-      </Button>
-      <Button variant="danger" className="mx-3" onClick={deleteUser}>
-        Eliminar Cuenta
-      </Button>
+      <Stack direction="horizontal" gap={2} className="mx-auto mt-3 justify-content-center">
+        <Button variant="primary" onClick={submitUser}>
+          Actualizar
+        </Button>
+        <Button variant="danger" className="mx-3" onClick={deleteUser}>
+          Eliminar Cuenta
+        </Button>
+      </Stack>
     </Form>
   );
 };

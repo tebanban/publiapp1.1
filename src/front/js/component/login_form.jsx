@@ -9,7 +9,7 @@ function LoginForm() {
   const [password, setPassword] = useState();
   const { token } = store;
   const { user_name } = store;
-  const { user_email } = store;
+  const { user } = store;
 
   const login = (e) => {
     actions.login(email, password);
@@ -19,7 +19,7 @@ function LoginForm() {
     <div className="text-center my-3">
       {token && token != "" && token != "undefined" ? (
         <h5 className="text-danger">
-          Bienvenido: {user_email},
+          Bienvenido: {user_name} como {user.role}
   
         </h5>
       ) : (
