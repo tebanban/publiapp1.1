@@ -10,3 +10,5 @@ export const ProtectedRoute = ({ component: Component, token, ...rest }) => {
     />
   );
 };
+
+

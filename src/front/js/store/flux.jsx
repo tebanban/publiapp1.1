@@ -131,6 +131,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             } else {
               sessionStorage.setItem("token", data.access_token);
               sessionStorage.setItem("user_name", data.user_name);
+              sessionStorage.setItem("user.role", data.user.role);
 
               setStore({ token: data.access_token, user_name: data.user_name, user_email: data.user_email, user: data.user });
               console.log("Login function user data:", data);

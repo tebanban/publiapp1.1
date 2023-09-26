@@ -1,8 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, flash
-from api.models import db, User, Valla, Client, Owner, Order, Payment, Format
+from flask import Flask, request, jsonify, url_for, Blueprint, flash, make_response
+from api.models import db, User, Valla, Client, Owner, Order, Payment, Format, Role
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from datetime import datetime, timedelta
@@ -21,6 +21,7 @@ def get_token():
     passwd = request.json.get("password")
     expires_minutes = int(os.environ.get("EXPIRES_MINUTES", 60))
     expires = timedelta(minutes=expires_minutes)
+    
                  
     user = User.query.filter_by(email=email).one_or_none()
   
@@ -34,24 +35,36 @@ def get_token():
 
     # Include role information in the claims
     additional_claims = {"role": user.role.name if user.role else None}
-
     access_token = create_access_token(identity=email, expires_delta=expires, additional_claims=additional_claims)
-    return jsonify({"access_token": access_token, "user_name": user.name, "user": userData})
+     # Create a response with the access_token as an HTTP-only cookie
+    response = make_response(jsonify({"access_token": access_token, "user_name": user.name, "user": userData}))
+    response.set_cookie("access_token", access_token, max_age=expires_minutes, httponly=True)
+
+    return response
 
     
-## GET CURRENT_USER 
-# @api.route('/private', methods=['GET'])
-# @jwt_required()
-# def get_current_user():
-#     # Access the identity of the current user with get_jwt_identity.
-#     # The argument is the identity that was used when creating a JWT.
-#     current_user = get_jwt_identity()
+# GET CURRENT_USER 
+@api.route('/private', methods=['GET'])
+@jwt_required()
+def get_current_user():
+    try:
+        # Access the identity of the current user with get_jwt_identity.
+        # The argument is the identity that was used when creating a JWT.
+        current_user = get_jwt_identity()
 
-#     # Retrieve the user from the database based on the current user's email
-#     user = User.query.filter_by(email=current_user).first()
+        # Retrieve the user from the database based on the current user's email
+        user = User.query.filter_by(email=current_user).first()
 
-#     # Return the serialized user data as a JSON response with a 200 status code
-#     return jsonify(user.serialize()), 200
+        if user:
+            # Return the serialized user data as a JSON response with a 200 status code
+            return jsonify(user.serialize()), 200
+        else:
+            # User not found
+            return jsonify({"message": "User not found"}), 404
+
+    except Exception as e:
+        # Handle exceptions
+        return jsonify({"message": "An error occurred", "error": str(e)}), 500
 
 
 # REGISTER NEW USER
@@ -381,6 +394,16 @@ def get_format(id):
         format.modified_on= request.json.get["modified_on", None]
         db.session.commit()
         return jsonify(format.serialize()), 200
+
+################################################################### ROLE: 
+# Get all roles
+@api.route("/role/", methods=["GET", "POST"])   
+def get_all_roles():
+    if request.method == 'GET':
+        all_roles = Role.query.all()
+        all_roles = list(map(lambda x: x.serialize(), all_roles)) 
+        return jsonify(all_roles), 200
+
 
 #################################################################### HELLO 
 @api.route('/hello', methods=['POST', 'GET'])
