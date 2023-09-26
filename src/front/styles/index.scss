@@ -1,3 +1,172 @@
 /* 
     General Styles
 */
+:root,
+:root.light {
+  --dark-color: #1f2937;
+  --light_color: #3882f6;
+  --whitefont: #f9faf8;
+  --corp_blue: #0047bb;
+  --corp_red: #f63440;
+  --text_gray: #79828e;
+  --background_ligthgray: #f1f1f1;
+  --background_gray: #a7a7a7;
+  --background_white: #ffffff;
+  --background_arrendada: #fff0f4;
+  --background_disponible: #f1fff1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.form-label {
+  margin-bottom: 0.1rem;
+  margin-top: 0.8rem;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.link:hover {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.formBox {
+  border: solid 1px var(--whitefont);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#Arrendada {
+  background-color: var(--background_arrendada);
+}
+
+#Disponible {
+  background-color: var(--background_disponible);
+}
+
+#Inactiva {
+  background-color: var(--background_arrendada);
+}
+
+.navbarTop {
+  width: 100%;
+  height: 60px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.appBox {
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+  margin-left: 180px; /* Adjust this value to match the width of the sidebar */
+  overflow-y: auto;
+}
+
+.extended {
+  margin-left: 60px; /* Set the width when the sidebar is minimized */
+}
+
+.appNav {
+  width: auto;
+}
+
+.tableBox {
+  margin-top: 1rem;
+}
+
+.tableHeader {
+  background-color: var(--background_ligthgray);
+  align-items: center;
+  justify-content: space-between;
+}
+
+// .tableButton {
+//   padding: 0.1rem 0.1rem;
+//   margin-left: 0.25rem;
+// }
+
+.table > :not(:first-child) {
+  border-top: 1px solid currentColor;
+}
+
+.form {
+  width: 90%;
+  margin: auto;
+}
+
+.form-login {
+  width: 30%;
+  margin: auto;
+  background-color: rgb(250, 250, 250);
+}
+
+// .control-label {
+//   margin-bottom: 0rem;
+//   margin-top: 0.2rem;
+//   font-size: 0.95rem;
+// }
+
+.modal-lg {
+  max-width: 1000px;
+}
+
+.title-blue {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--corp_blue);
+  font-weight: 800;
+}
+
+.title-red {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--corp_red);
+  font-weight: 800;
+}
+
+.background-gray {
+  background-color: var(--background_ligthgray);
+  text-align: left;
+}
+
+.detail-valla-media-section {
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  border: 4px solid var(--whitefont);
+}
+
+.detail-valla-blueline {
+  background-color: var(--corp_blue);
+  color: var(--whitefont);
+  min-height: 3rem;
+}
+
+.detail-owner-box {
+  width: 100%;
+  background-color: var(--background_white);
+  box-shadow: 0 2px 6px 0 var(--background_gray);
+
+  border-radius: 1rem;
+}
+
+.detail-owner-img {
+  text-align: center;
+  height: "15vh";
+  background-color: (var(--corp_blue));
+}
+
+.detail-owner-name {
+  text-align: center;
+  align-content: center;
+}

@@ -15,7 +15,7 @@ from flask_jwt_extended import JWTManager
 
 #from models import Person
 
-ENV = os.getenv("FLASK_ENV")
+ENV = os.getenv("FLASK_DEBUG")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -47,6 +47,7 @@ setup_commands(app)
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')
 
+
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
@@ -55,7 +56,7 @@ def handle_invalid_usage(error):
 # generate sitemap with all your endpoints
 @app.route('/')
 def sitemap():
-    if ENV == "development":
+    if ENV == "1":
         return generate_sitemap(app)
     return send_from_directory(static_file_dir, 'index.html')
 

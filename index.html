@@ -16,23 +16,24 @@
       integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-    />
-    <script type="module" crossorigin src="/assets/index-12f9fa9c.js"></script>
-    <link rel="stylesheet" href="/assets/index-7b9605b5.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   </head>
   <body class="h-100">
     <div id="app" class="h-100"></div>
+
+    <!-- vite scripts backend integration-->
+
+    <!-- <script type="module">
+      import RefreshRuntime from "https://3002-tebanban-publiapp11-pqydi0ogij6.ws-us104.gitpod.io/@react-refresh";
+      RefreshRuntime.injectIntoGlobalHook(window);
+      window.$RefreshReg$ = () => {};
+      window.$RefreshSig$ = () => (type) => type;
+      window.__vite_plugin_react_preamble_installed__ = true;
+    </script>
+    <script type="module" src="https://3002-tebanban-publiapp11-pqydi0ogij6.ws-us104.gitpod.io/@vite/client"></script>
+    <script type="module" src="https://3002-${GITPOD_WORKSPACE_URL:8}/src/js/index.js"></script> -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
@@ -44,15 +45,7 @@
       integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
       crossorigin="anonymous"
     ></script>
-    <!-- <script type="module">
-      import RefreshRuntime from 'https://3000-tebanban-publiapp11-agqtzbb0jjd.ws-us93.gitpod.io/@react-refresh'
-      RefreshRuntime.injectIntoGlobalHook(window)
-      window.$RefreshReg$ = () => {}
-      window.$RefreshSig$ = () => (type) => type
-      window.__vite_plugin_react_preamble_installed__ = true
-    </script> -->
-    
 
-    
+    <script type="module" src="/src/front/js/index.jsx"></script>
   </body>
 </html>

@@ -13,5 +13,5 @@ if environment == "front":
     print(f"""
     This terminal is for 💻 front-end!
     
-    1. Start webpack dev server {blue("$ npm run start")}
+    1. Start vite dev server {blue("$ npm run start")}
     """)
